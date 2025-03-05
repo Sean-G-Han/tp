@@ -21,14 +21,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### Lae Zong Hon Justyn
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/curiousfun88.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/curiousfun88)]
+[[portfolio](team/johndoe.m)]
 
-* Role: Team Lead
+* Role: Project Member
 * Responsibilities: UI
 
 ### Johnny Doe
