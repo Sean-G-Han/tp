@@ -12,11 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -57,7 +53,7 @@ public class PriorityCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = addPriorityTag(personToEdit);
+        Person editedPerson = togglePriorityTag(personToEdit);
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -68,7 +64,7 @@ public class PriorityCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * With a new tag called priority
      */
-    private static Person addPriorityTag(Person personToEdit) throws CommandException {
+    private static Person togglePriorityTag(Person personToEdit) throws CommandException {
         assert personToEdit != null;
 
         // Create a mutable set
