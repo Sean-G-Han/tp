@@ -22,7 +22,7 @@ public class PriorityCommand extends Command {
 
     public static final String COMMAND_WORD = "priority";
 
-    public static final String MESSAGE_PRIORITY_PERSON_SUCCESS = "Prioritised Person: %1$s";
+    public static final String MESSAGE_PRIORITY_PERSON_SUCCESS = "Toggle Priority of Person: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the person identified by the index number used in the displayed person list as a priority.\n"
