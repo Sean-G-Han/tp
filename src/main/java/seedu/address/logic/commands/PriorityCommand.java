@@ -6,6 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -73,11 +74,17 @@ public class PriorityCommand extends Command {
         // Create a mutable set
         Set<Tag> tags = new HashSet<>(personToEdit.getTags());
 
-        if (tags.stream().anyMatch(tag -> "Priority".equals(tag.tagName))) {
-            throw new CommandException(Messages.MESSAGE_PERSON_ALREADY_PRIORITY);
-        }
+        boolean isPriority = tags.stream()
+                .anyMatch(tag -> tag.isEqualTo("Priority"));
 
-        tags.add(new Tag("Priority"));
+        // Toggles priority
+        if (!isPriority) {
+            tags.add(new Tag("Priority"));
+        } else {
+            tags = tags.stream()
+                    .filter(tag -> !tag.isEqualTo("Priority"))
+                    .collect(Collectors.toSet());
+        }
 
         return new Person(
                 personToEdit.getName(),
