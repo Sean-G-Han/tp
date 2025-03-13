@@ -299,31 +299,65 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 *{More to be added}*
 
 ### Use cases
-
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+### UC01 - Add Client ###  
 
-**MSS**
+#### Main Success Scenario (MSS):
+1. User chooses to add a new client.
+2. AB3 requests client details.
+3. User enters the required client details.
+4. AB3 verifies the details.
+5. AB3 adds the client to the address book and confirms successful addition.  
+   **Use case ends.**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+#### Extensions:
+- **3a. AB3 detects an error in the entered details.**
+    - 3a1. AB3 requests for the correct data.
+    - 3a2. User enters new data.
+    - Steps 3a1-3a2 are repeated until the data entered are correct.
+    - **Use case resumes from step 4.**
 
-    Use case ends.
+- **4a. AB3 detects that the client already exists.**
+    - 4a1. AB3 notifies the user of the duplicate entry.
+    - 4a2. User chooses to either modify details or cancel the operation.
+    - If modifying, **use case resumes from step 3.**
+    - If canceling, **use case ends.**
 
-**Extensions**
+- **\*a. At any time, User chooses to cancel the process.**
+    - *a1. AB3 requests to confirm the cancellation.
+    - *a2. User confirms the cancellation.
+    - **Use case ends.**
 
-* 2a. The list is empty.
 
-  Use case ends.
+### UC02 - Delete Client ###  
 
-* 3a. The given index is invalid.
+#### Main Success Scenario (MSS):
+1. User chooses to delete a client.
+2. AB3 requests the client’s details for deletion.
+3. User enters the required details.
+4. AB3 requests confirmation of the deletion.
+5. User confirms the deletion.
+6. AB3 removes the client from the address book and confirms successful deletion.  
+   **Use case ends.**
 
-    * 3a1. AddressBook shows an error message.
+#### Extensions:
+- **3a. AB3 detects an error in the entered details.**
+    - 3a1. AB3 requests for the correct data.
+    - 3a2. User enters new data.
+    - Steps 3a1-3a2 are repeated until the data entered are correct.
+    - **Use case resumes from step 4.**
 
-      Use case resumes at step 2.
+- **3b. The client does not exist in the address book.**
+    - 3b1. AB3 notifies the user that the client is not found.
+    - 3b2. User chooses to either retry or cancel the operation.
+    - If retrying, **use case resumes from step 2.**
+    - If canceling, **use case ends.**
+
+- **\*a. At any time, User chooses to cancel the process.**
+    - *a1. AB3 requests to confirm the cancellation.
+    - *a2. User confirms the cancellation.
+    - **Use case ends.**
 
 *{More to be added}*
 
