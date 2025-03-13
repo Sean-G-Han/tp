@@ -379,8 +379,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+- **API (Application Programming Interface)**: A set of protocols and tools that allow different software components to communicate and interact with each other. In the context of WealthVault, it defines how various system components exchange data and functionality.
+
+- **Client**: An individual who is a financial advisor’s contact and recipient of financial guidance or services.
+
+- **Financial Advisor**: A primary user of the application, responsible for managing client financial data, providing investment advice, and overseeing financial planning.
+
+- **Financial Needs**: A client’s specific financial goals or requirements, including investment planning, retirement savings, risk management, and debt reduction strategies.
+
+- **GUI (Graphical User Interface)**: The visual interface of the application that enables users to interact with the system through graphical elements such as buttons, menus, and forms.
+
+- **Mainstream OS**: Windows, Linux, Unix, MacOS
+
+- **PlantUML**: A tool used for creating UML (Unified Modeling Language) diagrams, such as sequence diagrams and class diagrams, to document system design and architecture.
+
+- **Private Contact Detail**: A contact detail that is not meant to be shared with others.
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
