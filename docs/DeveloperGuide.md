@@ -274,11 +274,11 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**: Financial advisors
 
-* Managing a significant number of client contacts 
-* Requires a one-stop platform to track and update client's financial details 
+* Managing a significant number of client contacts
+* Requires a one-stop platform to track and update client's financial details
 * Experiences difficulties to keep track of client's financial needs across multiple platforms
 * Easy-to-use, fast and organized interface to maintain efficiency in their work
-* Keen to provide fast and efficient service to customers 
+* Keen to provide fast and efficient service to customers
 
 **Value proposition**: Manage clients and their financial needs faster than a typical mouse/GUI driven app
 
@@ -309,14 +309,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Use cases
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-### UC01 - Add Client ###  
+### UC01 - Add Client ###
 
 #### Main Success Scenario (MSS):
 1. User chooses to add a new client.
 2. AB3 requests client details.
 3. User enters the required client details.
 4. AB3 verifies the details.
-5. AB3 adds the client to the address book and confirms successful addition.  
+5. AB3 adds the client to the address book and confirms successful addition.
    **Use case ends.**
 
 #### Extensions:
@@ -338,7 +338,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     - **Use case ends.**
 
 
-### UC02 - Delete Client ###  
+### UC02 - Delete Client ###
 
 #### Main Success Scenario (MSS):
 1. User chooses to delete a client.
@@ -346,7 +346,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. User enters the required details.
 4. AB3 requests confirmation of the deletion.
 5. User confirms the deletion.
-6. AB3 removes the client from the address book and confirms successful deletion.  
+6. AB3 removes the client from the address book and confirms successful deletion.
    **Use case ends.**
 
 #### Extensions:
