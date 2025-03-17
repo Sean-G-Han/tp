@@ -56,7 +56,7 @@ public class TypicalClients {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical clients.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();

@@ -32,13 +32,13 @@ public class ClientBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the ClientBuilder with the data of {@code clientToCopy}.
      */
-    public ClientBuilder(Client personToCopy) {
-        name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
+    public ClientBuilder(Client clientToCopy) {
+        name = clientToCopy.getName();
+        phone = clientToCopy.getPhone();
+        email = clientToCopy.getEmail();
+        address = clientToCopy.getAddress();
     }
 
     /**
