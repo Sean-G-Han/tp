@@ -6,6 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.client.Client;
+import seedu.address.model.client.UniqueClientList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -16,7 +18,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-
+    private final UniqueClientList clients;
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -26,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        clients = new UniqueClientList();
     }
 
     public AddressBook() {}
@@ -48,6 +51,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+    public void setClients(List<Client> clients) {
+        this.clients.setClients(clients);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -55,6 +62,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setClients(newData.getClientList());
     }
 
     //// person-level operations
@@ -94,20 +102,88 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
-    //// util methods
+    //// client-level operations
+    /**
+     * Checks if the address book contains a specific client.
+     *
+     * @param client The client to check for.
+     * @return True if the client exists in the address book, false otherwise.
+     * @throws NullPointerException if the provided client is null.
+     */
+    public boolean hasClient(Client client) {
+        requireNonNull(client);
+        return clients.contains(client);
+    }
 
+    /**
+     * Adds a client to the address book.
+     *
+     * @param c The client to be added.
+     */
+    public void addClient(Client c) {
+        clients.add(c);
+    }
+
+    /**
+     * Replaces an existing client with an edited client.
+     *
+     * @param target The client to be replaced.
+     * @param editedClient The new client to replace the existing one.
+     * @throws NullPointerException if the edited client is null.
+     */
+    public void setClient(Client target, Client editedClient) {
+        requireNonNull(editedClient);
+        clients.setClient(target, editedClient);
+    }
+
+    /**
+     * Removes a client from the address book.
+     *
+     * @param key The client to be removed.
+     */
+    public void removeClient(Client key) {
+        clients.remove(key);
+    }
+
+    /**
+     * Returns a string representation of the address book.
+     *
+     * @return A string containing details of persons and clients.
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("persons", persons)
+                .add("clients", clients)
                 .toString();
     }
 
+    /**
+     * Retrieves an unmodifiable list of persons in the address book.
+     *
+     * @return An observable list of persons.
+     */
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 
+    /**
+     * Retrieves an unmodifiable list of clients in the address book.
+     *
+     * @return An observable list of clients.
+     */
+    @Override
+    public ObservableList<Client> getClientList() {
+        return clients.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Compares this address book to another object for equality.
+     *
+     * @param other The object to compare with.
+     * @return True if the other object is an AddressBook with the same data, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -120,9 +196,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons) && clients.equals(otherAddressBook.clients);
     }
 
+    /**
+     * Computes the hash code for the address book.
+     *
+     * @return The hash code based on persons and clients.
+     */
     @Override
     public int hashCode() {
         return persons.hashCode();
