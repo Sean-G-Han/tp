@@ -103,26 +103,53 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// client-level operations
+    /**
+     * Checks if the address book contains a specific client.
+     *
+     * @param client The client to check for.
+     * @return True if the client exists in the address book, false otherwise.
+     * @throws NullPointerException if the provided client is null.
+     */
     public boolean hasClient(Client client) {
         requireNonNull(client);
         return clients.contains(client);
     }
 
+    /**
+     * Adds a client to the address book.
+     *
+     * @param c The client to be added.
+     */
     public void addClient(Client c) {
         clients.add(c);
     }
 
+    /**
+     * Replaces an existing client with an edited client.
+     *
+     * @param target The client to be replaced.
+     * @param editedClient The new client to replace the existing one.
+     * @throws NullPointerException if the edited client is null.
+     */
     public void setClient(Client target, Client editedClient) {
         requireNonNull(editedClient);
         clients.setClient(target, editedClient);
     }
 
+    /**
+     * Removes a client from the address book.
+     *
+     * @param key The client to be removed.
+     */
     public void removeClient(Client key) {
         clients.remove(key);
     }
 
-    //// util methods
-
+    /**
+     * Returns a string representation of the address book.
+     *
+     * @return A string containing details of persons and clients.
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -131,16 +158,32 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .toString();
     }
 
+    /**
+     * Retrieves an unmodifiable list of persons in the address book.
+     *
+     * @return An observable list of persons.
+     */
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 
+    /**
+     * Retrieves an unmodifiable list of clients in the address book.
+     *
+     * @return An observable list of clients.
+     */
     @Override
     public ObservableList<Client> getClientList() {
         return clients.asUnmodifiableObservableList();
     }
 
+    /**
+     * Compares this address book to another object for equality.
+     *
+     * @param other The object to compare with.
+     * @return True if the other object is an AddressBook with the same data, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -156,6 +199,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.equals(otherAddressBook.persons) && clients.equals(otherAddressBook.clients);
     }
 
+    /**
+     * Computes the hash code for the address book.
+     *
+     * @return The hash code based on persons and clients.
+     */
     @Override
     public int hashCode() {
         return persons.hashCode();

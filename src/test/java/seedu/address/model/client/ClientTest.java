@@ -86,3 +86,4 @@ public class ClientTest {
         assertEquals(expected, ALICE.toString());
     }
 }
+

@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
 import seedu.address.model.client.Address;
+import seedu.address.model.client.Client;
 import seedu.address.model.client.Email;
 import seedu.address.model.client.Name;
-import seedu.address.model.client.Client;
 import seedu.address.model.client.Phone;
 
 /**
