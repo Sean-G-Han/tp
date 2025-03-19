@@ -45,11 +45,11 @@ public class Phone {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.model.client.Phone)) {
+        if (!(other instanceof Phone)) {
             return false;
         }
 
-        seedu.address.model.client.Phone otherPhone = (seedu.address.model.client.Phone) other;
+        Phone otherPhone = (Phone) other;
         return value.equals(otherPhone.value);
     }
 

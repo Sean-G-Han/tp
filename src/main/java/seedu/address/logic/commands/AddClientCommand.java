@@ -11,7 +11,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.client.Client;
 
 /**
  * Adds a client to the address book.
@@ -36,27 +36,27 @@ public class AddClientCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New client added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This client already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_CLIENT = "This client already exists in the address book";
 
-    private final Person toAdd;
+    private final Client toAdd;
 
     /**
-     * Creates an AddClientCommand to add the specified {@code Person}
+     * Creates an AddClientCommand to add the specified {@code Client}
      */
-    public AddClientCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddClientCommand(Client client) {
+        requireNonNull(client);
+        toAdd = client;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasClient(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CLIENT);
         }
 
-        model.addPerson(toAdd);
+        model.addClient(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 

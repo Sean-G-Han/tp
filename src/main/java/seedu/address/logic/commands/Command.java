@@ -6,7 +6,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.client.Client;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -23,13 +23,13 @@ public abstract class Command {
     public abstract CommandResult execute(Model model) throws CommandException;
 
     /**
-     * Returns the person for a given index
+     * Returns the client for a given index
      *
      * @throws CommandException If an error occurs during command execution.
      */
-    protected Person getPersonFromIndex(List<Person> list, Index index) throws CommandException {
+    protected Client getClientFromIndex(List<Client> list, Index index) throws CommandException {
         if (index.getZeroBased() >= list.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX);
         }
         return list.get(index.getZeroBased());
     }

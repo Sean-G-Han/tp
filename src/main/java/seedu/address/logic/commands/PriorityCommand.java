@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,7 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.client.Client;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -22,10 +22,10 @@ public class PriorityCommand extends Command {
 
     public static final String COMMAND_WORD = "priority";
 
-    public static final String MESSAGE_PRIORITY_PERSON_SUCCESS = "Toggle Priority of Person: %1$s";
+    public static final String MESSAGE_PRIORITY_CLIENT_SUCCESS = "Toggle Priority of Client: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the person identified by the index number used in the displayed person list as a priority.\n"
+            + ": Marks the client identified by the index number used in the displayed client list as a priority.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -36,7 +36,7 @@ public class PriorityCommand extends Command {
     private Set<Tag> tags;
 
     /**
-     * @param index of the person in the filtered person list to mark as priority
+     * @param index of the client in the filtered client list to mark as priority
      */
     public PriorityCommand(Index index) {
         requireNonNull(index);
@@ -46,25 +46,25 @@ public class PriorityCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Client> lastShownList = model.getFilteredClientList();
 
-        Person personToPrioritise = getPersonFromIndex(lastShownList, index);
-        Person priorityPerson = togglePriorityTag(personToPrioritise);
+        Client clientToPrioritise = getClientFromIndex(lastShownList, index);
+        Client priorityClient = togglePriorityTag(clientToPrioritise);
 
-        model.setPerson(personToPrioritise, priorityPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_PRIORITY_PERSON_SUCCESS, Messages.format(priorityPerson)));
+        model.setClient(clientToPrioritise, priorityClient);
+        model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
+        return new CommandResult(String.format(MESSAGE_PRIORITY_CLIENT_SUCCESS, Messages.format(priorityClient)));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * Creates and returns a {@code Client} with the details of {@code ClientToEdit}
      * With a new tag called priority
      */
-    private static Person togglePriorityTag(Person personToEdit) throws CommandException {
-        assert personToEdit != null;
+    private static Client togglePriorityTag(Client clientToEdit) throws CommandException {
+        assert clientToEdit != null;
 
         // Creates a mutable set
-        Set<Tag> tags = new HashSet<>(personToEdit.getTags());
+        Set<Tag> tags = new HashSet<>(clientToEdit.getTags());
 
         // Toggles priority
         if (!isPriority(tags)) {
@@ -75,11 +75,11 @@ public class PriorityCommand extends Command {
                     .collect(Collectors.toSet());
         }
 
-        return new Person(
-                personToEdit.getName(),
-                personToEdit.getPhone(),
-                personToEdit.getEmail(),
-                personToEdit.getAddress(),
+        return new Client(
+                clientToEdit.getName(),
+                clientToEdit.getPhone(),
+                clientToEdit.getEmail(),
+                clientToEdit.getAddress(),
                 tags
         );
     }

@@ -1,10 +1,15 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.model.client.Address;
 import seedu.address.model.client.Client;
 import seedu.address.model.client.Email;
 import seedu.address.model.client.Name;
 import seedu.address.model.client.Phone;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Client objects.
@@ -20,6 +25,7 @@ public class ClientBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private Set<Tag> tags;
 
     /**
      * Creates a {@code ClientBuilder} with the default details.
@@ -29,6 +35,7 @@ public class ClientBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        tags = new HashSet<>();
     }
 
     /**
@@ -39,6 +46,7 @@ public class ClientBuilder {
         phone = clientToCopy.getPhone();
         email = clientToCopy.getEmail();
         address = clientToCopy.getAddress();
+        tags = new HashSet<>(clientToCopy.getTags());
     }
 
     /**
@@ -46,6 +54,14 @@ public class ClientBuilder {
      */
     public ClientBuilder withName(String name) {
         this.name = new Name(name);
+        return this;
+    }
+
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code CLient} that we are building.
+     */
+    public ClientBuilder withTags(String ... tags) {
+        this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -74,7 +90,7 @@ public class ClientBuilder {
     }
 
     public Client build() {
-        return new Client(name, phone, email, address);
+        return new Client(name, phone, email, address, tags);
     }
 
 }

@@ -58,4 +58,3 @@ public class NameTest {
         assertFalse(name.equals(new Name("Other Valid Name")));
     }
 }
-

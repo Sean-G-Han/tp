@@ -63,11 +63,11 @@ public class Email {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.model.client.Email)) {
+        if (!(other instanceof Email)) {
             return false;
         }
 
-        seedu.address.model.client.Email otherEmail = (seedu.address.model.client.Email) other;
+        Email otherEmail = (Email) other;
         return value.equals(otherEmail.value);
     }
 
@@ -77,4 +77,3 @@ public class Email {
     }
 
 }
-
