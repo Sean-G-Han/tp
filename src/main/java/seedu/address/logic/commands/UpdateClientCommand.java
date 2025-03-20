@@ -45,18 +45,14 @@ public class UpdateClientCommand extends EditCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        
-        // Reuse the EditCommand execute logic but with a different success message
         CommandResult result = super.execute(model);
-        
-        // Replace the edit success message with the update success message
         String successMessage = String.format(
-            MESSAGE_UPDATE_CLIENT_SUCCESS, 
+            MESSAGE_UPDATE_CLIENT_SUCCESS,
             result.getFeedbackToUser().substring(
-                MESSAGE_EDIT_CLIENT_SUCCESS.indexOf("%1$s") + 4 // Length of "%1$s"
+                MESSAGE_EDIT_CLIENT_SUCCESS.indexOf("%1$s") + 4
             )
         );
-        
+
         return new CommandResult(successMessage);
     }
-} 
+}
