@@ -68,17 +68,6 @@ public class UniqueClientList implements Iterable<Client> {
         internalList.set(index, editedClient);
     }
 
-    /**
-     * Removes the equivalent client from the list.
-     * The client must exist in the list.
-     */
-    public void remove(Client toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new ClientNotFoundException();
-        }
-    }
-
     public void setClients(UniqueClientList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -98,6 +87,17 @@ public class UniqueClientList implements Iterable<Client> {
     }
 
     /**
+     * Removes the equivalent client from the list.
+     * The client must exist in the list.
+     */
+    public void remove(Client toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new ClientNotFoundException();
+        }
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Client> asUnmodifiableObservableList() {
@@ -107,6 +107,20 @@ public class UniqueClientList implements Iterable<Client> {
     @Override
     public Iterator<Client> iterator() {
         return internalList.iterator();
+    }
+
+    /**
+     * Returns true if {@code clients} contains only unique clients.
+     */
+    private boolean clientsAreUnique(List<Client> clients) {
+        for (int i = 0; i < clients.size() - 1; i++) {
+            for (int j = i + 1; j < clients.size(); j++) {
+                if (clients.get(i).isSameClient(clients.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
@@ -132,19 +146,5 @@ public class UniqueClientList implements Iterable<Client> {
     @Override
     public String toString() {
         return internalList.toString();
-    }
-
-    /**
-     * Returns true if {@code clients} contains only unique clients.
-     */
-    private boolean clientsAreUnique(List<Client> clients) {
-        for (int i = 0; i < clients.size() - 1; i++) {
-            for (int j = i + 1; j < clients.size(); j++) {
-                if (clients.get(i).isSameClient(clients.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 }

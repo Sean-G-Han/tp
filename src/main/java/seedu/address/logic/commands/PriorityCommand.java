@@ -22,10 +22,10 @@ public class PriorityCommand extends Command {
 
     public static final String COMMAND_WORD = "priority";
 
-    public static final String MESSAGE_PRIORITY_CLIENT_SUCCESS = "Toggle Priority of Client: %1$s";
+    public static final String MESSAGE_PRIORITY_CLIENT_SUCCESS = "Priority status of client changed: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the client identified by the index number used in the displayed client list as a priority.\n"
+            + ": Marks the client identified by the index number used in the displayed client list as priority.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
