@@ -2,9 +2,13 @@ package seedu.address.model.client;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Client in the address book.
@@ -19,16 +23,18 @@ public class Client {
 
     // Data fields
     private final Address address;
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Client(Name name, Phone phone, Email email, Address address) {
-        requireAllNonNull(name, phone, email, address);
+    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -47,6 +53,13 @@ public class Client {
         return address;
     }
 
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
 
     /**
      * Returns true if both clients have the same name.
@@ -62,8 +75,8 @@ public class Client {
     }
 
     /**
-     * Returns true if both Clients have the same identity and data fields.
-     * This defines a stronger notion of equality between two Clients.
+     * Returns true if both clients have the same identity and data fields.
+     * This defines a stronger notion of equality between two clients.
      */
     @Override
     public boolean equals(Object other) {
@@ -80,13 +93,14 @@ public class Client {
         return name.equals(otherClient.name)
                 && phone.equals(otherClient.phone)
                 && email.equals(otherClient.email)
-                && address.equals(otherClient.address);
+                && address.equals(otherClient.address)
+                && tags.equals(otherClient.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address);
+        return Objects.hash(name, phone, email, address, tags);
     }
 
     @Override
@@ -96,8 +110,8 @@ public class Client {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("tags", tags)
                 .toString();
     }
 
 }
-

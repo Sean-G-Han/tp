@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.client.exceptions.ClientNotFoundException;
 import seedu.address.model.client.exceptions.DuplicateClientException;
 
-
 /**
  * A list of clients that enforces uniqueness between its elements and does not allow nulls.
  * A client is considered unique by comparing using {@code Client#isSameClient(Client)}. As such, adding and updating of
