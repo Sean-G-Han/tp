@@ -28,10 +28,10 @@ public class AddClientCommand extends Command {
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_NAME + "John Wilson "
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "johnw@example.com "
+            + PREFIX_ADDRESS + "210, Clementi Ave 3, #12-01 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
