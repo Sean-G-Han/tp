@@ -31,7 +31,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Project Member
 * Responsibilities: UI
 
-### Johnny Doe
+### Joshua Tan
 
 <img src="images/j4joshua.png" width="200px">
 
