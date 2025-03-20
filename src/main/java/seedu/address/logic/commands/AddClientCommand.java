@@ -20,7 +20,7 @@ public class AddClientCommand extends Command {
 
     public static final String COMMAND_WORD = "addclient";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a client to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a client to WealthVault. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -36,7 +36,7 @@ public class AddClientCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New client added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CLIENT = "This client already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_CLIENT = "This client already exists in WealthVault";
 
     private final Client toAdd;
 
