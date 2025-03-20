@@ -94,11 +94,11 @@ public class DeleteClientCommandTest {
         // different types -> returns false
         assertFalse(deleteFirstCommand.equals(1));
 
-        // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
-
         // different client -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+
+        // null -> returns false
+        assertFalse(deleteFirstCommand.equals(null));
     }
 
     @Test

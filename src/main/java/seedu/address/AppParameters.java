@@ -45,6 +45,11 @@ public class AppParameters {
     }
 
     @Override
+    public int hashCode() {
+        return configPath.hashCode();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -57,11 +62,6 @@ public class AppParameters {
 
         AppParameters otherAppParameters = (AppParameters) other;
         return Objects.equals(configPath, otherAppParameters.configPath);
-    }
-
-    @Override
-    public int hashCode() {
-        return configPath.hashCode();
     }
 
     @Override
