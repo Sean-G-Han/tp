@@ -146,6 +146,20 @@ Examples:
 * `list` followed by `deleteclient 2` deletes the 2nd person in the address book.
 * `findclient Betsy` followed by `deleteclient 1` deletes the 1st person in the results of the `findclient` command.
 
+### Prioritising a person: `priority`
+
+Toggles the priority of the specified person from the address book as indicated with a "Priority" tag.
+
+Format: `priority INDEX`
+
+* Adds a "Priority" tag to the specified `INDEX` if such a tag isn't attached to the person
+* Removes the "Priority" tag of the specified `INDEX` if such a tag is already attached to the person
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `priority 1` adds a priority tag to the 1st person in the list if the person is yet to be attached with a "Priority" tag.
+* `list` followed by `priority 3` removes a priority tag from the 3rd person in the list if the person is attached with a "Priority" tag.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
