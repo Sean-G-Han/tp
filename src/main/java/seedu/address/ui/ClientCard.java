@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -54,28 +56,21 @@ public class ClientCard extends UiPart<Region> {
         phone.setText(client.getPhone().value);
         address.setText(client.getAddress().value);
         email.setText(client.getEmail().value);
-        client.getTags().stream()
-                .sorted(Comparator.<Tag, Boolean>comparing(tag -> !(tag instanceof PriorityTag))
-                        .thenComparing(tag -> tag.tagName))
-                .forEach(tag -> {
-                    Label label = new Label(tag.tagName);
-                    if (tag instanceof PriorityTag) {
-                        label.setStyle("-fx-background-color: orange; -fx-font-weight: bold;");
-                    }
-                    tags.getChildren().add(label);
-                });
+        sortClientTags(client.getTags())
+                .forEach(this::createLabel);
     }
 
-    private void sortClientTags(Client client) {
-        client.getTags().stream()
+    private Stream<Tag> sortClientTags(Set<Tag> set) {
+        return set.stream()
                 .sorted(Comparator.<Tag, Boolean>comparing(tag -> !(tag instanceof PriorityTag))
-                        .thenComparing(tag -> tag.tagName))
-                .forEach(tag -> {
-                    Label label = new Label(tag.tagName);
-                    if (tag instanceof PriorityTag) {
-                        label.setStyle("-fx-background-color: orange; -fx-font-weight: bold;");
-                    }
-                    tags.getChildren().add(label);
-                });
+                        .thenComparing(tag -> tag.tagName));
+    }
+
+    private void createLabel(Tag tag) {
+        Label label = new Label(tag.tagName);
+        if (tag instanceof PriorityTag) {
+            label.setStyle("-fx-background-color: orange; -fx-font-weight: bold;");
+        }
+        tags.getChildren().add(label);
     }
 }
