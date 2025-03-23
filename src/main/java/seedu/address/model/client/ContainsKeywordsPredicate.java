@@ -16,8 +16,8 @@ public class ContainsKeywordsPredicate extends AbstractContainsKeywordsPredicate
     @Override
     public boolean test(Client client) {
         return keywords.stream().anyMatch(keyword ->
-                StringUtil.containsWordIgnoreCase(client.getName().fullName, keyword) ||
-                        client.getTags().stream().anyMatch(tag ->
+                StringUtil.containsWordIgnoreCase(client.getName().fullName, keyword)
+                        || client.getTags().stream().anyMatch(tag ->
                                 StringUtil.containsWordIgnoreCase(tag.tagName, keyword)
                         )
         );

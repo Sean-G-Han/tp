@@ -15,9 +15,13 @@ public class ContainsAllKeywordsPredicate extends AbstractContainsKeywordsPredic
 
     @Override
     public boolean test(Client client) {
+        if (keywords.isEmpty()) {
+            return false; // Ensures empty keyword list returns false like to ContainsKeywordsPredicate
+        }
+
         return keywords.stream().allMatch(keyword ->
-                StringUtil.containsWordIgnoreCase(client.getName().fullName, keyword) ||
-                        client.getTags().stream().anyMatch(tag ->
+                StringUtil.containsWordIgnoreCase(client.getName().fullName, keyword)
+                        || client.getTags().stream().anyMatch(tag ->
                                 StringUtil.containsWordIgnoreCase(tag.tagName, keyword)
                         )
         );
