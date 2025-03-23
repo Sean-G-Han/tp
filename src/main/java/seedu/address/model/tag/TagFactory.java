@@ -12,7 +12,7 @@ public class TagFactory {
      */
     public static Tag createTag(String tagName) {
         // Add more for other types
-        if (tagName.equals(PriorityTag.VALID_PRIORITY_TAG)) {
+        if (tagName.equals("Priority")) {
             return new PriorityTag();
         }
         return new Tag(tagName);
