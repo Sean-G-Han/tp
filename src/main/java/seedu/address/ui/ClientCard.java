@@ -49,50 +49,33 @@ public class ClientCard extends UiPart<Region> {
     public ClientCard(Client client, int displayedIndex) {
         super(FXML);
         this.client = client;
-
-        // Initialize UI elements
-        initializeClientDetails(client, displayedIndex);
-        populateTags(client);
-    }
-
-    /**
-     * Initializes the client details in the UI.
-     *
-     * @param client The client whose details are being displayed.
-     * @param displayedIndex The index number to be displayed.
-     */
-    private void initializeClientDetails(Client client, int displayedIndex) {
         id.setText(displayedIndex + ". ");
         name.setText(client.getName().fullName);
         phone.setText(client.getPhone().value);
         address.setText(client.getAddress().value);
         email.setText(client.getEmail().value);
-    }
-
-    /**
-     * Populates the tag container with sorted tags.
-     *
-     * @param client The client whose tags need to be displayed.
-     */
-    private void populateTags(Client client) {
         client.getTags().stream()
                 .sorted(Comparator.<Tag, Boolean>comparing(tag -> !(tag instanceof PriorityTag))
                         .thenComparing(tag -> tag.tagName))
-                .map(this::createTagLabel)
-                .forEach(tags.getChildren()::add);
+                .forEach(tag -> {
+                    Label label = new Label(tag.tagName);
+                    if (tag instanceof PriorityTag) {
+                        label.setStyle("-fx-background-color: orange; -fx-font-weight: bold;");
+                    }
+                    tags.getChildren().add(label);
+                });
     }
 
-    /**
-     * Creates a styled Label for a given tag.
-     *
-     * @param tag The tag for which a Label is created.
-     * @return A styled Label representing the tag.
-     */
-    private Label createTagLabel(Tag tag) {
-        Label label = new Label(tag.tagName);
-        if (tag instanceof PriorityTag) {
-            label.setStyle("-fx-background-color: orange; -fx-font-weight: bold;");
-        }
-        return label;
+    private void sortClientTags(Client client) {
+        client.getTags().stream()
+                .sorted(Comparator.<Tag, Boolean>comparing(tag -> !(tag instanceof PriorityTag))
+                        .thenComparing(tag -> tag.tagName))
+                .forEach(tag -> {
+                    Label label = new Label(tag.tagName);
+                    if (tag instanceof PriorityTag) {
+                        label.setStyle("-fx-background-color: orange; -fx-font-weight: bold;");
+                    }
+                    tags.getChildren().add(label);
+                });
     }
 }
