@@ -12,6 +12,7 @@ import seedu.address.model.client.Email;
 import seedu.address.model.client.Name;
 import seedu.address.model.client.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagFactory;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -53,7 +54,7 @@ public class SampleDataUtil {
      */
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
+                .map(TagFactory::createTag)
                 .collect(Collectors.toSet());
     }
 
