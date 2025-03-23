@@ -8,7 +8,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.client.Client;
-import seedu.address.model.tag.PriorityTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -55,11 +54,11 @@ public class ClientCard extends UiPart<Region> {
         address.setText(client.getAddress().value);
         email.setText(client.getEmail().value);
         client.getTags().stream()
-                .sorted(Comparator.<Tag, Boolean>comparing(tag -> tag instanceof PriorityTag)
+                .sorted(Comparator.<Tag, Boolean>comparing(tag -> !tag.tagName.equals("Priority"))
                         .thenComparing(tag -> tag.tagName))
                 .forEach(tag -> {
                     Label label = new Label(tag.tagName);
-                    if (tag instanceof PriorityTag) {
+                    if (tag.tagName.equals("Priority")) {
                         label.setStyle("-fx-background-color: orange; -fx-font-weight: bold;");
                     }
                     tags.getChildren().add(label);
