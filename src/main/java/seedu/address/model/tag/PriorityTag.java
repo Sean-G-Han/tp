@@ -4,11 +4,13 @@ package seedu.address.model.tag;
  * Represents the Priority Tag in the address book, a special Yellow Tag
  */
 public class PriorityTag extends Tag {
+    static final String VALID_PRIORITY_TAG = "Priority";
+
     public PriorityTag(String tagName) {
         super(tagName);
     }
 
     public PriorityTag() {
-        super("Priority");
+        super(VALID_PRIORITY_TAG);
     }
 }
