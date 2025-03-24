@@ -2,6 +2,10 @@ package seedu.address.logic.commands;
 
 import seedu.address.model.client.ContainsAllKeywordsPredicate;
 
+/**
+ * Finds and lists all clients in address book whose name or tag contains all of the argument keywords.
+ * Keyword matching is case insensitive.
+ */
 public class FindClientAndCommand extends AbstractFindClientCommand {
     public static final String COMMAND_WORD = "findclientand";
 
