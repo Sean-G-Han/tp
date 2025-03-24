@@ -46,13 +46,8 @@ public class UpdateClientCommand extends EditCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         CommandResult result = super.execute(model);
-        String successMessage = String.format(
-            MESSAGE_UPDATE_CLIENT_SUCCESS,
-            result.getFeedbackToUser().substring(
-                MESSAGE_EDIT_CLIENT_SUCCESS.indexOf("%1$s") + 4
-            )
-        );
-
-        return new CommandResult(successMessage);
+        String fullMessage = result.getFeedbackToUser();
+        String clientName = fullMessage.substring(0, fullMessage.indexOf(";")).trim();
+        return new CommandResult(String.format(MESSAGE_UPDATE_CLIENT_SUCCESS, clientName));
     }
 }
