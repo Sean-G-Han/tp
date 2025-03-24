@@ -32,7 +32,7 @@ public class UpdateClientCommand extends EditCommand {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_UPDATE_CLIENT_SUCCESS = "Updated Client:%1$s";
+    public static final String MESSAGE_UPDATE_CLIENT_SUCCESS = "Updated Client: %1$s";
 
     /**
      * @param index of the client in the filtered client list to edit
@@ -46,8 +46,8 @@ public class UpdateClientCommand extends EditCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         CommandResult result = super.execute(model);
-        String clientName = result.getFeedbackToUser().replace("Updated Client: ", "");
-        String successMessage = String.format(MESSAGE_UPDATE_CLIENT_SUCCESS, clientName);
-        return new CommandResult(successMessage);
+        String fullMessage = result.getFeedbackToUser();
+        String clientName = fullMessage.substring(0, fullMessage.indexOf(";")).trim();
+        return new CommandResult(String.format(MESSAGE_UPDATE_CLIENT_SUCCESS, clientName));
     }
 }

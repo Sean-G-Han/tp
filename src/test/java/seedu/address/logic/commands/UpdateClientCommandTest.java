@@ -46,10 +46,7 @@ public class UpdateClientCommandTest {
 
         UpdateClientCommand updateCommand = new UpdateClientCommand(INDEX_FIRST_CLIENT, descriptor);
         CommandResult result = updateCommand.execute(modelStub);
-
-        // Just expect exactly what's being output
-        String expectedMessage = "Updated Client: ted; Phone: 85355255; Email: amy@gmail.com; "
-                + "Address: 123, Jurong West Ave 6, #08-111; Tags: ";
+        String expectedMessage = "Updated Client: Updated";
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(updatedClient, modelStub.clientUpdated);
     }
