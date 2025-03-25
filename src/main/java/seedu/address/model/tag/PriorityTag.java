@@ -6,10 +6,6 @@ package seedu.address.model.tag;
 public class PriorityTag extends Tag {
     static final String VALID_PRIORITY_TAG = "Priority";
 
-    public PriorityTag(String tagName) {
-        super(tagName);
-    }
-
     public PriorityTag() {
         super(VALID_PRIORITY_TAG);
     }
