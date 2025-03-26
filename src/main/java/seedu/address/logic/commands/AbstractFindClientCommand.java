@@ -7,7 +7,7 @@ import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.client.AbstractContainsKeywordsPredicate;
 /**
- * Finds and lists all clients in address book whose name contains any of the argument keywords.
+ * Finds and lists clients in address book whose name/tag contains any or all of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public abstract class AbstractFindClientCommand extends Command {

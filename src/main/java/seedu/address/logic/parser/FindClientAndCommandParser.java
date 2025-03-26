@@ -15,7 +15,7 @@ public class FindClientAndCommandParser implements Parser<FindClientAndCommand> 
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindClientCommand
-     * and returns a FindClientCommand object for execution.
+     * and returns a FindClientAndCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindClientAndCommand parse(String args) throws ParseException {
