@@ -14,6 +14,7 @@ import seedu.address.model.client.Email;
 import seedu.address.model.client.Name;
 import seedu.address.model.client.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagFactory;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -107,7 +108,7 @@ public class ParserUtil {
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return TagFactory.createTag(trimmedTag);
     }
 
     /**
