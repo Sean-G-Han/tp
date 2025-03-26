@@ -5,7 +5,7 @@ import java.util.List;
 import seedu.address.commons.util.StringUtil;
 /**
  * Tests that a {@code Client}'s {@code Name} or {@code Tag} contains all the keywords given.
- * This predicate is equilivant to the AND operations when using find, i.e. strict matching
+ * This predicate is equivalent to the AND operations when using find, i.e. strict matching
  */
 public class ContainsAllKeywordsPredicate extends AbstractContainsKeywordsPredicate {
 
@@ -19,11 +19,14 @@ public class ContainsAllKeywordsPredicate extends AbstractContainsKeywordsPredic
             return false; // Ensures empty keyword list returns false like to ContainsKeywordsPredicate
         }
 
-        return keywords.stream().allMatch(keyword ->
-                StringUtil.containsWordIgnoreCase(client.getName().fullName, keyword)
-                        || client.getTags().stream().anyMatch(tag ->
-                                StringUtil.containsWordIgnoreCase(tag.tagName, keyword)
-                        )
-        );
+        return keywords.stream()
+                .allMatch(keyword -> isKeywordMatch(client, keyword));
+    }
+
+    private boolean isKeywordMatch(Client client, String keyword) {
+        boolean nameMatch = StringUtil.containsWordIgnoreCase(client.getName().fullName, keyword);
+        boolean tagMatch = client.getTags().stream()
+                .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword));
+        return nameMatch || tagMatch;
     }
 }

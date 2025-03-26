@@ -15,11 +15,14 @@ public class ContainsKeywordsPredicate extends AbstractContainsKeywordsPredicate
 
     @Override
     public boolean test(Client client) {
-        return keywords.stream().anyMatch(keyword ->
-                StringUtil.containsWordIgnoreCase(client.getName().fullName, keyword)
-                        || client.getTags().stream().anyMatch(tag ->
-                                StringUtil.containsWordIgnoreCase(tag.tagName, keyword)
-                        )
-        );
+        return keywords.stream()
+                .anyMatch(keyword -> isKeywordMatch(client, keyword));
+    }
+
+    private boolean isKeywordMatch(Client client, String keyword) {
+        boolean nameMatch = StringUtil.containsWordIgnoreCase(client.getName().fullName, keyword);
+        boolean tagMatch = client.getTags().stream()
+                .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword));
+        return nameMatch || tagMatch;
     }
 }
