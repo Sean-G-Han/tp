@@ -75,7 +75,7 @@ public class ClientCard extends UiPart<Region> {
      */
     private void populateTags(Client client) {
         client.getTags().stream()
-                .sorted(Comparator.<Tag, Boolean>comparing(tag -> tag.tagName.equals("Priority"))
+                .sorted(Comparator.<Tag, Boolean>comparing(tag -> !tag.tagName.equals("Priority"))
                         .thenComparing(tag -> tag.tagName))
                 .map(this::createTagLabel)
                 .forEach(tags.getChildren()::add);
