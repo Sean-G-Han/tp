@@ -25,6 +25,7 @@ import seedu.address.logic.commands.FindClientOrCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PriorityCommand;
+import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.client.Client;
 import seedu.address.model.client.ContainsAllKeywordsPredicate;
@@ -114,6 +115,12 @@ public class AddressBookParserTest {
         PriorityCommand command = (PriorityCommand) parser.parseCommand(
                 PriorityCommand.COMMAND_WORD + " " + INDEX_FIRST_CLIENT.getOneBased());
         assertEquals(new PriorityCommand(INDEX_FIRST_CLIENT), command);
+    }
+
+    @Test
+    public void parseCommand_sort() throws Exception {
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD) instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " 3") instanceof SortCommand);
     }
 
     @Test

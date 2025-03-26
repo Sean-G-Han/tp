@@ -70,6 +70,12 @@ public interface Model {
     void addClient(Client client);
 
     /**
+     * Sorts all clients in the address book in alphabetical order.
+     * The sorted list of clients will be displayed to the user.
+     */
+    void sortClients();
+
+    /**
      * Replaces the given client {@code target} with {@code editedClient}.
      * {@code target} must exist in the address book.
      * The client identity of {@code editedClient} must not be the same as another existing client in the address book.
