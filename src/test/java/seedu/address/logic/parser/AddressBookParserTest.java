@@ -9,23 +9,30 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddClientCommand;
+import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteClientCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditClientDescriptor;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindClientAndCommand;
 import seedu.address.logic.commands.FindClientCommand;
+import seedu.address.logic.commands.FindClientOrCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PriorityCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.client.Client;
+import seedu.address.model.client.ContainsAllKeywordsPredicate;
+import seedu.address.model.client.ContainsKeywordsPredicate;
 import seedu.address.model.client.NameContainsKeywordsPredicate;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ClientBuilder;
 import seedu.address.testutil.ClientUtil;
 import seedu.address.testutil.EditClientDescriptorBuilder;
@@ -78,6 +85,22 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_findor() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindClientOrCommand command = (FindClientOrCommand) parser.parseCommand(
+                FindClientOrCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindClientOrCommand(new ContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findand() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindClientAndCommand command = (FindClientAndCommand) parser.parseCommand(
+                FindClientAndCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindClientAndCommand(new ContainsAllKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
@@ -94,6 +117,15 @@ public class AddressBookParserTest {
         PriorityCommand command = (PriorityCommand) parser.parseCommand(
                 PriorityCommand.COMMAND_WORD + " " + INDEX_FIRST_CLIENT.getOneBased());
         assertEquals(new PriorityCommand(INDEX_FIRST_CLIENT), command);
+    }
+
+    @Test
+    public void parseCommand_addPolicy() throws Exception {
+        Set<Tag> policies = Set.of(new Tag("Life Insurance"), new Tag("Health Insurance"));
+        AddPolicyCommand command = (AddPolicyCommand) parser.parseCommand(
+                AddPolicyCommand.COMMAND_WORD + " " + INDEX_FIRST_CLIENT.getOneBased()
+                        + " t/Life Insurance t/Health Insurance");
+        assertEquals(new AddPolicyCommand(INDEX_FIRST_CLIENT, policies), command);
     }
 
     @Test

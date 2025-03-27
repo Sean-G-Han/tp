@@ -13,6 +13,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.client.Client;
+import seedu.address.model.tag.PriorityTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -22,7 +23,7 @@ public class PriorityCommand extends Command {
 
     public static final String COMMAND_WORD = "priority";
 
-    public static final String MESSAGE_PRIORITY_CLIENT_SUCCESS = "Priority status of client changed: %1$s";
+    public static final String MESSAGE_PRIORITY_CLIENT_SUCCESS = "Toggle Priority of the Client: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the client identified by the index number used in the displayed client list as priority.\n"
@@ -68,10 +69,10 @@ public class PriorityCommand extends Command {
 
         // Toggles priority
         if (!isPriority(tags)) {
-            tags.add(new Tag("Priority"));
+            tags.add(new PriorityTag());
         } else {
             tags = tags.stream()
-                    .filter(tag -> !tag.isEqualTo("Priority"))
+                    .filter(tag -> !(tag instanceof PriorityTag))
                     .collect(Collectors.toSet());
         }
 
@@ -90,7 +91,7 @@ public class PriorityCommand extends Command {
      * @param tags the list of tags
      */
     private static boolean isPriority(Set<Tag> tags) {
-        return tags.stream().anyMatch(t -> t.isEqualTo("Priority"));
+        return tags.stream().anyMatch(t -> t instanceof PriorityTag);
     }
 
     @Override
