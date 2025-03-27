@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -102,6 +103,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Client> getClientList() {
             return clients;
+        }
+
+        @Override
+        public void sortClients() {
+            clients.sort(Comparator.comparing(client -> client.getName().fullName));
         }
     }
 

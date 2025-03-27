@@ -3,6 +3,7 @@ package seedu.address.model.client;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -95,6 +96,10 @@ public class UniqueClientList implements Iterable<Client> {
         if (!internalList.remove(toRemove)) {
             throw new ClientNotFoundException();
         }
+    }
+
+    public void sort() {
+        internalList.sort(Comparator.comparing(client -> client.getName().fullName, String.CASE_INSENSITIVE_ORDER));
     }
 
     /**
