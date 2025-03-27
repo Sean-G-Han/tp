@@ -21,8 +21,9 @@ public class AddPolicyCommand extends Command {
     public static final String COMMAND_WORD = "addpolicy";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds policies to an existing client identified by index. "
-            + "Parameters: INDEX POLICY [MORE_POLICIES]...\n"
+            + ": Adds policies to an existing client identified by "
+            + "the index number used in the displayed client list."
+            + "Parameters: INDEX (MUST BE A POSITIVE INTEGER) POLICY [MORE_POLICIES]...\n"
             + "Example: " + COMMAND_WORD + " 1 t/Life Insurance t/Health Insurance";
 
     public static final String MESSAGE_SUCCESS = "Policies added to client: %1$s";

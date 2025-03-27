@@ -9,11 +9,13 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddClientCommand;
+import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteClientCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -30,6 +32,7 @@ import seedu.address.model.client.Client;
 import seedu.address.model.client.ContainsAllKeywordsPredicate;
 import seedu.address.model.client.ContainsKeywordsPredicate;
 import seedu.address.model.client.NameContainsKeywordsPredicate;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ClientBuilder;
 import seedu.address.testutil.ClientUtil;
 import seedu.address.testutil.EditClientDescriptorBuilder;
@@ -114,6 +117,15 @@ public class AddressBookParserTest {
         PriorityCommand command = (PriorityCommand) parser.parseCommand(
                 PriorityCommand.COMMAND_WORD + " " + INDEX_FIRST_CLIENT.getOneBased());
         assertEquals(new PriorityCommand(INDEX_FIRST_CLIENT), command);
+    }
+
+    @Test
+    public void parseCommand_addPolicy() throws Exception {
+        Set<Tag> policies = Set.of(new Tag("Life Insurance"), new Tag("Health Insurance"));
+        AddPolicyCommand command = (AddPolicyCommand) parser.parseCommand(
+                AddPolicyCommand.COMMAND_WORD + " " + INDEX_FIRST_CLIENT.getOneBased()
+                        + " t/Life Insurance t/Health Insurance");
+        assertEquals(new AddPolicyCommand(INDEX_FIRST_CLIENT, policies), command);
     }
 
     @Test
