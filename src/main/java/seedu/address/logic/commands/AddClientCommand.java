@@ -26,14 +26,14 @@ public class AddClientCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "POLICY_TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Wilson "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johnw@example.com "
             + PREFIX_ADDRESS + "210, Clementi Ave 3, #12-01 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "Travel Policy 21 "
+            + PREFIX_TAG + "Health Policy 03";
 
     public static final String MESSAGE_SUCCESS = "New client added: %1$s";
     public static final String MESSAGE_DUPLICATE_CLIENT = "This client already exists in WealthVault";
@@ -82,3 +82,4 @@ public class AddClientCommand extends Command {
                 .toString();
     }
 }
+
