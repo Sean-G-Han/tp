@@ -5,12 +5,12 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.model.Model;
 
 /**
- * Sorts all clients in the address book to the user.
+ * Sorts all clients on the GUI in case-insensitive alphabetical order for the user.
  */
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sorts all clients in the address book by alphabetical order.";
+            + ": Sorts all clients in WealthVault by case-insensitive alphabetical order.";
     public static final String MESSAGE_SORTED_SUCCESS = "Clients sorted in alphabetical order.";
 
     @Override
