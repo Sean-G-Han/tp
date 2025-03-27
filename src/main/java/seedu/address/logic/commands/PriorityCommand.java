@@ -109,3 +109,4 @@ public class PriorityCommand extends Command {
         return index.equals(e.index);
     }
 }
+

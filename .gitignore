@@ -23,3 +23,6 @@ src/test/data/sandbox/
 docs/_site/
 docs/_markbind/logs/
 node_modules
+
+# Ignore editor backup files
+*~

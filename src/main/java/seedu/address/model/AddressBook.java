@@ -99,6 +99,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         clients.remove(key);
     }
 
+    @Override
+    public void sortClients() {
+        clients.sort();
+    }
+
     /**
      * Returns a string representation of the address book.
      *

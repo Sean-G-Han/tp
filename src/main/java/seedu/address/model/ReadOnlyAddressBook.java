@@ -8,6 +8,8 @@ import seedu.address.model.client.Client;
  */
 public interface ReadOnlyAddressBook {
 
+    void sortClients();
+
     /**
      * Returns an unmodifiable view of the clients list.
      * This list will not contain any duplicate clients.

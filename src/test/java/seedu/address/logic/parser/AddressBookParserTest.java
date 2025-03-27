@@ -28,6 +28,7 @@ import seedu.address.logic.commands.FindClientOrCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PriorityCommand;
+import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.client.Client;
 import seedu.address.model.client.ContainsAllKeywordsPredicate;
