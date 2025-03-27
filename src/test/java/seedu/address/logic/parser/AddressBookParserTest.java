@@ -18,6 +18,7 @@ import seedu.address.logic.commands.AddClientCommand;
 import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteClientCommand;
+import seedu.address.logic.commands.DeletePolicyCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditClientDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -126,6 +127,15 @@ public class AddressBookParserTest {
                 AddPolicyCommand.COMMAND_WORD + " " + INDEX_FIRST_CLIENT.getOneBased()
                         + " t/Life Insurance t/Health Insurance");
         assertEquals(new AddPolicyCommand(INDEX_FIRST_CLIENT, policies), command);
+    }
+
+    @Test
+    public void parseCommand_deletePolicy() throws Exception {
+        Set<Tag> policies = Set.of(new Tag("Life Insurance"), new Tag("Health Insurance"));
+        DeletePolicyCommand command = (DeletePolicyCommand) parser.parseCommand(
+                DeletePolicyCommand.COMMAND_WORD + " " + INDEX_FIRST_CLIENT.getOneBased()
+                        + " t/Life Insurance t/Health Insurance");
+        assertEquals(new DeletePolicyCommand(INDEX_FIRST_CLIENT, policies), command);
     }
 
     @Test
