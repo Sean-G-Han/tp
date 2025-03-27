@@ -65,15 +65,3 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getAddressBookFilePath());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
