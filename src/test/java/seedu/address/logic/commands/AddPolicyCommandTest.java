@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -134,5 +136,20 @@ public class AddPolicyCommandTest {
         // Null -> returns false
         assertFalse(addPolicyFirstCommand.equals(null));
     }
-}
 
+    @Test
+    public void toStringMethod() {
+        Set<Tag> policies = new HashSet<>();
+        policies.add(new Tag("Life Insurance"));
+        policies.add(new Tag("Health Insurance"));
+
+        AddPolicyCommand addPolicyCommand = new AddPolicyCommand(INDEX_FIRST_CLIENT, policies);
+
+        String expectedString = new ToStringBuilder(addPolicyCommand)
+                .add("clientIndex", INDEX_FIRST_CLIENT)
+                .add("policiesToAdd", policies)
+                .toString();
+
+        assertEquals(expectedString, addPolicyCommand.toString());
+    }
+}
