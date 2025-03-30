@@ -158,6 +158,37 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Priority feature
+
+#### Priority Tag
+The priority command is built around the `PriorityTag` class, which extends `Tag`. 
+The PriorityTag constructor does not accept arguments, ensuring that its tagName 
+is always set to "Priority."
+
+The Class Diagram of a Client can be [seen in the diagram above](#model-component).
+
+#### Implementation
+
+The priority command toggles a client’s priority status. The following sequence diagrams 
+illustrate how this process flows through the logic component:
+
+<puml src="diagrams/PrioritySequenceDiagram-Logic.puml" width="650" />
+
+The following sequence diagrams illustrate how the `PriorityCommand` class interacts with
+model components to toggle the priority of the user
+
+<puml src="diagrams/PrioritySequenceDiagram-Client.puml" width="600" />
+
+As seen above, the `togglePriority` method creates a new `Client` object 
+with updated priority.  If the `Client` does not have a `PriorityTag`, 
+`togglePriority` will create a new `Client` with a `PriorityTag` object. 
+Else, it will filter the `PriorityTag` out of `tags`.
+Its operation is modeled below:
+
+<puml src="diagrams/TogglePrioritySequenceDiagram1.puml" width="750" />
+
+<puml src="diagrams/TogglePrioritySequenceDiagram2.puml" width="550" />
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
