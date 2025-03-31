@@ -10,13 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names should only contain alphanumeric characters, spaces, periods (.), commas (,)" +
+                    "'at' symbol (@), s/o or d/o!";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "^(?:(s/o|d/o)|[\\p{Alnum},.@])[\\p{Alnum},.@ ]*$";
 
     public final String fullName;
 
@@ -27,8 +24,8 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        checkArgument(isValidName(normalizeName(name)), MESSAGE_CONSTRAINTS);
+        fullName = formatName(normalizeName(name));
     }
 
     /**
@@ -38,6 +35,68 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
+    private String normalizeName(String name) {
+        name = name.replaceAll("\\s+", " ").trim();
+        name = name.replaceAll("([,.@])(?!\\s)", "$1 ");
+        name = name.replaceAll("(?<!\\s)@"," @");
+        name = name.replaceAll("(?i)s/o", "s/o");
+        name = name.replaceAll("(?i)d/o", "d/o");
+
+        return name.trim();
+    }
+
+    /**
+     * Formats the name to ensure that if it exceeds 120 characters, it breaks into a new line,
+     * adding a hyphen (-) if a word is split across lines, ensuring all lines end exactly at 120 characters.
+     */
+    private String formatName(String name) {
+        int maxLineLength = 120;
+        if (name.length() <= maxLineLength) {
+            return name;
+        }
+
+        StringBuilder formattedName = new StringBuilder();
+        int lineLength = 0;
+
+        String[] words = name.split(" ");
+        for (String word : words) {
+            if (lineLength + word.length() > maxLineLength) {
+                // If adding this word exceeds maxLineLength, go to a new line
+                while (lineLength < maxLineLength) {
+                    formattedName.append(" "); // Pad with spaces
+                    lineLength++;
+                }
+                formattedName.append("\n");
+                lineLength = 0;
+            }
+
+            if (lineLength > 0) {
+                formattedName.append(" ");
+                lineLength++;
+            }
+
+            if (word.length() > maxLineLength) {
+                // Break the long word with a hyphen
+                for (int i = 0; i < word.length(); i++) {
+                    if (lineLength >= maxLineLength) {
+                        formattedName.append("-\n");
+                        lineLength = 0;
+                    }
+                    formattedName.append(word.charAt(i));
+                    lineLength++;
+                }
+            } else {
+                formattedName.append(word);
+                lineLength += word.length();
+            }
+        }
+        // Ensure the last line also reaches exactly maxLineLength
+        while (lineLength < maxLineLength) {
+            formattedName.append(" ");
+            lineLength++;
+        }
+        return formattedName.toString().trim();
+    }
 
     @Override
     public String toString() {
