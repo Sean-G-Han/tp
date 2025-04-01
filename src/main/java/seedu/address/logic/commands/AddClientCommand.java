@@ -35,7 +35,9 @@ public class AddClientCommand extends Command {
             + PREFIX_TAG + "Policy A "
             + PREFIX_TAG + "Policy B";
 
-    public static final String MESSAGE_SUCCESS = "New client added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New client added: %1$s \n"
+            + "t/Priority, if included, is not added.\n"
+            + "Please use priority command to toggle priority.";
     public static final String MESSAGE_DUPLICATE_CLIENT = "This client already exists in WealthVault";
 
     private final Client toAdd;
