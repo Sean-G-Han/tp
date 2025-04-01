@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "The name given is invalid.";
+            "The name given is invalid. It either contains invalid symbols, or is more than 150 characters.";
 
     public static final String VALIDATION_REGEX = "[\\p{L}\\p{N}]+([ '-/@]+[\\p{L}\\p{N}]+)*";
 
@@ -23,15 +23,16 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(normalizeName(name)), MESSAGE_CONSTRAINTS);
-        fullName = formatName(normalizeName(name));
+        String normalizedName = normalizeName(name);
+        checkArgument(isValidName(normalizedName), MESSAGE_CONSTRAINTS);
+        fullName = normalizedName;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= 150;
     }
 
     private String normalizeName(String name) {
@@ -42,59 +43,6 @@ public class Name {
         name = name.replaceAll("(?i)d/o", "d/o");
 
         return name.trim();
-    }
-
-    /**
-     * Formats the name to ensure that if it exceeds 120 characters, it breaks into a new line,
-     * adding a hyphen (-) if a word is split across lines, ensuring all lines end exactly at 120 characters.
-     */
-    private String formatName(String name) {
-        int maxLineLength = 120;
-        if (name.length() <= maxLineLength) {
-            return name;
-        }
-
-        StringBuilder formattedName = new StringBuilder();
-        int lineLength = 0;
-
-        String[] words = name.split(" ");
-        for (String word : words) {
-            if (lineLength + word.length() > maxLineLength) {
-                // If adding this word exceeds maxLineLength, go to a new line
-                while (lineLength < maxLineLength) {
-                    formattedName.append(" "); // Pad with spaces
-                    lineLength++;
-                }
-                formattedName.append("\n");
-                lineLength = 0;
-            }
-
-            if (lineLength > 0) {
-                formattedName.append(" ");
-                lineLength++;
-            }
-
-            if (word.length() > maxLineLength) {
-                // Break the long word with a hyphen
-                for (int i = 0; i < word.length(); i++) {
-                    if (lineLength >= maxLineLength) {
-                        formattedName.append("-\n");
-                        lineLength = 0;
-                    }
-                    formattedName.append(word.charAt(i));
-                    lineLength++;
-                }
-            } else {
-                formattedName.append(word);
-                lineLength += word.length();
-            }
-        }
-        // Ensure the last line also reaches exactly maxLineLength
-        while (lineLength < maxLineLength) {
-            formattedName.append(" ");
-            lineLength++;
-        }
-        return formattedName.toString().trim();
     }
 
     @Override
@@ -121,5 +69,4 @@ public class Name {
     public int hashCode() {
         return fullName.hashCode();
     }
-
 }
