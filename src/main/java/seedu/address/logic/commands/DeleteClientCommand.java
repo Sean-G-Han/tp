@@ -14,7 +14,7 @@ import seedu.address.model.client.Client;
 /**
  * Deletes a client identified using its displayed index from the address book.
  */
-public class DeleteClientCommand extends DeleteCommand {
+public class DeleteClientCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteclient";
 

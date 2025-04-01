@@ -18,10 +18,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.client.Client;
+import seedu.address.model.tag.PriorityTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -137,5 +139,132 @@ public class DeletePolicyCommandTest {
 
         assertEquals(expectedString, deletePolicyCommand.toString());
     }
-}
 
+    @Test
+    public void execute_deletePolicyWithPriorityTag_returnsPriorityCommandMessage() throws CommandException {
+        Client clientToEdit = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
+
+        Tag normalPolicy = new Tag("Normal Policy");
+        Tag priorityPolicy = new PriorityTag();
+
+        Set<Tag> clientPolicies = new HashSet<>(clientToEdit.getTags());
+        clientPolicies.add(normalPolicy);
+        clientPolicies.add(priorityPolicy);
+
+        Client clientWithPolicies = new Client(
+                clientToEdit.getName(),
+                clientToEdit.getPhone(),
+                clientToEdit.getEmail(),
+                clientToEdit.getAddress(),
+                clientPolicies
+        );
+
+        model.setClient(clientToEdit, clientWithPolicies);
+
+        Set<Tag> policiesToDelete = new HashSet<>();
+        policiesToDelete.add(normalPolicy);
+        policiesToDelete.add(priorityPolicy);
+
+        DeletePolicyCommand deletePolicyCommand = new DeletePolicyCommand(INDEX_FIRST_CLIENT, policiesToDelete);
+
+        CommandResult result = deletePolicyCommand.execute(model);
+
+        assertEquals(DeletePolicyCommand.MESSAGE_USE_PRIORITY_COMMAND, result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_deletePolicyWithoutPriorityTag_returnsSuccessMessage() throws CommandException {
+        Client clientToEdit = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
+
+        Tag normalPolicy = new Tag("Normal Policy");
+        Tag normalPolicy2 = new Tag("Normal Policy 2");
+
+        Set<Tag> clientPolicies = new HashSet<>(clientToEdit.getTags());
+        clientPolicies.add(normalPolicy);
+        clientPolicies.add(normalPolicy2);
+
+        Client clientWithPolicies = new Client(
+                clientToEdit.getName(),
+                clientToEdit.getPhone(),
+                clientToEdit.getEmail(),
+                clientToEdit.getAddress(),
+                clientPolicies
+        );
+
+        model.setClient(clientToEdit, clientWithPolicies);
+
+        Set<Tag> policiesToDelete = new HashSet<>();
+        policiesToDelete.add(normalPolicy);
+        policiesToDelete.add(normalPolicy2);
+
+        DeletePolicyCommand deletePolicyCommand = new DeletePolicyCommand(INDEX_FIRST_CLIENT, policiesToDelete);
+
+        CommandResult result = deletePolicyCommand.execute(model);
+
+        Client updatedClient = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
+
+        assertTrue(result.getFeedbackToUser().contains(String.format(DeletePolicyCommand.MESSAGE_SUCCESS,
+                Messages.format(updatedClient))));
+    }
+
+    @Test
+    public void execute_deleteOnlyPriorityTag_returnsPriorityCommandMessage() throws CommandException {
+        Client clientToEdit = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
+
+        Tag priorityPolicy = new PriorityTag();
+
+        Set<Tag> clientPolicies = new HashSet<>(clientToEdit.getTags());
+        clientPolicies.add(priorityPolicy);
+
+        Client clientWithPolicies = new Client(
+                clientToEdit.getName(),
+                clientToEdit.getPhone(),
+                clientToEdit.getEmail(),
+                clientToEdit.getAddress(),
+                clientPolicies
+        );
+
+        model.setClient(clientToEdit, clientWithPolicies);
+
+        Set<Tag> policiesToDelete = new HashSet<>();
+        policiesToDelete.add(priorityPolicy);
+
+        DeletePolicyCommand deletePolicyCommand = new DeletePolicyCommand(INDEX_FIRST_CLIENT, policiesToDelete);
+
+        CommandResult result = deletePolicyCommand.execute(model);
+
+        assertEquals(DeletePolicyCommand.MESSAGE_USE_PRIORITY_COMMAND, result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_deleteNoPriorityTag_returnsSuccessMessage() throws CommandException {
+        Client clientToEdit = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
+
+        Tag normalPolicy = new Tag("Normal Policy");
+
+        Set<Tag> clientPolicies = new HashSet<>(clientToEdit.getTags());
+        clientPolicies.add(normalPolicy);
+
+        Client clientWithPolicies = new Client(
+                clientToEdit.getName(),
+                clientToEdit.getPhone(),
+                clientToEdit.getEmail(),
+                clientToEdit.getAddress(),
+                clientPolicies
+        );
+
+        model.setClient(clientToEdit, clientWithPolicies);
+
+        Set<Tag> policiesToDelete = new HashSet<>();
+        policiesToDelete.add(normalPolicy);
+
+        DeletePolicyCommand deletePolicyCommand = new DeletePolicyCommand(INDEX_FIRST_CLIENT, policiesToDelete);
+
+        CommandResult result = deletePolicyCommand.execute(model);
+
+        Client updatedClient = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
+
+        assertTrue(result.getFeedbackToUser().contains(String.format(DeletePolicyCommand.MESSAGE_SUCCESS,
+                Messages.format(updatedClient))));
+    }
+}
