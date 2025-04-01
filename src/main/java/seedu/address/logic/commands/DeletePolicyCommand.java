@@ -22,7 +22,7 @@ public class DeletePolicyCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes policies from an existing client identified by the user-inputted index number. "
-            + "The index number must be based on the displayed client list. "
+            + "The index number must be based on the displayed client list.\n"
             + "Parameters: INDEX (MUST BE A POSITIVE INTEGER) POLICY [MORE_POLICIES]...\n"
             + "Example: " + COMMAND_WORD + " 1 t/Life Insurance t/Health Insurance";
 
