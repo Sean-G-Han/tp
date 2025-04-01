@@ -52,6 +52,7 @@ public class PhoneTest {
         assertTrue(Phone.isValidPhone("+123 1234567890"));
         assertTrue(Phone.isValidPhone("+65 12345678"));
         assertTrue(Phone.isValidPhone("12345678"));
+        assertTrue(Phone.isValidPhone("-"));
     }
 
     @Test
