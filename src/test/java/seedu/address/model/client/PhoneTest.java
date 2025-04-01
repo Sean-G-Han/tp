@@ -1,5 +1,6 @@
 package seedu.address.model.client;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -30,13 +31,27 @@ public class PhoneTest {
         assertFalse(Phone.isValidPhone("91")); // less than 3 numbers
         assertFalse(Phone.isValidPhone("phone")); // non-numeric
         assertFalse(Phone.isValidPhone("9011p041")); // alphabets within digits
-        assertFalse(Phone.isValidPhone("9312 1534")); // spaces within digits
+        assertFalse(Phone.isValidPhone("9312 1534")); // spaces within digits (no international code)
         assertFalse(Phone.isValidPhone("42938420331212")); // more than 13 digits
+        assertFalse(Phone.isValidPhone("+1234 1234567891234")); // too many digits after international code
+        assertFalse(Phone.isValidPhone("+123456789")); // international code too long
+        assertFalse(Phone.isValidPhone("+12 123456789012345")); // too many digits after international code
+        assertFalse(Phone.isValidPhone("+123456789")); // International code too long.
+        assertFalse(Phone.isValidPhone("123 123456789")); // No + at the start.
+        assertFalse(Phone.isValidPhone("+123456789")); // International code too long.
+        assertFalse(Phone.isValidPhone("+1234 12345678901234")); // International code too long, number too long.
+        assertFalse(Phone.isValidPhone("+1 a123456789")); // alpha in international code.
+        assertFalse(Phone.isValidPhone("+12 a123456789")); // alpha in number.
 
         // valid phone numbers
         assertTrue(Phone.isValidPhone("911")); // exactly 3 numbers
         assertTrue(Phone.isValidPhone("93121534"));
         assertTrue(Phone.isValidPhone("429384203312")); // exactly 13 numbers
+        assertTrue(Phone.isValidPhone("+1 1234567890"));
+        assertTrue(Phone.isValidPhone("+12 1234567890"));
+        assertTrue(Phone.isValidPhone("+123 1234567890"));
+        assertTrue(Phone.isValidPhone("+65 12345678"));
+        assertTrue(Phone.isValidPhone("12345678"));
     }
 
     @Test
@@ -57,5 +72,11 @@ public class PhoneTest {
 
         // different values -> returns false
         assertFalse(phone.equals(new Phone("995")));
+    }
+
+    @Test
+    public void toStringMethod() {
+        Phone phone = new Phone("+1 1234567890");
+        assertEquals("+1 1234567890", phone.toString());
     }
 }
