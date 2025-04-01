@@ -37,7 +37,7 @@ public class Name {
     private String normalizeName(String name) {
         name = name.replaceAll("\\s+", " ").trim();
         name = name.replaceAll("([,.@])(?!\\s)", "$1 ");
-        name = name.replaceAll("(?<!\\s)@"," @");
+        name = name.replaceAll("(?<!\\s)@", " @");
         name = name.replaceAll("(?i)s/o", "s/o");
         name = name.replaceAll("(?i)d/o", "d/o");
 
