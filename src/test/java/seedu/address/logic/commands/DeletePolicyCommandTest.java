@@ -23,6 +23,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.client.Client;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.PriorityTag;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeletePolicyCommand}.
@@ -136,6 +137,40 @@ public class DeletePolicyCommandTest {
                 .toString();
 
         assertEquals(expectedString, deletePolicyCommand.toString());
+    }
+
+    @Test
+    public void execute_deleteSinglePolicy_success() {
+        Client clientToEdit = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
+
+        Set<Tag> existingPolicies = new HashSet<>(clientToEdit.getTags());
+        if (existingPolicies.isEmpty()) {
+            return;
+        }
+
+        Tag policyToDelete = existingPolicies.iterator().next();
+        Set<Tag> policiesToDelete = new HashSet<>();
+        policiesToDelete.add(policyToDelete);
+
+        DeletePolicyCommand deletePolicyCommand = new DeletePolicyCommand(INDEX_FIRST_CLIENT, policiesToDelete);
+
+        Set<Tag> expectedPolicies = new HashSet<>(existingPolicies);
+        expectedPolicies.remove(policyToDelete);
+
+        Client expectedClient = new Client(
+                clientToEdit.getName(),
+                clientToEdit.getPhone(),
+                clientToEdit.getEmail(),
+                clientToEdit.getAddress(),
+                expectedPolicies
+        );
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setClient(clientToEdit, expectedClient);
+
+        String expectedMessage = String.format(DeletePolicyCommand.MESSAGE_SUCCESS, Messages.format(expectedClient));
+
+        assertCommandSuccess(deletePolicyCommand, model, expectedMessage, expectedModel);
     }
 }
 
