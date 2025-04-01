@@ -3,8 +3,6 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalClients.ALICE;
 import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
@@ -46,10 +44,9 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicateClients_throwsDuplicateClientException() {
-        // Two clients with the same identity fields
-        Client editedAlice = new ClientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        List<Client> newClients = Arrays.asList(ALICE, editedAlice);
+        // Two clients with the same attributes
+        Client duplicateAlice = new ClientBuilder(ALICE).build();
+        List<Client> newClients = Arrays.asList(ALICE, duplicateAlice);
         AddressBookStub newData = new AddressBookStub(newClients);
 
         assertThrows(DuplicateClientException.class, () -> addressBook.resetData(newData));
@@ -72,11 +69,10 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasClient_clientWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasClient_clientWithSameAttributesInAddressBook_returnsTrue() {
         addressBook.addClient(ALICE);
-        Client editedAlice = new ClientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(addressBook.hasClient(editedAlice));
+        Client duplicateAlice = new ClientBuilder(ALICE).build();
+        assertTrue(addressBook.hasClient(duplicateAlice));
     }
 
     @Test
@@ -110,5 +106,4 @@ public class AddressBookTest {
             clients.sort(Comparator.comparing(client -> client.getName().fullName));
         }
     }
-
 }

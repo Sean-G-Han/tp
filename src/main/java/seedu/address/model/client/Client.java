@@ -71,7 +71,10 @@ public class Client {
         }
 
         return otherClient != null
-                && otherClient.getName().equals(getName());
+                && otherClient.getName().equals(getName())
+                && otherClient.getAddress().equals(getAddress())
+                && otherClient.getEmail().equals(getEmail())
+                && otherClient.getPhone().equals(getPhone());
     }
 
     /**

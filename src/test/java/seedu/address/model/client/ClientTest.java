@@ -32,23 +32,25 @@ public class ClientTest {
         // null -> returns false
         assertFalse(ALICE.isSameClient(null));
 
-        // same name, all other attributes different -> returns true
-        Client editedAlice = new ClientBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameClient(editedAlice));
+        // same attributes -> returns true
+        Client identicalAlice = new ClientBuilder(ALICE).build();
+        assertTrue(ALICE.isSameClient(identicalAlice));
 
         // different name, all other attributes same -> returns false
-        editedAlice = new ClientBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        Client editedAlice = new ClientBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameClient(editedAlice));
 
-        // name differs in case, all other attributes same -> returns false
-        Client editedBob = new ClientBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertFalse(BOB.isSameClient(editedBob));
+        // different address, same name, email, and phone -> returns false
+        editedAlice = new ClientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        assertFalse(ALICE.isSameClient(editedAlice));
 
-        // name has trailing spaces, all other attributes same -> returns false
-        String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new ClientBuilder(BOB).withName(nameWithTrailingSpaces).build();
-        assertFalse(BOB.isSameClient(editedBob));
+        // different email, same name, address, and phone -> returns false
+        editedAlice = new ClientBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.isSameClient(editedAlice));
+
+        // different phone, same name, address, and email -> returns false
+        editedAlice = new ClientBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        assertFalse(ALICE.isSameClient(editedAlice));
     }
 
     @Test

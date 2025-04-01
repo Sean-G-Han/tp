@@ -10,13 +10,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "The name given is invalid. It either contains invalid symbols, or is more than 150 characters.";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{L}\\p{N}]+([ '-/@]+[\\p{L}\\p{N}]+)*";
 
     public final String fullName;
 
@@ -27,17 +23,27 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        String normalizedName = normalizeName(name);
+        checkArgument(isValidName(normalizedName), MESSAGE_CONSTRAINTS);
+        fullName = normalizedName;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= 150;
     }
 
+    private String normalizeName(String name) {
+        name = name.replaceAll("\\s+", " ").trim();
+        name = name.replaceAll("([,.@])(?!\\s)", "$1 ");
+        name = name.replaceAll("(?<!\\s)@", " @");
+        name = name.replaceAll("(?i)s/o", "s/o");
+        name = name.replaceAll("(?i)d/o", "d/o");
+
+        return name.trim();
+    }
 
     @Override
     public String toString() {
@@ -63,5 +69,4 @@ public class Name {
     public int hashCode() {
         return fullName.hashCode();
     }
-
 }
