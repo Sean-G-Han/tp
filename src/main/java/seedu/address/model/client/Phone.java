@@ -36,6 +36,9 @@ public class Phone {
      * @return The processed phone number with an international code.
      */
     private String processPhone(String phone) {
+        if (phone.equals("-")) {
+            return phone;
+        }
         if (phone.startsWith("+")) {
             return phone;
         } else {
@@ -48,7 +51,7 @@ public class Phone {
      */
     public static boolean isValidPhone(String test) {
         String processedTest = test.startsWith("+") ? test : "+65 " + test;
-        return processedTest.matches(VALIDATION_REGEX);
+        return processedTest.matches(VALIDATION_REGEX) || test.equals("-");
     }
 
     @Override
