@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.client.Client;
+import seedu.address.model.tag.PriorityTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -151,5 +152,53 @@ public class AddPolicyCommandTest {
                 .toString();
 
         assertEquals(expectedString, addPolicyCommand.toString());
+    }
+
+    @Test
+    public void execute_addPriorityTag_priorityTagNotAddedMessage() {
+        Client clientToEdit = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
+        Set<Tag> policiesToAdd = new HashSet<>();
+        policiesToAdd.add(new Tag("Life Insurance"));
+        policiesToAdd.add(new PriorityTag());
+
+        AddPolicyCommand addPolicyCommand = new AddPolicyCommand(INDEX_FIRST_CLIENT, policiesToAdd);
+
+        Set<Tag> updatedPolicies = new HashSet<>(clientToEdit.getTags());
+        updatedPolicies.add(new Tag("Life Insurance"));
+
+        Client expectedClient = new Client(
+                clientToEdit.getName(),
+                clientToEdit.getPhone(),
+                clientToEdit.getEmail(),
+                clientToEdit.getAddress(),
+                updatedPolicies
+        );
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setClient(clientToEdit, expectedClient);
+
+        assertCommandSuccess(addPolicyCommand, model, AddPolicyCommand.MESSAGE_USE_PRIORITY_COMMAND, expectedModel);
+    }
+
+    @Test
+    public void execute_addOnlyPriorityTag_priorityTagNotAddedMessage() {
+        Client clientToEdit = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
+        Set<Tag> policiesToAdd = new HashSet<>();
+        policiesToAdd.add(new PriorityTag());
+
+        AddPolicyCommand addPolicyCommand = new AddPolicyCommand(INDEX_FIRST_CLIENT, policiesToAdd);
+
+        Client expectedClient = new Client(
+                clientToEdit.getName(),
+                clientToEdit.getPhone(),
+                clientToEdit.getEmail(),
+                clientToEdit.getAddress(),
+                clientToEdit.getTags()
+        );
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setClient(clientToEdit, expectedClient);
+
+        assertCommandSuccess(addPolicyCommand, model, AddPolicyCommand.MESSAGE_USE_PRIORITY_COMMAND, expectedModel);
     }
 }

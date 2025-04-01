@@ -11,6 +11,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.client.Client;
+import seedu.address.model.tag.PriorityTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,6 +29,9 @@ public class AddPolicyCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Policies added to client: %1$s";
     public static final String MESSAGE_CLIENT_NOT_FOUND = "Client with the given index does not exist.";
+    public static final String MESSAGE_USE_PRIORITY_COMMAND = "t/Priority is not added. "
+            + "Please use priority command to toggle priority.\n"
+            + "Other valid tags are added.";
 
     private final Index clientIndex;
     private final Set<Tag> policiesToAdd;
@@ -52,9 +56,16 @@ public class AddPolicyCommand extends Command {
         }
 
         Client clientToEdit = model.getFilteredClientList().get(clientIndex.getZeroBased());
-
         Set<Tag> updatedPolicies = new HashSet<>(clientToEdit.getTags());
-        updatedPolicies.addAll(policiesToAdd);
+
+        Set<Tag> policiesToAdd2 = new HashSet<>();
+        for (Tag t : policiesToAdd) {
+            if (!(t instanceof PriorityTag)) {
+                policiesToAdd2.add(t);
+            }
+        }
+
+        updatedPolicies.addAll(policiesToAdd2);
 
         Client updatedClient = new Client(
                 clientToEdit.getName(),
@@ -65,7 +76,12 @@ public class AddPolicyCommand extends Command {
         );
 
         model.setClient(clientToEdit, updatedClient);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(updatedClient)));
+
+        if (policiesToAdd2.size() < policiesToAdd.size()) {
+            return new CommandResult(MESSAGE_USE_PRIORITY_COMMAND);
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(updatedClient)));
+        }
     }
 
     @Override
