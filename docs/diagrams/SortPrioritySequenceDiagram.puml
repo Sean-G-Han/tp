@@ -3,26 +3,37 @@
 skinparam ArrowFontStyle plain
 
 box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant "sp:SortPriorityCommand" as SortPriorityCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant "model:Model" as Model MODEL_COLOR
-participant "addressBook:AddressBook" as AddressBook MODEL_COLOR
-participant "uniqueClientList:UniqueClientList" as UniqueClientList MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":UniqueClientList" as UniqueClientList MODEL_COLOR
 end box
 
-actor User
-User -> SortPriorityCommand : execute(model)
+[-> LogicManager : execute("sortpriority")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand()
+activate AddressBookParser
+
+create SortPriorityCommand
+AddressBookParser -> SortPriorityCommand
+activate SortPriorityCommand
+
+SortPriorityCommand --> AddressBookParser
+deactivate SortPriorityCommand
+
+AddressBookParser --> LogicManager : sp
+deactivate AddressBookParser
+
+LogicManager -> SortPriorityCommand : execute()
 activate SortPriorityCommand
 
 SortPriorityCommand -> Model : sortClientsByPriority()
 activate Model
-
-Model -> AddressBook : getUniqueClientList()
-activate AddressBook
-AddressBook --> Model : uniqueClientList
-deactivate AddressBook
 
 Model -> UniqueClientList : sort()
 activate UniqueClientList
@@ -32,7 +43,10 @@ deactivate UniqueClientList
 Model --> SortPriorityCommand
 deactivate Model
 
-SortPriorityCommand --> User : CommandResult(MESSAGE_SORTED_SUCCESS)
+SortPriorityCommand --> LogicManager : result
 deactivate SortPriorityCommand
 
-@enduml 
+[<--LogicManager : result
+deactivate LogicManager
+
+@enduml
