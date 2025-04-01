@@ -15,7 +15,7 @@ public class Address {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "\\s*\\S.*\\S?\\s*|\\S+";
 
     public final String value;
 
@@ -26,8 +26,14 @@ public class Address {
      */
     public Address(String address) {
         requireNonNull(address);
-        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        value = address;
+        String normalizedAddress = normalizeAddress(address);
+        checkArgument(isValidAddress(normalizedAddress), MESSAGE_CONSTRAINTS);
+        value = normalizedAddress;
+    }
+
+    private String normalizeAddress(String name) {
+        name = name.replaceAll("\\s+", " ").trim();
+        return name.trim();
     }
 
     /**
@@ -63,3 +69,4 @@ public class Address {
     }
 
 }
+
