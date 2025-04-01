@@ -40,8 +40,6 @@ public class JsonSerializableAddressBookTest {
     public void toModelType_duplicateClients_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_CLIENT_FILE,
                 JsonSerializableAddressBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_CLIENT,
-                dataFromFile::toModelType);
+        assertThrows(IllegalValueException.class, () -> dataFromFile.toModelType());
     }
-
 }

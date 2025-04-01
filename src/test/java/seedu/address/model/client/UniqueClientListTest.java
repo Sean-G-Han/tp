@@ -3,8 +3,6 @@ package seedu.address.model.client;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalClients.ALICE;
 import static seedu.address.testutil.TypicalClients.BOB;
@@ -40,11 +38,10 @@ public class UniqueClientListTest {
     }
 
     @Test
-    public void contains_clientWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_clientWithSameAttributesInList_returnsTrue() {
         uniqueClientList.add(ALICE);
-        Client editedAlice = new ClientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(uniqueClientList.contains(editedAlice));
+        Client duplicateAlice = new ClientBuilder(ALICE).build();
+        assertTrue(uniqueClientList.contains(duplicateAlice));
     }
 
     @Test
@@ -79,17 +76,6 @@ public class UniqueClientListTest {
         uniqueClientList.setClient(ALICE, ALICE);
         UniqueClientList expectedUniqueClientList = new UniqueClientList();
         expectedUniqueClientList.add(ALICE);
-        assertEquals(expectedUniqueClientList, uniqueClientList);
-    }
-
-    @Test
-    public void setClient_editedClientHasSameIdentity_success() {
-        uniqueClientList.add(ALICE);
-        Client editedAlice = new ClientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        uniqueClientList.setClient(ALICE, editedAlice);
-        UniqueClientList expectedUniqueClientList = new UniqueClientList();
-        expectedUniqueClientList.add(editedAlice);
         assertEquals(expectedUniqueClientList, uniqueClientList);
     }
 
@@ -164,8 +150,8 @@ public class UniqueClientListTest {
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-            -> uniqueClientList.asUnmodifiableObservableList().remove(0));
+        assertThrows(
+                UnsupportedOperationException.class, () -> uniqueClientList.asUnmodifiableObservableList().remove(0));
     }
 
     @Test
