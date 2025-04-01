@@ -10,10 +10,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters, spaces, periods (.), commas (,)" +
-                    "'at' symbol (@), s/o or d/o!";
+            "The name given is invalid.";
 
-    public static final String VALIDATION_REGEX = "^(?:(s/o|d/o)|[\\p{Alnum},.@])[\\p{Alnum},.@ ]*$";
+    public static final String VALIDATION_REGEX = "[\\p{L}\\p{N}]+([ '-/@]+[\\p{L}\\p{N}]+)*";
 
     public final String fullName;
 

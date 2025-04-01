@@ -1,7 +1,6 @@
 package seedu.address.model.client;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,6 @@ public class NameTest {
         assertFalse(Name.isValidName("John,, Doe")); // consecutive commas
         assertFalse(Name.isValidName("John.. Doe")); // consecutive periods
         assertFalse(Name.isValidName("John@@Doe")); // consecutive @ symbols
-        assertFalse(Name.isValidName("John#Doe")); // contains non-alphanumeric characters
 
         // valid names
         assertTrue(Name.isValidName("peter jack")); // alphabets only
@@ -37,6 +35,23 @@ public class NameTest {
         assertTrue(Name.isValidName("John, Jane")); // valid with comma
         assertTrue(Name.isValidName("John. Jane")); // valid with period
         assertTrue(Name.isValidName("John @ Doe")); // valid with @ symbol
+    }
+
+    @Test
+    public void isValidName_invalidPunctuation() {
+        assertFalse(Name.isValidName("John--Doe")); // consecutive hyphens
+        assertFalse(Name.isValidName("Anne//Marie")); // consecutive slashes
+        assertFalse(Name.isValidName("O''Brien")); // consecutive apostrophes
+        assertFalse(Name.isValidName("John ,Doe")); // space before comma
+        assertFalse(Name.isValidName("John.  Doe")); // multiple spaces after period
+    }
+
+    @Test
+    public void isValidName_validSlashUsage() {
+        assertTrue(Name.isValidName("s/o John"));
+        assertTrue(Name.isValidName("d/o Jane"));
+        assertFalse(Name.isValidName("ss/oo")); // not allowed
+        assertFalse(Name.isValidName("x/y")); // not allowed
     }
 
     @Test
@@ -68,5 +83,32 @@ public class NameTest {
         // Check that the formatted name is split correctly
         String[] lines = formattedName.split("\n");
         assertTrue(lines.length > 1);  // Ensures that line breaks occur
+    }
+
+    @Test
+    public void formatName_handlesExact120Characters() {
+        String exact120 = "x".repeat(120);
+        Name name = new Name(exact120);
+        assertEquals(exact120, name.toString()); // No new line needed
+    }
+
+    @Test
+    public void formatName_handlesLongWords() {
+        String longWord = "x".repeat(130);
+        Name name = new Name(longWord);
+        String formattedName = name.toString();
+        assertTrue(formattedName.contains("-\n")); // Ensure hyphen is added for long words
+    }
+
+    @Test
+    public void normalizeName_handlesSpacingAndSpecialCharacters() {
+        Name name1 = new Name("John   Doe");
+        assertEquals("John Doe", name1.toString()); // Normalize spaces
+
+        Name name2 = new Name("John,Jane");
+        assertEquals("John, Jane", name2.toString()); // Ensure comma spacing
+
+        Name name3 = new Name("John@Doe");
+        assertEquals("John @ Doe", name3.toString()); // Ensure @ spacing
     }
 }
