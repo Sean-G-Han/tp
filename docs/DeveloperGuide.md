@@ -189,6 +189,26 @@ Its operation is modeled below:
 
 <puml src="diagrams/TogglePrioritySequenceDiagram2.puml" width="550" />
 
+### Sort Priority feature
+
+#### Implementation
+
+The sort priority command allows users to sort clients by their priority status. The following sequence diagram 
+illustrates how this process flows through the logic component:
+
+<puml src="diagrams/SortPrioritySequenceDiagram.puml" width="650" />
+
+The `SortPriorityCommand` extends the abstract `Command` class and works with the `Model` component to sort clients. 
+When executed, it calls `Model#sortClientsByPriority()` which internally uses the `UniqueClientList` to sort clients 
+based on their priority status.
+
+The sorting is implemented in the `UniqueClientList` class, where clients with priority (those with a `PriorityTag`) 
+are placed before non-priority clients. This is achieved through a comparator that sorts based on the client's 
+`getPriority()` value.
+
+The command returns a `CommandResult` with a success message once the sorting is complete, and the UI automatically 
+updates to show the new sorted order of clients.
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
