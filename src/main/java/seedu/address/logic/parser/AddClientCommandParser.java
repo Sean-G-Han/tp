@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -17,6 +18,7 @@ import seedu.address.model.client.Client;
 import seedu.address.model.client.Email;
 import seedu.address.model.client.Name;
 import seedu.address.model.client.Phone;
+import seedu.address.model.tag.PriorityTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -45,8 +47,14 @@ public class AddClientCommandParser implements Parser<AddClientCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Client client = new Client(name, phone, email, address, tagList);
+        Set<Tag> policiesToAdd = new HashSet<>();
+        for (Tag t : tagList) {
+            if (!(t instanceof PriorityTag)) {
+                policiesToAdd.add(t);
+            }
+        }
 
+        Client client = new Client(name, phone, email, address, policiesToAdd);
         return new AddClientCommand(client);
     }
 

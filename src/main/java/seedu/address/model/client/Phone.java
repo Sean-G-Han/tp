@@ -9,10 +9,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Phone {
 
-
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be between 3 and 13 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,13}";
+            "Phone numbers should be in the format +[international code] [number], where the international code "
+                    + "is 1-3 digits, and the number is at most 13 digits.\n"
+                    + "If no international code is provided, +65 is assumed.\n"
+                    + "Leave a space between [international code] and [number].";
+    public static final String VALIDATION_REGEX = "^(\\+\\d{1,3} )?\\d{3,13}$";
     public final String value;
 
     /**
@@ -23,14 +25,30 @@ public class Phone {
     public Phone(String phone) {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
-        value = phone;
+        value = processPhone(phone);
+    }
+
+    /**
+     * Processes the phone number to ensure it has an international code.
+     * If no international code is provided, it defaults to +65.
+     *
+     * @param phone The input phone number.
+     * @return The processed phone number with an international code.
+     */
+    private String processPhone(String phone) {
+        if (phone.startsWith("+")) {
+            return phone;
+        } else {
+            return "+65 " + phone;
+        }
     }
 
     /**
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {
-        return test.matches(VALIDATION_REGEX);
+        String processedTest = test.startsWith("+") ? test : "+65 " + test;
+        return processedTest.matches(VALIDATION_REGEX);
     }
 
     @Override
@@ -57,5 +75,4 @@ public class Phone {
     public int hashCode() {
         return value.hashCode();
     }
-
 }
