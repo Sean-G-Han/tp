@@ -23,7 +23,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.client.Client;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.PriorityTag;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeletePolicyCommand}.
