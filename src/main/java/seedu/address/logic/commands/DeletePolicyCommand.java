@@ -11,6 +11,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.client.Client;
+import seedu.address.model.tag.PriorityTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,7 +30,8 @@ public class DeletePolicyCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Policies deleted from client: %1$s";
     public static final String MESSAGE_CLIENT_NOT_FOUND = "Client with the given index does not exist.";
     public static final String MESSAGE_POLICY_NOT_FOUND = "One or more specified policies do not exist for the client.";
-
+    public static final String MESSAGE_USE_PRIORITY_COMMAND = "t/Priority is not deleted. "
+            + "Please use priority command to toggle priority.\n" + "Other valid tags are deleted.";
     private final Index clientIndex;
     private final Set<Tag> policiesToDelete;
 
@@ -55,12 +57,19 @@ public class DeletePolicyCommand extends Command {
         Client clientToEdit = model.getFilteredClientList().get(clientIndex.getZeroBased());
         Set<Tag> updatedPolicies = new HashSet<>(clientToEdit.getTags());
 
+        Set<Tag> policiesToDelete2 = new HashSet<>();
+        for (Tag t : policiesToDelete) {
+            if (!(t instanceof PriorityTag)) {
+                policiesToDelete2.add(t);
+            }
+        }
+
         // Check if all policies to delete exist
         if (!updatedPolicies.containsAll(policiesToDelete)) {
             throw new CommandException(MESSAGE_POLICY_NOT_FOUND);
         }
 
-        updatedPolicies.removeAll(policiesToDelete);
+        updatedPolicies.removeAll(policiesToDelete2);
 
         Client updatedClient = new Client(
                 clientToEdit.getName(),
@@ -71,7 +80,11 @@ public class DeletePolicyCommand extends Command {
         );
 
         model.setClient(clientToEdit, updatedClient);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(updatedClient)));
+        if (policiesToDelete2.size() < policiesToDelete.size()) {
+            return new CommandResult(MESSAGE_USE_PRIORITY_COMMAND);
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(updatedClient)));
+        }
     }
 
     @Override
