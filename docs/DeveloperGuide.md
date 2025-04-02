@@ -71,7 +71,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ClientListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -80,7 +80,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Client` object residing in the `Model`.
 
 ### Logic component
 
@@ -123,14 +123,14 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Client` objects (which are contained in a `UniqueClientList` object).
+* stores the currently 'selected' `Client` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Client` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Client` needing their own `Tag` objects.<br>
 
 <puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
 
@@ -227,7 +227,7 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th clientin the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
@@ -241,7 +241,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 </box>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the client was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 <puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
@@ -297,7 +297,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Pros: Will use less memory (e.g. for `delete`, just save the clientbeing deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
@@ -364,27 +364,27 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 #### Main Success Scenario (MSS):
 1. User chooses to add a new client.
-2. AB3 requests client details.
+2. WealthVault requests client details.
 3. User enters the required client details.
-4. AB3 verifies the details.
-5. AB3 adds the client to the address book and confirms successful addition.
+4. WealthVault verifies the details.
+5. WealthVault adds the client to the address book and confirms successful addition.
    **Use case ends.**
 
 #### Extensions:
-- **3a. AB3 detects an error in the entered details.**
-    - 3a1. AB3 requests for the correct data.
+- **3a. WealthVault detects an error in the entered details.**
+    - 3a1. WealthVault requests for the correct data.
     - 3a2. User enters new data.
     - Steps 3a1-3a2 are repeated until the data entered are correct.
     - **Use case resumes from step 4.**
 
-- **4a. AB3 detects that the client already exists.**
-    - 4a1. AB3 notifies the user of the duplicate entry.
+- **4a. WealthVault detects that the client already exists.**
+    - 4a1. WealthVault notifies the user of the duplicate entry.
     - 4a2. User chooses to either modify details or cancel the operation.
     - If modifying, **use case resumes from step 3.**
     - If canceling, **use case ends.**
 
 - **\*a. At any time, User chooses to cancel the process.**
-    - *a1. AB3 requests to confirm the cancellation.
+    - *a1. WealthVault requests to confirm the cancellation.
     - *a2. User confirms the cancellation.
     - **Use case ends.**
 
@@ -393,28 +393,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 #### Main Success Scenario (MSS):
 1. User chooses to delete a client.
-2. AB3 requests the client’s details for deletion.
+2. WealthVault requests the client’s details for deletion.
 3. User enters the required details.
-4. AB3 requests confirmation of the deletion.
+4. WealthVault requests confirmation of the deletion.
 5. User confirms the deletion.
-6. AB3 removes the client from the address book and confirms successful deletion.
+6. WealthVault removes the client from the address book and confirms successful deletion.
    **Use case ends.**
 
 #### Extensions:
-- **3a. AB3 detects an error in the entered details.**
-    - 3a1. AB3 requests for the correct data.
+- **3a. WealthVault detects an error in the entered details.**
+    - 3a1. WealthVault requests for the correct data.
     - 3a2. User enters new data.
     - Steps 3a1-3a2 are repeated until the data entered are correct.
     - **Use case resumes from step 4.**
 
 - **3b. The client does not exist in the address book.**
-    - 3b1. AB3 notifies the user that the client is not found.
+    - 3b1. WealthVault notifies the user that the client is not found.
     - 3b2. User chooses to either retry or cancel the operation.
     - If retrying, **use case resumes from step 2.**
     - If canceling, **use case ends.**
 
 - **\*a. At any time, User chooses to cancel the process.**
-    - *a1. AB3 requests to confirm the cancellation.
+    - *a1. WealthVault requests to confirm the cancellation.
     - *a2. User confirms the cancellation.
     - **Use case ends.**
 
@@ -480,7 +480,7 @@ testers are expected to do more *exploratory* testing.
 
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. Deleting a clientwhile all persons are being shown
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
@@ -488,7 +488,7 @@ testers are expected to do more *exploratory* testing.
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No clientis deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
