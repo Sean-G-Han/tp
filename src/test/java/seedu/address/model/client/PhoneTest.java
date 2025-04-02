@@ -52,31 +52,41 @@ public class PhoneTest {
         assertTrue(Phone.isValidPhone("+123 1234567890"));
         assertTrue(Phone.isValidPhone("+65 12345678"));
         assertTrue(Phone.isValidPhone("12345678"));
+        assertTrue(Phone.isValidPhone("-"));
     }
 
     @Test
     public void equals() {
         Phone phone = new Phone("999");
+        Phone phone_optional = new Phone("-");
 
         // same values -> returns true
         assertTrue(phone.equals(new Phone("999")));
+        assertTrue(phone_optional.equals(new Phone("-")));
 
         // same object -> returns true
         assertTrue(phone.equals(phone));
+        assertTrue(phone_optional.equals(phone_optional));
 
         // null -> returns false
         assertFalse(phone.equals(null));
+        assertFalse(phone_optional.equals(null));
 
         // different types -> returns false
         assertFalse(phone.equals(5.0f));
+        assertFalse(phone_optional.equals(5.5f));
 
         // different values -> returns false
         assertFalse(phone.equals(new Phone("995")));
+        assertFalse(phone_optional.equals(new Phone("999")));
     }
 
     @Test
     public void toStringMethod() {
         Phone phone = new Phone("+1 1234567890");
+        Phone phone_optional = new Phone("-");
+
         assertEquals("+1 1234567890", phone.toString());
+        assertEquals("-", phone_optional.toString());
     }
 }
