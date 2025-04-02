@@ -158,6 +158,43 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Delete Client
+The `deleteclient` command removes a client from the address book based on the specified index.
+
+The Class Diagram of a Client can be [seen in the diagram above](#model-component).
+
+#### Implementation
+
+The `deleteclient` command deletes a client at a given index. The following sequence diagrams  
+illustrate how this process flows through the logic component:
+
+<puml src="diagrams/DeleteClientSequenceDiagram-Logic.puml" width="650" />  
+
+The following sequence diagram illustrates how the `DeleteClientCommand` class interacts with  
+model components to remove a client from the address book:
+
+<puml src="diagrams/DeleteClientSequenceDiagram-Client.puml" width="600" />  
+
+As seen above, the `execute` method retrieves the `Client` at the specified index and removes  
+it from the address book. If the index is invalid, an error is thrown.
+---
+
+### Delete Policy
+The `deletepolicy` command removes a policy (tag) from a client's list of policies.
+
+The Class Diagram of a Client can be [seen in the diagram above](#model-component).
+
+#### Implementation
+
+The `deletepolicy` command deletes a policy at a given index within a displayed policy list.  
+The following sequence diagrams illustrate how this process flows through the logic component:
+
+<puml src="diagrams/DeletePolicySequenceDiagram.puml" width="650" />
+
+As seen above, the `execute` method retrieves the `Policy` at the specified index and removes  
+it from the corresponding `Client` object. If the index is invalid, an error is thrown.
+
+
 ### Priority feature
 
 #### Priority Tag

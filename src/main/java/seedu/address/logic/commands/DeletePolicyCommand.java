@@ -64,7 +64,6 @@ public class DeletePolicyCommand extends Command {
             }
         }
 
-        // Check if all policies to delete exist
         if (!updatedPolicies.containsAll(policiesToDelete)) {
             throw new CommandException(MESSAGE_POLICY_NOT_FOUND);
         }
