@@ -2,6 +2,11 @@ package seedu.address.model.client;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import seedu.address.logic.commands.AddClientCommand;
+
+
 
 /**
  * Represents a Client's name in the address book.
@@ -10,7 +15,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "The name given is invalid. It either contains invalid symbols, or is more than 150 characters.";
+            "The name given either contains invalid symbols, or is more than 150 characters.\n"
+            + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddClientCommand.MESSAGE_USAGE);
 
     public static final String VALIDATION_REGEX = "[\\p{L}\\p{N}]+([ '-/@]+[\\p{L}\\p{N}]+)*";
 
@@ -24,7 +30,8 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         String normalizedName = normalizeName(name);
-        checkArgument(isValidName(normalizedName), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidName(normalizedName),
+                MESSAGE_CONSTRAINTS);
         fullName = normalizedName;
     }
 

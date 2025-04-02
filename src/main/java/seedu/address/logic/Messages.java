@@ -17,6 +17,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX = "The client index provided is invalid. "
             + "Client index must be an existing index.";
     public static final String MESSAGE_CLIENTS_LISTED_OVERVIEW = "%1$d clients listed!";
+    public static final String MESSAGE_COMPULSORY_FIELD_MISSING =
+            "At least 1 of the 4 compulsory fields are missing!\n";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_CLIENT_ALREADY_PRIORITY = "The client is already tagged as a priority";
