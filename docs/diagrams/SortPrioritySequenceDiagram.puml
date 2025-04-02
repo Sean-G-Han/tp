@@ -9,7 +9,8 @@ participant "sp:SortPriorityCommand" as SortPriorityCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":AddressBook" as AddressBook MODEL_COLOR
 participant ":UniqueClientList" as UniqueClientList MODEL_COLOR
 end box
 
@@ -32,16 +33,22 @@ deactivate AddressBookParser
 LogicManager -> SortPriorityCommand : execute()
 activate SortPriorityCommand
 
-SortPriorityCommand -> Model : sortClientsByPriority()
-activate Model
+SortPriorityCommand -> ModelManager : sortClientsByPriority()
+activate ModelManager
 
-Model -> UniqueClientList : sort()
+ModelManager -> AddressBook : sortClientsByPriority()
+activate AddressBook
+
+AddressBook -> UniqueClientList : sortClientsByPriority()
 activate UniqueClientList
-UniqueClientList --> Model
+UniqueClientList --> AddressBook
 deactivate UniqueClientList
 
-Model --> SortPriorityCommand
-deactivate Model
+AddressBook --> ModelManager
+deactivate AddressBook
+
+ModelManager --> SortPriorityCommand
+deactivate ModelManager
 
 SortPriorityCommand --> LogicManager : result
 deactivate SortPriorityCommand
