@@ -64,13 +64,6 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommandDeleteCaseInsensitive() throws Exception {
-        DeleteClientCommand command = (DeleteClientCommand) parser.parseCommand(
-                "DELEtECLiEnT" + " " + INDEX_FIRST_CLIENT.getOneBased());
-        assertEquals(new DeleteClientCommand(INDEX_FIRST_CLIENT), command);
-    }
-
-    @Test
     public void parseCommand_edit() throws Exception {
         Client client = new ClientBuilder().build();
         EditClientDescriptor descriptor = new EditClientDescriptorBuilder(client).build();
@@ -161,5 +154,30 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommand_caseInsensitiveCommands_success() throws Exception {
+        AddressBookParser parser = new AddressBookParser();
+
+        // Test different case variations of "addclient"
+        assertTrue(parser.parseCommand("addclient n/John Doe p/12345678 e/john@example.com a/123 Street")
+                instanceof AddClientCommand);
+
+        assertTrue(parser.parseCommand("ADDCLIENT n/John Doe p/12345678 e/john@example.com a/123 Street")
+                instanceof AddClientCommand);
+
+        assertTrue(parser.parseCommand("AdDcLiEnT n/John Doe p/12345678 e/john@example.com a/123 Street")
+                instanceof AddClientCommand);
+
+        // Test different case variations of "deletepolicy"
+        assertTrue(parser.parseCommand("deletepolicy 1 t/LifeInsurance")
+                instanceof DeletePolicyCommand);
+
+        assertTrue(parser.parseCommand("DELETEPOLICY 1 t/LifeInsurance")
+                instanceof DeletePolicyCommand);
+
+        assertTrue(parser.parseCommand("DeLeTePoLiCy 1 t/LifeInsurance")
+                instanceof DeletePolicyCommand);
     }
 }
