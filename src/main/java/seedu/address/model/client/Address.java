@@ -2,6 +2,9 @@ package seedu.address.model.client;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import seedu.address.logic.commands.AddClientCommand;
 
 /**
  * Represents a Client's address in the address book.
@@ -9,7 +12,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Address {
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS =
+            "The address given is invalid!\n"
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    "The address given is either blank or purely whitespace.\n\n")
+                    + AddClientCommand.MESSAGE_USAGE;
 
     /*
      * The first character of the address must not be a whitespace,

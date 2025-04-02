@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.logic.commands.AddClientCommand;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.client.Client;
 
@@ -22,6 +23,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_CLIENT_ALREADY_PRIORITY = "The client is already tagged as a priority";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
@@ -31,7 +33,10 @@ public class Messages {
         Set<String> duplicateFields =
                 Stream.of(duplicatePrefixes).map(Prefix::toString).collect(Collectors.toSet());
 
-        return MESSAGE_DUPLICATE_FIELDS + String.join(" ", duplicateFields);
+        return MESSAGE_DUPLICATE_FIELDS
+                + String.join(" ", duplicateFields)
+                + "\n"
+                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddClientCommand.MESSAGE_USAGE);
     }
 
     /**

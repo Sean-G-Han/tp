@@ -2,6 +2,9 @@ package seedu.address.model.tag;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import seedu.address.logic.commands.AddClientCommand;
 
 /**
  * Represents a Tag in the address book.
@@ -9,8 +12,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tag names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "^[\\p{Alnum} .,'~*@%!?\\$\\[\\]()\"]+$";
+    public static final String MESSAGE_CONSTRAINTS =
+            "The policy tag given is invalid!\n"
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    "The policy tag could contain invalid symbols such as \\.\n"
+                    + "Otherwise, t/ is used in addclient but the policy given is"
+                    + " either blank or purely whitespace.\n\n")
+                    + AddClientCommand.MESSAGE_USAGE;
+    public static final String VALIDATION_REGEX = "^[\\p{Alnum} .,'~*@%\\-_!?\\$\\[\\]()\"]+$";
     public final String tagName;
 
     /**
