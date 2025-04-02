@@ -64,6 +64,13 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_delete_case_insensitive() throws Exception {
+        DeleteClientCommand command = (DeleteClientCommand) parser.parseCommand(
+                "DELEtECLiEnT" + " " + INDEX_FIRST_CLIENT.getOneBased());
+        assertEquals(new DeleteClientCommand(INDEX_FIRST_CLIENT), command);
+    }
+
+    @Test
     public void parseCommand_edit() throws Exception {
         Client client = new ClientBuilder().build();
         EditClientDescriptor descriptor = new EditClientDescriptorBuilder(client).build();
