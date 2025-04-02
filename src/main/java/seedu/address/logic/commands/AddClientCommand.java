@@ -21,7 +21,7 @@ public class AddClientCommand extends Command {
     public static final String COMMAND_WORD = "addclient";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a client to WealthVault.\n"
-            + "\nParameters: "
+            + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
@@ -38,6 +38,7 @@ public class AddClientCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New client added: %1$s \n"
             + "t/Priority, if included, is not added.\n"
             + "Please use priority command to toggle priority.";
+    public static final String COMPULSORY_FIELD_MISSING = "At least one of the compulsory fields are missing!\n";
     public static final String MESSAGE_DUPLICATE_CLIENT = "This client already exists in WealthVault";
 
     private final Client toAdd;
