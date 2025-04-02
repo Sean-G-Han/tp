@@ -19,7 +19,8 @@ public class Messages {
     public static final String MESSAGE_CLIENTS_LISTED_OVERVIEW = "%1$d clients listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_CLIENT_ALREADY_PRIORITY = "The client is already tagged as a priority";
+    public static final String MESSAGE_EMPTY_FIELD = "Field is empty";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
