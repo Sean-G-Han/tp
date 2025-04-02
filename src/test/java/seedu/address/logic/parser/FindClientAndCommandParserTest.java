@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_EMPTY_FIELD;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -17,8 +18,8 @@ public class FindClientAndCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindClientAndCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", MESSAGE_EMPTY_FIELD
+                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindClientAndCommand.MESSAGE_USAGE));
     }
 
     @Test
