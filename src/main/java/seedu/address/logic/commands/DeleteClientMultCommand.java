@@ -22,8 +22,8 @@ public class DeleteClientMultCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes existing clients identified by the user-inputted index numbers. "
             + "The index numbers must be based on the displayed client list.\n"
-            + "Parameters: INDEX [INDEX]... (each INDEX must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1 2 3";
+            + "Parameters: i/INDEX [i/INDEX]... (each INDEX must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " i/1 i/2 i/3";
 
     public static final String MESSAGE_DELETE_CLIENT_SUCCESS = "Deleted Clients: %1$s";
 

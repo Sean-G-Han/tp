@@ -20,27 +20,29 @@ public class DeleteClientMultCommandParser implements Parser<DeleteClientMultCom
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteClientMultCommand parse(String args) throws ParseException {
-        try {
-            // Split the arguments by whitespace
-            String[] indexStrings = args.split("\\s+");
-            List<Index> indices = new ArrayList<>();
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
+        }
 
-            for (String indexString : indexStrings) {
-                if (!indexString.isEmpty()) {
-                    Index index = ParserUtil.parseIndex(indexString);
-                    indices.add(index);
-                }
-            }
+        String[] indexStrings = trimmedArgs.split("\\s+");
+        List<Index> indices = new ArrayList<>();
 
-            if (indices.isEmpty()) {
+        for (String indexString : indexStrings) {
+            if (!indexString.startsWith("i/")) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
             }
-
-            return new DeleteClientMultCommand(indices);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE), pe);
+            try {
+                Index index = ParserUtil.parseIndex(indexString.substring(2));
+                indices.add(index);
+            } catch (ParseException pe) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE), pe);
+            }
         }
+
+        return new DeleteClientMultCommand(indices);
     }
 }
