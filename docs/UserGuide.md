@@ -176,18 +176,32 @@ Examples:
 
 Deletes the specified person(s) from the address book.
 
-Format: `deleteclient INDEX [INDEX]...`
+Format: `deleteclient INDEX`
 
 - Deletes the person(s) at the specified `INDEX`(s).
+- The index refers to the index number shown in the displayed person list.
+- The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+
+- `list` followed by `deleteclient 2` deletes the 2nd person in the address book.
+- `findclient Betsy` followed by `deleteclient 1` deletes the 1st person in the results of the `findclient` command.
+
+### Deleting multiple persons : `deleteclientmult`
+
+Deletes multiple specified persons from the address book.
+
+Format: `deleteclientmult INDEX [INDEX]...`
+
+- Deletes the persons at the specified `INDEX`(s).
 - The index refers to the index number shown in the displayed person list.
 - The index **must be a positive integer** 1, 2, 3, …​
 - Multiple indices can be provided, separated by spaces.
 
 Examples:
 
-- `list` followed by `deleteclient 2` deletes the 2nd person in the address book.
-- `findclient Betsy` followed by `deleteclient 1` deletes the 1st person in the results of the `findclient` command.
-- `deleteclient 1 2 3` deletes the first three persons in the current list.
+- `deleteclientmult 1 2 3` deletes the first three persons in the current list.
+- `findclient John` followed by `deleteclientmult 1 2` deletes the first two persons in the results of the `findclient` command.
 
 ### Deleting a policy: `deletepolicy`
 
@@ -195,14 +209,14 @@ Deletes the specified policy from the address book.
 
 Format: `deletepolicy INDEX`
 
-* Deletes the policy at the specified `INDEX`.
-* The index refers to the index number shown in the displayed policy list.
-* The index **must be a positive integer** 1, 2, 3, …​
+- Deletes the policy at the specified `INDEX`.
+- The index refers to the index number shown in the displayed policy list.
+- The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `listpolicy` followed by `deletepolicy 2` deletes the 2nd policy in the address book.
-* `findpolicy Home` followed by `deletepolicy 1` deletes the 1st policy in the results of the `findpolicy` command.
 
+- `listpolicy` followed by `deletepolicy 2` deletes the 2nd policy in the address book.
+- `findpolicy Home` followed by `deletepolicy 1` deletes the 1st policy in the results of the `findpolicy` command.
 
 ### Prioritising a person: `priority`
 
@@ -268,19 +282,17 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action            | Format, Examples                                                                                                                                                                      |
-|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Client**     | `addclient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​` <br> e.g., `addclient n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Add Policy**     | `addpolicy INDEX t/POLICY_TAG ` <br> e.g., `addpolicy 1 t/Health Insurance`                                                                                                           |
-| **Clear**         | `clear`                                                                                                                                                                               |
-| **Delete Client**  | `deleteclient INDEX [INDEX]…​`<br> e.g., `deleteclient 3` or `deleteclient 1 2 3`                                                                                                       |
-| **Delete Policy**  | `deletepolicy INDEX t/POLICY_TAG`<br> e.g., `deletepolicy 2 t/Health Insurance`                                                                                                       |
-| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                    |
-| **Find**          | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                                |
-| **Find (Or)**     | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                            |
-| **Find (And)**    | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                          |
-| **Priority**      | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                                |
-| **List**          | `list`                                                                                                                                                                                |
-| **Help**          | `help`                                                                                                                                                                                |
-
-
+| Action            | Format, Examples                                                                                                                                                                         |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Add Client**    | `addclient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​` <br> e.g., `addclient n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| **Add Policy**    | `addpolicy INDEX t/POLICY_TAG ` <br> e.g., `addpolicy 1 t/Health Insurance`                                                                                                              |
+| **Clear**         | `clear`                                                                                                                                                                                  |
+| **Delete Client** | `deleteclient INDEX [INDEX]…​`<br> e.g., `deleteclient 3` or `deleteclient 1 2 3`                                                                                                        |
+| **Delete Policy** | `deletepolicy INDEX t/POLICY_TAG`<br> e.g., `deletepolicy 2 t/Health Insurance`                                                                                                          |
+| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                       |
+| **Find**          | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                                   |
+| **Find (Or)**     | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                               |
+| **Find (And)**    | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                             |
+| **Priority**      | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                                   |
+| **List**          | `list`                                                                                                                                                                                   |
+| **Help**          | `help`                                                                                                                                                                                   |

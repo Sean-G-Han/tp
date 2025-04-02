@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -13,57 +12,38 @@ import seedu.address.model.Model;
 import seedu.address.model.client.Client;
 
 /**
- * Deletes clients identified using their displayed indices from the address book.
+ * Deletes a client identified using its displayed index from the address book.
  */
 public class DeleteClientCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteclient";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes existing clients identified by the user-inputted index numbers. "
-            + "The index numbers must be based on the displayed client list.\n"
-            + "Parameters: INDEX [INDEX]... (each INDEX must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1 2 3";
+            + ": Deletes an existing client identified by the user-inputted index number. "
+            + "The index number must be based on the displayed client list.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_CLIENT_SUCCESS = "Deleted Clients: %1$s";
+    public static final String MESSAGE_DELETE_CLIENT_SUCCESS = "Deleted Client: %1$s";
 
-    private final List<Index> targetIndices;
+    private final Index targetIndex;
 
-    public DeleteClientCommand(List<Index> targetIndices) {
-        this.targetIndices = targetIndices;
+    public DeleteClientCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Client> lastShownList = model.getFilteredClientList();
-        List<Client> deletedClients = new ArrayList<>();
 
-        // Check if all indices are valid
-        for (Index index : targetIndices) {
-            if (index.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX);
-            }
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX);
         }
 
-        // Delete clients in reverse order to maintain correct indices
-        for (int i = targetIndices.size() - 1; i >= 0; i--) {
-            Index index = targetIndices.get(i);
-            Client clientToDelete = lastShownList.get(index.getZeroBased());
-            model.deleteClient(clientToDelete);
-            deletedClients.add(0, clientToDelete); // Add to beginning to maintain order
-        }
-
-        // Format the success message with all deleted clients
-        StringBuilder deletedClientsMessage = new StringBuilder();
-        for (int i = 0; i < deletedClients.size(); i++) {
-            deletedClientsMessage.append(Messages.format(deletedClients.get(i)));
-            if (i < deletedClients.size() - 1) {
-                deletedClientsMessage.append(", ");
-            }
-        }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_CLIENT_SUCCESS, deletedClientsMessage.toString()));
+        Client clientToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteClient(clientToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_CLIENT_SUCCESS, Messages.format(clientToDelete)));
     }
 
     @Override
@@ -78,13 +58,13 @@ public class DeleteClientCommand extends Command {
         }
 
         DeleteClientCommand otherDeleteCommand = (DeleteClientCommand) other;
-        return targetIndices.equals(otherDeleteCommand.targetIndices);
+        return targetIndex.equals(otherDeleteCommand.targetIndex);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndices", targetIndices)
+                .add("targetIndex", targetIndex)
                 .toString();
     }
 }

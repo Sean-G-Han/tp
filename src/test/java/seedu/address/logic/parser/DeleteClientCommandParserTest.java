@@ -4,15 +4,9 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CLIENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CLIENT;
-
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteClientCommand;
 
 /**
@@ -28,24 +22,12 @@ public class DeleteClientCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteClientCommand() {
-        // Single index
-        assertParseSuccess(parser, "1", new DeleteClientCommand(Arrays.asList(INDEX_FIRST_CLIENT)));
-
-        // Multiple indices
-        List<Index> indices = Arrays.asList(INDEX_FIRST_CLIENT, INDEX_SECOND_CLIENT, INDEX_THIRD_CLIENT);
-        assertParseSuccess(parser, "1 2 3", new DeleteClientCommand(indices));
-
-        // Multiple indices with extra spaces
-        assertParseSuccess(parser, "1  2   3", new DeleteClientCommand(indices));
+        assertParseSuccess(parser, "1", new DeleteClientCommand(INDEX_FIRST_CLIENT));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteClientCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "1 a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteClientCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteClientCommand.MESSAGE_USAGE));
     }
 }
