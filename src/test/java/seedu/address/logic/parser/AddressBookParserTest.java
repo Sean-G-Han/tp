@@ -118,7 +118,7 @@ public class AddressBookParserTest {
     public void parseCommand_priority() throws Exception {
         PriorityCommand command = (PriorityCommand) parser.parseCommand(
                 PriorityCommand.COMMAND_WORD + " " + INDEX_FIRST_CLIENT.getOneBased());
-        assertEquals(new PriorityCommand(INDEX_FIRST_CLIENT), command);
+        assertTrue(new PriorityCommand(List.of(INDEX_FIRST_CLIENT)).equals(command));
     }
 
     @Test
