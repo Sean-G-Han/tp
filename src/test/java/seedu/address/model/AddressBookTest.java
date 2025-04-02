@@ -110,5 +110,4 @@ public class AddressBookTest {
             clients.sort(Comparator.comparing(client -> client.getName().fullName));
         }
     }
-
 }
