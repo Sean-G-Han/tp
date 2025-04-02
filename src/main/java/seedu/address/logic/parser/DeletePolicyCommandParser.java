@@ -29,19 +29,15 @@ public class DeletePolicyCommandParser implements Parser<DeletePolicyCommand> {
         }
 
         try {
-            // Parse the index of the client
             Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
-            // Parse policies
             Set<Tag> policies = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-            // Check if policies are provided
             if (policies.isEmpty()) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePolicyCommand.MESSAGE_USAGE));
             }
 
-            // Return the DeletePolicyCommand object
             return new DeletePolicyCommand(index, policies);
 
         } catch (ParseException pe) {
