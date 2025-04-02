@@ -64,7 +64,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_delete_case_insensitive() throws Exception {
+    public void parseCommandDeleteCaseInsensitive() throws Exception {
         DeleteClientCommand command = (DeleteClientCommand) parser.parseCommand(
                 "DELEtECLiEnT" + " " + INDEX_FIRST_CLIENT.getOneBased());
         assertEquals(new DeleteClientCommand(INDEX_FIRST_CLIENT), command);
