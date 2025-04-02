@@ -11,7 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.client.exceptions.ClientNotFoundException;
 import seedu.address.model.client.exceptions.DuplicateClientException;
-
+import seedu.address.model.tag.PriorityTag;
 /**
  * A list of clients that enforces uniqueness between its elements and does not allow nulls.
  * A client is considered unique by comparing using {@code Client#isSameClient(Client)}. As such, adding and updating of
@@ -100,6 +100,15 @@ public class UniqueClientList implements Iterable<Client> {
 
     public void sort() {
         internalList.sort(Comparator.comparing(client -> client.getName().fullName, String.CASE_INSENSITIVE_ORDER));
+    }
+
+    /**
+     * Sorts all clients in the list in priority order.
+     */
+    public void sortClientsByPriority() {
+        internalList.sort(Comparator.comparing((Client client)
+            -> client.getTags().stream().noneMatch(tag -> tag instanceof PriorityTag))
+                .thenComparing(client -> client.getName().fullName, String.CASE_INSENSITIVE_ORDER));
     }
 
     /**

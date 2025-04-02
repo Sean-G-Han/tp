@@ -104,6 +104,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         clients.sort();
     }
 
+    public void sortClientsByPriority() {
+        clients.sortClientsByPriority();
+    }
+
     /**
      * Returns a string representation of the address book.
      *
