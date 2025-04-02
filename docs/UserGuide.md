@@ -268,19 +268,19 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action            | Format, Examples                                                                                                                                                                        |
-|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Action            | Format, Examples                                                                                                                                                                      |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add Client**     | `addclient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​` <br> e.g., `addclient n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Add Policy**     | `addpolicy INDEX t/POLICY_TAG ` <br> e.g., `addpolicy 1 t/Health Insurance`                                                                                                             |
-| **Clear**         | `clear`                                                                                                                                                                                 |
-| **Delete Client**  | `deleteclient INDEX`<br> e.g., `deleteclient 3`                                                                                                                                         |
-| **Delete Policy**  | `deletepolicy INDEX t/POLICY_TAG`<br> e.g., `deletepolicy 2 t/Health Insurance`                                                                                                         |
-| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                      |
-| **Find**          | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                                  |
-| **Find (Or)**     | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                              |
-| **Find (And)**    | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                            |
-| **Priority**      | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                                  |
-| **List**          | `list`                                                                                                                                                                                  |
-| **Help**          | `help`                                                                                                                                                                                  |
+| **Add Policy**     | `addpolicy INDEX t/POLICY_TAG ` <br> e.g., `addpolicy 1 t/Health Insurance`                                                                                                           |
+| **Clear**         | `clear`                                                                                                                                                                               |
+| **Delete Client**  | `deleteclient INDEX [INDEX]…​`<br> e.g., `deleteclient 3` or `deleteclient 1 2 3`                                                                                                       |
+| **Delete Policy**  | `deletepolicy INDEX t/POLICY_TAG`<br> e.g., `deletepolicy 2 t/Health Insurance`                                                                                                       |
+| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                    |
+| **Find**          | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                                |
+| **Find (Or)**     | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                            |
+| **Find (And)**    | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                          |
+| **Priority**      | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                                |
+| **List**          | `list`                                                                                                                                                                                |
+| **Help**          | `help`                                                                                                                                                                                |
 
 
