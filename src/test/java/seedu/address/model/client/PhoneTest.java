@@ -87,4 +87,12 @@ public class PhoneTest {
         assertEquals("+1 1234567890", phone.toString());
         assertEquals("-", phoneOptional.toString());
     }
+
+    @Test
+    public void processPhone_countryCodeOnly_throwsException() {
+        // If we assume that a valid phone number should have digits after the country code,
+        // this should be an invalid case and throw an exception.
+        String input = "+65"; // No actual phone number part
+        assertThrows(IllegalArgumentException.class, () -> new Phone(input));
+    }
 }
