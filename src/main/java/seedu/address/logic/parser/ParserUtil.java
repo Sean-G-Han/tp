@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -22,7 +24,7 @@ import seedu.address.model.tag.TagFactory;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-
+    public static final String DUPLICATE_INDEX = "Duplicate index found. Please ensure all index are unique";
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -34,6 +36,32 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code oneBasedIndexes} into a list of {@code Index} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if one of the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static List<Index> parseIndexes(String oneBasedIndexes) throws ParseException {
+        List<Index> indexList = new ArrayList<>();
+        Set<Integer> seenIndexes = new HashSet<>(); // Track duplicates
+        String[] parts = oneBasedIndexes.trim().split("\\s+");
+
+        for (String part : parts) {
+            if (!StringUtil.isNonZeroUnsignedInteger(part)) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+
+            Index index = parseIndex(part);
+            if (!seenIndexes.add(index.getOneBased())) {
+                throw new ParseException(DUPLICATE_INDEX);
+            }
+
+            indexList.add(index);
+        }
+
+        return indexList;
     }
 
     /**

@@ -28,40 +28,45 @@ public class PriorityCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the client identified by the index number used in the displayed client list as priority.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1 2 3";
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
 
-    private final Index index;
+    private final List<Index> indexes;
 
     private Set<Tag> tags;
 
     /**
      * @param index of the client in the filtered client list to mark as priority
      */
-    public PriorityCommand(Index index) {
+    public PriorityCommand(List<Index> index) {
         requireNonNull(index);
-        this.index = index;
+        this.indexes = index;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Client> lastShownList = model.getFilteredClientList();
+        StringBuilder msg = new StringBuilder();
 
-        Client clientToPrioritise = getClientFromIndex(lastShownList, index);
-        Client priorityClient = togglePriorityTag(clientToPrioritise);
+        for (Index index : indexes) {
+            assert index.getOneBased() != 0;
+            Client clientToPrioritise = getClientFromIndex(lastShownList, index);
+            Client priorityClient = togglePriorityTag(clientToPrioritise);
+            model.setClient(clientToPrioritise, priorityClient);
+            model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
+            msg.append(Messages.format(priorityClient));
+        }
 
-        model.setClient(clientToPrioritise, priorityClient);
-        model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
-        return new CommandResult(String.format(MESSAGE_PRIORITY_CLIENT_SUCCESS, Messages.format(priorityClient)));
+        return new CommandResult(String.format(MESSAGE_PRIORITY_CLIENT_SUCCESS, msg));
     }
 
     /**
      * Creates and returns a {@code Client} with the details of {@code ClientToEdit}
      * With a new tag called priority
      */
-    private static Client togglePriorityTag(Client clientToEdit) throws CommandException {
+    private static Client togglePriorityTag(Client clientToEdit) {
         assert clientToEdit != null;
 
         // Creates a mutable set
@@ -106,7 +111,11 @@ public class PriorityCommand extends Command {
         }
 
         PriorityCommand e = (PriorityCommand) other;
-        return index.equals(e.index);
+
+
+        return indexes.size() == e.indexes.size()
+                && indexes.stream().allMatch(e.indexes::contains)
+                && e.indexes.stream().allMatch(indexes::contains);
     }
 }
 
