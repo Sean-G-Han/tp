@@ -238,7 +238,7 @@ The Class Diagram of a Client can be [seen in the diagram above](#model-componen
 
 #### Implementation
 
-The `PriorityCommand` toggles a client’s priority status. The following sequence diagrams
+The priority command toggles a client’s priority status. The following sequence diagrams
 illustrate how this process flows through the logic component:
 
 <puml src="diagrams/PrioritySequenceDiagram-Logic.puml" width="650" />
@@ -257,25 +257,6 @@ Its operation is modeled below:
 <puml src="diagrams/TogglePrioritySequenceDiagram1.puml" width="750" />
 
 <puml src="diagrams/TogglePrioritySequenceDiagram2.puml" width="550" />
-
-### Find-Any Find-All
-
-#### Implementation
-
-As the `findany` and `findall` command performs very similarly. We thought that it made 
-the most sense for `FindClientOrCommand` and `FindClientAndClient` to be sibling classes 
-(in this case extending from `AbstractFindClientCommand`). The main difference between
-the two is that they use different predicates `ContainsAnyKeywordsPredicate` and `ContainsAnyKeywordsPredicate`
-which inherits from `AbstractContainsKeywordsPredicate`
-Below is a class diagram to demonstrate the relationship of the 3 classes.
-
-<puml src="diagrams/FindCommandsClassDiagram.puml" width="550" />
-
-The following sequence diagram illustrates how the `AbstractFindClientCommand` and hence the
-`FindClientOrCommand` and `FindClientAndCommand` class interacts with  
-model components to get a filtered list from the address book:
-
-<puml src="diagrams/AbstractFindClientCommandSequenceDiagram.puml" width="750" />
 
 ### Update Client feature
 
