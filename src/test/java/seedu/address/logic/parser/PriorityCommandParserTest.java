@@ -34,15 +34,15 @@ public class PriorityCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         // Non-integer value
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_INVALID_INDEX, PriorityCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", MESSAGE_INVALID_INDEX
+                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, PriorityCommand.MESSAGE_USAGE));
 
         // Zero number
-        assertParseFailure(parser, "0", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_INVALID_INDEX, PriorityCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "0", MESSAGE_INVALID_INDEX
+                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, PriorityCommand.MESSAGE_USAGE));
 
         // Duplicate values
-        assertParseFailure(parser, "1 1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DUPLICATE_INDEX, PriorityCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1 1", DUPLICATE_INDEX
+                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, PriorityCommand.MESSAGE_USAGE));
     }
 }

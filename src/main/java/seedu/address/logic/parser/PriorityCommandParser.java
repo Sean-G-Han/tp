@@ -22,8 +22,8 @@ public class PriorityCommandParser implements Parser<PriorityCommand> {
             List<Index> index = ParserUtil.parseIndexes(args);
             return new PriorityCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getMessage(), PriorityCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(pe.getMessage()
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, PriorityCommand.MESSAGE_USAGE), pe);
         }
     }
 }
