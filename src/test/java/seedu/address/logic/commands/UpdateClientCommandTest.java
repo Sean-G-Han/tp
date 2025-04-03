@@ -38,37 +38,86 @@ public class UpdateClientCommandTest {
 
     @Test
     public void execute_clientAcceptedByModel_updateSuccessful() throws Exception {
-        Client originalClient = new ClientBuilder().withName("ted").build();
-        Client updatedClient = new ClientBuilder().withName("Updated").build();
+        Client originalClient = new ClientBuilder().build();
 
-        ModelStubForUpdate modelStub = new ModelStubForUpdate(originalClient);
-        EditClientDescriptor descriptor = new EditClientDescriptorBuilder(updatedClient).build();
+        // Only update phone, email, and address, not name or tags
+        EditClientDescriptor descriptor = new EditClientDescriptorBuilder()
+                .withPhone("91234567")
+                .withEmail("updated@example.com")
+                .withAddress("Updated Address")
+                .build();
 
         UpdateClientCommand updateCommand = new UpdateClientCommand(INDEX_FIRST_CLIENT, descriptor);
+        ModelStubForUpdate modelStub = new ModelStubForUpdate(originalClient);
+
         CommandResult result = updateCommand.execute(modelStub);
-        String expectedMessage = "Updated Client: Updated";
-        assertEquals(expectedMessage, result.getFeedbackToUser());
-        assertEquals(updatedClient, modelStub.clientUpdated);
+
+        Client expectedClient = new ClientBuilder(originalClient)
+                .withPhone("91234567")
+                .withEmail("updated@example.com")
+                .withAddress("Updated Address")
+                .build();
+
+        assertEquals(expectedClient, modelStub.clientUpdated);
+
+        // Use the full format from Messages.format(client)
+        StringBuilder expectedMessageBuilder = new StringBuilder();
+        expectedMessageBuilder.append("Updated Client: ")
+                .append(expectedClient.getName())
+                .append("; Phone: ")
+                .append(expectedClient.getPhone())
+                .append("; Email: ")
+                .append(expectedClient.getEmail())
+                .append("; Address: ")
+                .append(expectedClient.getAddress())
+                .append("; Tags: ");
+        expectedClient.getTags().forEach(expectedMessageBuilder::append);
+
+        assertEquals(expectedMessageBuilder.toString(), result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_noFieldsSpecified_throwsCommandException() {
+        Client client = new ClientBuilder().build();
+        EditClientDescriptor descriptor = new EditClientDescriptor();
+        UpdateClientCommand updateCommand = new UpdateClientCommand(INDEX_FIRST_CLIENT, descriptor);
+        ModelStubForUpdate modelStub = new ModelStubForUpdate(client);
+
+        assertThrows(CommandException.class,
+                UpdateClientCommand.MESSAGE_NOT_UPDATED, () -> updateCommand.execute(modelStub));
     }
 
     @Test
     public void execute_duplicateClient_throwsCommandException() {
-        Client firstClient = new ClientBuilder().withName("First").build();
-        Client secondClient = new ClientBuilder().withName("Second").build();
+        Client firstClient = new ClientBuilder().withPhone("12345678").build();
+        Client secondClient = new ClientBuilder().withPhone("87654321").build();
 
-        EditClientDescriptor descriptor = new EditClientDescriptorBuilder().withName("Second").build();
+        EditClientDescriptor descriptor = new EditClientDescriptorBuilder()
+                .withPhone("87654321")
+                .build();
+
         UpdateClientCommand updateCommand = new UpdateClientCommand(INDEX_FIRST_CLIENT, descriptor);
 
         ModelStubForDuplicate modelStub = new ModelStubForDuplicate(Arrays.asList(firstClient, secondClient));
 
         assertThrows(CommandException.class,
-            EditCommand.MESSAGE_DUPLICATE_CLIENT, () -> updateCommand.execute(modelStub));
+            UpdateClientCommand.MESSAGE_DUPLICATE_CLIENT, () -> updateCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        EditClientDescriptor aliceDescriptor = new EditClientDescriptorBuilder(ALICE).build();
-        EditClientDescriptor bobDescriptor = new EditClientDescriptorBuilder(BOB).build();
+        // Create descriptors that only modify contact information
+        EditClientDescriptor aliceDescriptor = new EditClientDescriptorBuilder()
+                .withPhone(ALICE.getPhone().value)
+                .withEmail(ALICE.getEmail().value)
+                .withAddress(ALICE.getAddress().value)
+                .build();
+
+        EditClientDescriptor bobDescriptor = new EditClientDescriptorBuilder()
+                .withPhone(BOB.getPhone().value)
+                .withEmail(BOB.getEmail().value)
+                .withAddress(BOB.getAddress().value)
+                .build();
 
         UpdateClientCommand updateAliceCommand = new UpdateClientCommand(INDEX_FIRST_CLIENT, aliceDescriptor);
         UpdateClientCommand updateBobCommand = new UpdateClientCommand(INDEX_FIRST_CLIENT, bobDescriptor);
