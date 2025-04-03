@@ -24,7 +24,7 @@ public class Phone {
                             + "\nThe international code should be 1-3 digits long.\n"
                             + "The number should be 3-13 digits long.");
 
-    public static final String VALIDATION_REGEX = "^(\\+?\\d{1,3} )?\\d{3,13}$";
+    public static final String VALIDATION_REGEX = "^(\\+?\\d{1,3} )?(\\d\\s?){3,13}$";
     public final String value;
 
     /**
@@ -51,15 +51,20 @@ public class Phone {
             return phone;
         }
 
+        phone = phone.trim().replaceAll("\\s+", " ");
+
         if (phone.startsWith("+")) {
-            return phone;
-        } else {
-            String[] temp = phone.split(" ");
-            if (temp.length == 1) {
-                return "+65 " + phone;
-            } else {
-                return "+" + temp[0] + " " + temp[1];
+            String[] parts = phone.split(" ", 2);
+            if (parts.length < 2) {
+                return phone;
             }
+
+            String countryCode = parts[0];
+            String numberPart = parts[1].replaceAll("\\s+", "");
+            return countryCode + " " + numberPart;
+        } else {
+            String numberPart = phone.replaceAll("\\s+", "");
+            return "+65 " + numberPart;
         }
     }
 
