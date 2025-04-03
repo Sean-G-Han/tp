@@ -53,10 +53,10 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a  L
   e.g. in `addclient n/NAME`, `NAME` is a parameter which can be used as `addclient n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `n/NAME [t/POLICY_TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/POLICY_TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -75,21 +75,8 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
+..............!!!
 
-### Adding a person: `addclient`
-
-Adds a person to the address book.
-
-Format: `addclient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
-
-<box type="tip" seamless>
-
-**Tip:** A person can have any number of tags (including 0)
-</box>
-
-Examples:
-* `addclient n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `addclient n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 ### Listing all persons : `list`
 
@@ -99,20 +86,35 @@ Format: `list`
 
 ### Editing a person : `edit`
 
-Edits an existing person in the address book.
+Edits an existing person in the address book. This command allows changing any client details including name and tags.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
+* You can remove all the person's tags by typing `t/` without
     specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+### Updating contact information : `update`
+
+Updates only the contact information (phone, email, address) of an existing person in the address book. Unlike the `edit` command, this command cannot change the client's name or tags.
+
+Format: `update INDEX [p/PHONE] [e/EMAIL] [a/ADDRESS]`
+
+* Updates the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Name and tags cannot be modified using this command. Use the `edit` command instead.
+
+Examples:
+*  `update 1 p/91234567 e/johndoe@example.com` Updates the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `update 2 a/Clementi Ave 6` Updates only the address of the 2nd person to be `Clementi Ave 6`.
 
 ### Locating persons by name: `findclient`
 
@@ -182,6 +184,21 @@ Examples:
 * `list` followed by `deleteclient 2` deletes the 2nd person in the address book.
 * `findclient Betsy` followed by `deleteclient 1` deletes the 1st person in the results of the `findclient` command.
 
+### Deleting a policy: `deletepolicy`
+
+Deletes the specified policy from the address book.
+
+Format: `deletepolicy INDEX`
+
+* Deletes the policy at the specified `INDEX`.
+* The index refers to the index number shown in the displayed policy list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `listpolicy` followed by `deletepolicy 2` deletes the 2nd policy in the address book.
+* `findpolicy Home` followed by `deletepolicy 1` deletes the 1st policy in the results of the `findpolicy` command.
+
+
 ### Prioritising a person: `priority`
 
 Toggles the priority of the specified person from the address book as indicated with a "Priority" tag.
@@ -245,15 +262,20 @@ _Details coming soon ..._
 
 ## Command summary
 
-Action       | Format, Examples
--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**      | `addclient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `addclient n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear**    | `clear`
-**Delete**   | `deleteclient INDEX`<br> e.g., `deleteclient 3`
-**Edit**     | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**     | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`
-**Find(Or)** | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`
-**Find(And)**| `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`
-**Priority** | `priority INDEX`<br> e.g.,`priority 1`
-**List**     | `list`
-**Help**     | `help`
+| Action            | Format, Examples                                                                                                                                                                        |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Client**     | `addclient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​` <br> e.g., `addclient n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| **Add Policy**     | `addpolicy INDEX t/POLICY_TAG ` <br> e.g., `addpolicy 1 t/Health Insurance`                                                                                                             |
+| **Clear**         | `clear`                                                                                                                                                                                 |
+| **Delete Client**  | `deleteclient INDEX`<br> e.g., `deleteclient 3`                                                                                                                                         |
+| **Delete Policy**  | `deletepolicy INDEX t/POLICY_TAG`<br> e.g., `deletepolicy 2 t/Health Insurance`                                                                                                         |
+| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                      |
+| **Update**        | `update INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`<br> e.g.,`update 2 p/91234567 e/jameslee@example.com`                                                                            |
+| **Find**          | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                                  |
+| **Find (Or)**     | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                              |
+| **Find (And)**    | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                            |
+| **Priority**      | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                                  |
+| **List**          | `list`                                                                                                                                                                                  |
+| **Help**          | `help`                                                                                                                                                                                  |
+
+

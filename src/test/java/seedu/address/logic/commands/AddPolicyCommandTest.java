@@ -3,6 +3,10 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.AddPolicyCommand.MESSAGE_SUCCESS;
+import static seedu.address.logic.commands.AddPolicyCommand.MESSAGE_USE_PRIORITY_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
@@ -62,7 +66,8 @@ public class AddPolicyCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setClient(clientToEdit, expectedClient);
 
-        String expectedMessage = String.format(AddPolicyCommand.MESSAGE_SUCCESS, Messages.format(expectedClient));
+        String expectedMessage = String.format(MESSAGE_SUCCESS, Messages.format(expectedClient))
+                + MESSAGE_USE_PRIORITY_COMMAND;
 
         assertCommandSuccess(addPolicyCommand, model, expectedMessage, expectedModel);
     }
@@ -75,7 +80,9 @@ public class AddPolicyCommandTest {
 
         AddPolicyCommand addPolicyCommand = new AddPolicyCommand(outOfBoundIndex, policiesToAdd);
 
-        assertCommandFailure(addPolicyCommand, model, AddPolicyCommand.MESSAGE_CLIENT_NOT_FOUND);
+        assertCommandFailure(addPolicyCommand, model,
+                MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX
+                        + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -102,7 +109,8 @@ public class AddPolicyCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setClient(clientToEdit, expectedClient);
 
-        String expectedMessage = String.format(AddPolicyCommand.MESSAGE_SUCCESS, Messages.format(expectedClient));
+        String expectedMessage = String.format(MESSAGE_SUCCESS, Messages.format(expectedClient))
+                + MESSAGE_USE_PRIORITY_COMMAND;
 
         assertCommandSuccess(addPolicyCommand, model, expectedMessage, expectedModel);
     }
@@ -177,7 +185,9 @@ public class AddPolicyCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setClient(clientToEdit, expectedClient);
 
-        assertCommandSuccess(addPolicyCommand, model, AddPolicyCommand.MESSAGE_USE_PRIORITY_COMMAND, expectedModel);
+        assertCommandSuccess(addPolicyCommand, model,
+                String.format(MESSAGE_SUCCESS, Messages.format(expectedClient)
+                + MESSAGE_USE_PRIORITY_COMMAND), expectedModel);
     }
 
     @Test
@@ -199,6 +209,8 @@ public class AddPolicyCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setClient(clientToEdit, expectedClient);
 
-        assertCommandSuccess(addPolicyCommand, model, AddPolicyCommand.MESSAGE_USE_PRIORITY_COMMAND, expectedModel);
+        assertCommandSuccess(addPolicyCommand, model,
+                        String.format(MESSAGE_SUCCESS, Messages.format(expectedClient))
+                        + MESSAGE_USE_PRIORITY_COMMAND , expectedModel);
     }
 }
