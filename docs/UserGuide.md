@@ -86,31 +86,29 @@ Format: `list`
 
 ### Editing a person : `edit`
 
-Edits an existing person in the address book. This command allows changing any client details including name and tags.
+Edits an existing person in the address book. This command allows changing the client's name and contact information (phone, email, address). Note that tags cannot be edited with this command.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without
-    specifying any tags after it.
+* Tags cannot be edited using this command. Use the `addp` and `delp` commands instead
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
 
 ### Updating contact information : `update`
 
-Updates only the contact information (phone, email, address) of an existing person in the address book. Unlike the `edit` command, this command cannot change the client's name or tags.
+Updates only the contact information (phone, email, address) of an existing person in the address book. Unlike the `edit` command, this command cannot change the client's name.
 
 Format: `update INDEX [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 
 * Updates the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* Name and tags cannot be modified using this command. Use the `edit` command instead.
+* Name and tags cannot be modified using this command. Use the `edit`, `addp` and `delp` commands instead.
 
 Examples:
 *  `update 1 p/91234567 e/johndoe@example.com` Updates the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -288,7 +286,7 @@ _Details coming soon ..._
 | **Clear**         | `clear`                                                                                                                                                                                 |
 | **Delete Client**  | `deleteclient INDEX`<br> e.g., `deleteclient 3`                                                                                                                                         |
 | **Delete Policy**  | `deletepolicy INDEX t/POLICY_TAG`<br> e.g., `deletepolicy 2 t/Health Insurance`                                                                                                         |
-| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                      |
+| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                      |
 | **Update**        | `update INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`<br> e.g.,`update 2 p/91234567 e/jameslee@example.com`                                                                            |
 | **Find**          | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                                  |
 | **Find (Or)**     | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                              |
