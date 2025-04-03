@@ -7,6 +7,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant "p:PriorityCommandParser" as PriorityCommandParser LOGIC_COLOR
 participant "p:PriorityCommand" as PriorityCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -47,16 +48,17 @@ loop while indexes is not empty
     activate Model
     Model --> PriorityCommand
     deactivate Model
-
-    PriorityCommand -> Model : updateFilteredClientList()
-    activate Model
-    Model --> PriorityCommand
-    deactivate Model
 end
+
+create CommandResult
+PriorityCommand -> CommandResult
+activate CommandResult
+CommandResult --> PriorityCommand
+deactivate CommandResult
+
 PriorityCommand --> LogicManager : result
 deactivate PriorityCommand
 PriorityCommand -[hidden]-> LogicManager : result
-destroy PriorityCommand
 
 [<--LogicManager
 deactivate LogicManager

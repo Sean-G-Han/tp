@@ -177,7 +177,7 @@ model components to remove a client from the address book:
 
 As seen above, the `execute` method retrieves the `Client` at the specified index and removes  
 it from the address book. If the index is invalid, an error is thrown.
----
+
 
 ### Delete Policy
 The `deletepolicy` command removes a policy (tag) from a client's list of policies.
