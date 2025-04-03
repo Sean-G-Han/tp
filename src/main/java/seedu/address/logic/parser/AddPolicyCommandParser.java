@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
@@ -19,7 +20,6 @@ public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
 
     public static final String INVALID_POLICY_PROVIDED =
             "At least 1 policy tag contains invalid symbols or is empty! No policy tags added!\n";
-    public static final String VALID_INDEX_NOT_PROVIDED = "Valid index not provided!\n";
 
 
     /**
@@ -31,7 +31,7 @@ public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
         if (!argMultimap.getPreamble().matches("[1-9]\\d*")) {
-            throw new ParseException(VALID_INDEX_NOT_PROVIDED
+            throw new ParseException(Messages.VALID_INDEX_NOT_PROVIDED
                                      + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
         } else if (!arePrefixesPresent(argMultimap, PREFIX_TAG)) {
             throw new ParseException(MESSAGE_COMPULSORY_FIELD_MISSING

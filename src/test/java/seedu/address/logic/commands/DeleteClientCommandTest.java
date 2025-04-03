@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showClientAtIndex;
@@ -46,7 +47,9 @@ public class DeleteClientCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredClientList().size() + 1);
         DeleteClientCommand deleteClientCommand = new DeleteClientCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteClientCommand, model, Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX);
+        assertCommandFailure(deleteClientCommand, model,
+                Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX
+                        + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -76,7 +79,9 @@ public class DeleteClientCommandTest {
 
         DeleteClientCommand deleteClientCommand = new DeleteClientCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteClientCommand, model, Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX);
+        assertCommandFailure(deleteClientCommand, model,
+                Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX
+                        + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientCommand.MESSAGE_USAGE));
     }
 
     @Test

@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,19 +21,20 @@ import seedu.address.model.tag.Tag;
  */
 public class DeletePolicyCommand extends Command {
 
-    public static final String COMMAND_WORD = "deletepolicy";
+    public static final String COMMAND_WORD = "delp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes policies from an existing client identified by the user-inputted index number. "
-            + "The index number must be based on the displayed client list.\n"
+            + "\n         The index number must be based on the displayed client list.\n"
             + "Parameters: INDEX (MUST BE A POSITIVE INTEGER) POLICY [MORE_POLICIES]...\n"
             + "Example: " + COMMAND_WORD + " 1 t/Life Insurance t/Health Insurance";
 
-    public static final String MESSAGE_SUCCESS = "Policies deleted from client: %1$s";
-    public static final String MESSAGE_CLIENT_NOT_FOUND = "Client with the given index does not exist.";
-    public static final String MESSAGE_POLICY_NOT_FOUND = "One or more specified policies do not exist for the client.";
-    public static final String MESSAGE_USE_PRIORITY_COMMAND = "t/Priority is not deleted. "
-            + "Please use priority command to toggle priority.\n" + "Other valid tags are deleted.";
+    public static final String MESSAGE_SUCCESS = "Updated Policy Information: %1$s";
+    public static final String MESSAGE_CLIENT_NOT_FOUND = "Client with the given index does not exist!";
+    public static final String MESSAGE_POLICY_NOT_FOUND = "One or more specified policies do not exist for the client!";
+    public static final String MESSAGE_USE_PRIORITY_COMMAND =
+            "\nt/Priority, if included, is not deleted. Please use priority command to toggle priority.\n"
+                    + "Duplicates are skipped.";
     private final Index clientIndex;
     private final Set<Tag> policiesToDelete;
 
@@ -51,7 +54,8 @@ public class DeletePolicyCommand extends Command {
 
         // Check if the index is valid
         if (clientIndex.getZeroBased() >= model.getFilteredClientList().size()) {
-            throw new CommandException(MESSAGE_CLIENT_NOT_FOUND);
+            throw new CommandException(MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePolicyCommand.MESSAGE_USAGE));
         }
 
         Client clientToEdit = model.getFilteredClientList().get(clientIndex.getZeroBased());
@@ -80,11 +84,8 @@ public class DeletePolicyCommand extends Command {
         );
 
         model.setClient(clientToEdit, updatedClient);
-        if (policiesToDelete2.size() < policiesToDelete.size()) {
-            return new CommandResult(MESSAGE_USE_PRIORITY_COMMAND);
-        } else {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(updatedClient)));
-        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(updatedClient))
+                + MESSAGE_USE_PRIORITY_COMMAND);
     }
 
     @Override

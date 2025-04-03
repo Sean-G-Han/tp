@@ -13,6 +13,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
@@ -53,14 +54,14 @@ public class AddPolicyCommandParserTest {
     @Test
     public void parse_invalidClientIndex_throwsParseException() {
         assertParseFailure(parser, "abc " + PREFIX_TAG + "Health",
-                AddPolicyCommandParser.VALID_INDEX_NOT_PROVIDED
+                Messages.VALID_INDEX_NOT_PROVIDED
                 + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_nonEmptyPreamble_throwsParseException() {
         assertParseFailure(parser, "ExtraText 1 " + PREFIX_TAG + "Health",
-                AddPolicyCommandParser.VALID_INDEX_NOT_PROVIDED
+                Messages.VALID_INDEX_NOT_PROVIDED
                         + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
     }
 

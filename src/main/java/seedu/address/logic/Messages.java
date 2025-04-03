@@ -22,6 +22,7 @@ public class Messages {
             "At least 1 of the compulsory fields are missing!\n";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
+    public static final String VALID_INDEX_NOT_PROVIDED = "Valid index not provided!\n";
     public static final String MESSAGE_CLIENT_ALREADY_PRIORITY = "The client is already tagged as a priority";
 
     /**

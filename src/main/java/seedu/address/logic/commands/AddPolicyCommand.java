@@ -29,7 +29,7 @@ public class AddPolicyCommand extends Command {
             + "Parameters: INDEX (MUST BE A POSITIVE INTEGER) POLICY [MORE_POLICIES]...\n"
             + "Example: " + COMMAND_WORD + " 1 t/Life Insurance t/Health Insurance";
 
-    public static final String MESSAGE_SUCCESS = "Client information updated: %1$s";
+    public static final String MESSAGE_SUCCESS = "Updated Policy Information: %1$s";
     public static final String MESSAGE_USE_PRIORITY_COMMAND =
             "\nt/Priority, if included, is not added. Please use priority command to toggle priority.\n"
             + "Duplicates are skipped.";
