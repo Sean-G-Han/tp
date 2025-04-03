@@ -329,6 +329,14 @@ Toggles the priority of specified client from the application as indicated with 
   -----------------|--------------------
   ![before priority command](images/priorityCommand2.png) | ![after 'priority 3'](images/priorityCommand3.png)
 
+Potential Errors:
+
+Errors           | Reason                                                                             |Fixes
+-----------------|------------------------------------------------------------------------------------|------------------------
+"Field is empty  | This error is thrown when no indexes are supplied to the `priority` command        | To fix this error, simply supply a proper index
+"Index is not a non-zero unsigned integer" | This error is thrown when a non-zero unsigned integer is supplied like `a` or `-1` | To fix this error, simply supply a non-zero unsigned integer
+"The client with the given index does not exist!"| This error is thrown when the specified index is bigger than the size of the list | To fix this error, input an index equal to or smaller than the size of the list
+
 ### Clearing all entries : `clear`
 
 Clears all entries from WealthVault.
@@ -394,3 +402,4 @@ _Details coming soon ..._
 | **Priority**                | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                         |
 | **List**                    | `list`                                                                                                                                                                         |
 | **Help**                    | `help`                                                                                                                                                                         |
+
