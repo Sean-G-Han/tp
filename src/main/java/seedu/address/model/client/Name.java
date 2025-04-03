@@ -15,8 +15,10 @@ import seedu.address.logic.commands.AddClientCommand;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "The name given either contains invalid symbols, or is more than 150 characters.\n"
-            + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddClientCommand.MESSAGE_USAGE);
+            "The name given is invalid!\n"
+            + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    "The name given either contains invalid symbols, or is more than 150 characters long.\n\n")
+            + AddClientCommand.MESSAGE_USAGE;
 
     public static final String VALIDATION_REGEX = "[\\p{L}\\p{N}]+([ '-/@]+[\\p{L}\\p{N}]+)*";
 
@@ -42,13 +44,36 @@ public class Name {
         return test.matches(VALIDATION_REGEX) && test.length() <= 150;
     }
 
+    /**
+     * Processes the name to deal with casing and whitespace
+     *
+     * @param name The input name
+     * @return The processed name
+     */
     private String normalizeName(String name) {
-        name = name.replaceAll("\\s+", " ").trim();
         name = name.replaceAll("([,.@])(?!\\s)", "$1 ");
-        name = name.replaceAll("(?<!\\s)@", " @");
+        name = name.replaceAll("(?<!\\s)@", " @ ");
+        name = name.replaceAll("\\s+", " ");
+
+        String[] parts = name.trim().split(" ");
+        StringBuilder result = new StringBuilder();
+        for (String part : parts) {
+            if (part.length() > 0) {
+                if (part.length() == 1) {
+                    result.append(part.toUpperCase()).append(" ");
+                } else {
+                    result.append(part.substring(0, 1).toUpperCase())
+                            .append(part.substring(1).toLowerCase()).append(" ");
+                }
+            }
+        }
+
+        name = result.toString().trim();
         name = name.replaceAll("(?i)s/o", "s/o");
         name = name.replaceAll("(?i)d/o", "d/o");
-
+        name = name.replaceAll(" \\.", "\\.");
+        name = name.replaceAll(" ,", ",");
+        name = name.replaceAll("\\s+", " ");
         return name.trim();
     }
 

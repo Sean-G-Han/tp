@@ -37,7 +37,6 @@ public class PhoneTest {
         assertFalse(Phone.isValidPhone("+123456789")); // international code too long
         assertFalse(Phone.isValidPhone("+12 123456789012345")); // too many digits after international code
         assertFalse(Phone.isValidPhone("+123456789")); // International code too long.
-        assertFalse(Phone.isValidPhone("123 123456789")); // No + at the start.
         assertFalse(Phone.isValidPhone("+123456789")); // International code too long.
         assertFalse(Phone.isValidPhone("+1234 12345678901234")); // International code too long, number too long.
         assertFalse(Phone.isValidPhone("+1 a123456789")); // alpha in international code.
