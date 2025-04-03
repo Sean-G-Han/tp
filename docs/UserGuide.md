@@ -189,25 +189,6 @@ Updates only the contact information (phone, email, address) of an existing clie
 - `update 1 p/91234567 e/johndoe@example.com` Updates the phone number and email address of the 1st client to be `91234567` and `johndoe@example.com` respectively.
 - `update 2 a/Clementi Ave 6` Updates only the address of the 2nd client to be `Clementi Ave 6`.
 
-### Locating clients by name: `findclient`
-
-Finds clients whose names contain any of the given keywords.
-
-**Format**: `findclient KEYWORD [MORE_KEYWORDS]`
-
-- The search is case-insensitive. e.g `hans` will match `Hans`
-- The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-- Only the name is searched.
-- Only full words will be matched e.g. `Han` will not match `Hans`
-- Clients matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-**Examples**:
-
-- `findclient John` returns `john` and `John Doe`
-- `findclient alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
-
 ### Locating clients by name and tag: `findany`
 
 Finds clients whose name or tag contain any of the given keywords.
@@ -227,12 +208,6 @@ Finds clients whose name or tag contain any of the given keywords.
 - `findany Jo priority` returns only clients whose name or tags matches either `priority` or `Jo` attached<br>
   ![result for 'find alex david'](images/findclientorAlexDavidPriority.png)
 
-Potential Errors:
-
-| Errors           | Reason                                                                          | Fixes                                          |
-| ---------------- | ------------------------------------------------------------------------------- | ---------------------------------------------- |
-| "Field is empty" | This error is thrown when no keywords were provided with the `findany` command. | To fix this error, simply supply some keywords |
-
 ### Locating specific clients by name and tag: `findall`
 
 Finds clients whose name or tag contain all of the given keywords.
@@ -251,12 +226,6 @@ Finds clients whose name or tag contain all of the given keywords.
 - `findall John Doe` would return `John Doe` but not `Jane Doe` or `John Snow`
 - `findall ng priority` returns only clients whose name or tags matches both `priority` and `ng` attached<br>
   ![result for 'find alex david'](images/findclientandFriendsPriority.png)
-
-Potential Errors:
-
-| Errors           | Reason                                                                          | Fixes                                          |
-| ---------------- | ------------------------------------------------------------------------------- | ---------------------------------------------- |
-| "Field is empty" | This error is thrown when no keywords were provided with the `findany` command. | To fix this error, simply supply some keywords |
 
 ### Deleting a client : `delc`
 
@@ -388,7 +357,6 @@ _Details coming soon ..._
 | **Delete Policy**           | `delp INDEX t/POLICY_TAG`<br> e.g., `delp 2 t/Health Insurance`                                                                                                                |
 | **Edit**                    | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                             |
 | **Update**                  | `update INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`<br> e.g.,`update 2 p/91234567 e/jameslee@example.com`                                                                    |
-| **Find**                    | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                         |
 | **Find (Or)**               | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                     |
 | **Find (And)**              | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                   |
 | **Priority**                | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                         |
