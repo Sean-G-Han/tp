@@ -41,8 +41,10 @@ public class Name {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
+        test = normalizeName(test);
         return test.matches(VALIDATION_REGEX) && test.length() <= 150;
     }
+
 
     /**
      * Processes the name to deal with casing and whitespace
@@ -50,7 +52,7 @@ public class Name {
      * @param name The input name
      * @return The processed name
      */
-    private String normalizeName(String name) {
+    private static String normalizeName(String name) {
         name = name.replaceAll("([,.@])(?!\\s)", "$1 ");
         name = name.replaceAll("(?<!\\s)@", " @ ");
         name = name.replaceAll("\\s+", " ");
@@ -58,7 +60,7 @@ public class Name {
         String[] parts = name.trim().split(" ");
         StringBuilder result = new StringBuilder();
         for (String part : parts) {
-            if (part.length() > 0) {
+            if (!part.isEmpty()) {
                 if (part.length() == 1) {
                     result.append(part.toUpperCase()).append(" ");
                 } else {

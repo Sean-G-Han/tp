@@ -45,6 +45,7 @@ public class NameTest {
         assertTrue(Name.isValidName("Anne-Marie")); // valid hyphen
         assertTrue(Name.isValidName("s/o John")); // valid usage of s/o
         assertTrue(Name.isValidName("d/o Jane")); // valid usage of d/o
+        assertTrue(Name.isValidName("J" + " ".repeat(1000) + "O")); // less than 150 chars when extra " " is removed
     }
 
     @Test
