@@ -155,23 +155,21 @@ Shows a list of all clients in WealthVault.
 
 **Format**: `list`
 
-### Editing a client : `edit`
+### Editing contact information : `edit`
 
-Edits an existing client in WealthVault. This command allows changing any client details including name and tags.
+Edits an existing person in the address book. This command allows changing the client's name and contact information (phone, email, address). Note that tags cannot be edited with this command.
 
-**Format**: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`
+**Format**: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]​`
 
-- Edits the client at the specified `INDEX`. The index refers to the index number shown in the displayed client list. The index **must be a positive integer** 1, 2, 3, …​
-- At least one of the optional fields must be provided.
-- Existing values will be updated to the input values.
-- When editing tags, the existing tags of the client will be removed i.e adding of tags is not cumulative.
-- You can remove all the client's tags by typing `t/` without
-  specifying any tags after it.
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Tags cannot be edited using this command. Use the `addp` and `delp` commands instead
 
 **Examples**:
 
-- `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st client to be `91234567` and `johndoe@example.com` respectively.
-- `edit 2 n/Betsy Crower t/` Edits the name of the 2nd client to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
 
 ### Updating contact information : `update`
 
@@ -183,6 +181,11 @@ Updates only the contact information (phone, email, address) of an existing clie
 - At least one of the optional fields must be provided.
 - Existing values will be updated to the input values.
 - Name and tags cannot be modified using this command. Use the `edit` command instead.
+
+* Updates the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Name and tags cannot be modified using this command. Use the `edit`, `addp` and `delp` commands instead.
 
 **Examples**:
 
@@ -340,6 +343,19 @@ Errors           | Reason                                                       
 "Index is not a non-zero unsigned integer" | This error is thrown when a non-zero unsigned integer is supplied like `a` or `-1` | To fix this error, simply supply a non-zero unsigned integer
 "The client with the given index does not exist!"| This error is thrown when the specified index is bigger than the size of the list | To fix this error, input an index equal to or smaller than the size of the list
 
+### Sorting by priority: `sortpriority`
+
+Sorts all clients in the list by priority, with prioritized clients appearing at the top.
+
+**Format**: `sortpriority`
+
+* Clients with the "Priority" tag will be moved to the top of the list
+* The relative order of clients within each group (prioritized and non-prioritized) is preserved
+* This command affects only the display order and does not modify any client data
+
+**Example**:
+* `sortpriority` rearranges the list to show prioritized clients first, followed by non-prioritized clients.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from WealthVault.
@@ -402,7 +418,7 @@ _Details coming soon ..._
 | **Find**                    | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                         |
 | **Find (Or)**               | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                     |
 | **Find (And)**              | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                   |
-| **Priority**                | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                         |
+| **Priority**                | `priority INDEX`<br> e.g.,`priority 1`  
+| **Sort Priority**           | `sortpriority` 
 | **List**                    | `list`                                                                                                                                                                         |
 | **Help**                    | `help`                                                                                                                                                                         |
-
