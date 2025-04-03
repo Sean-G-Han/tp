@@ -155,23 +155,21 @@ Shows a list of all clients in WealthVault.
 
 **Format**: `list`
 
-### Editing a client : `edit`
+### Editing contact information : `edit`
 
-Edits an existing client in WealthVault. This command allows changing any client details including name and tags.
+Edits an existing person in the address book. This command allows changing the client's name and contact information (phone, email, address). Note that tags cannot be edited with this command.
 
-**Format**: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`
+**Format**: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]​`
 
-- Edits the client at the specified `INDEX`. The index refers to the index number shown in the displayed client list. The index **must be a positive integer** 1, 2, 3, …​
-- At least one of the optional fields must be provided.
-- Existing values will be updated to the input values.
-- When editing tags, the existing tags of the client will be removed i.e adding of tags is not cumulative.
-- You can remove all the client's tags by typing `t/` without
-  specifying any tags after it.
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Tags cannot be edited using this command. Use the `addp` and `delp` commands instead
 
 **Examples**:
 
-- `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st client to be `91234567` and `johndoe@example.com` respectively.
-- `edit 2 n/Betsy Crower t/` Edits the name of the 2nd client to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
 
 ### Updating contact information : `update`
 
@@ -183,6 +181,11 @@ Updates only the contact information (phone, email, address) of an existing clie
 - At least one of the optional fields must be provided.
 - Existing values will be updated to the input values.
 - Name and tags cannot be modified using this command. Use the `edit` command instead.
+
+* Updates the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Name and tags cannot be modified using this command. Use the `edit`, `addp` and `delp` commands instead.
 
 **Examples**:
 
@@ -239,8 +242,10 @@ Deletes the specified client from WealthVault.
 
 **Examples**:
 
-- `list` followed by `delc 2` deletes the 2nd client in WealthVault.
-- `findclient Betsy` followed by `delc 1` deletes the 1st client in the results of the `findclient` command.
+- `list` followed by `delc 1` deletes the 1st client in the client list (in this case, John Tan).
+- `findclient Jane` followed by `delc 2` deletes the 2nd client in the results of the `findclient` command (in this case, Jane Lee).
+  ![delc1](images/delc1.png)
+  ![delc2](images/delc2.png)
 
 ### Deleting multiple clients : `deleteclientmult`
 
@@ -262,19 +267,20 @@ Deletes multiple specified clients from WealthVault.
 
 Deletes the specified policy from WealthVault.
 
-**Format**: `delp INDEX`
+**Format**: `delp INDEX t/POLICY_TAG`
 
 - Deletes the policy at the specified `INDEX`.
 - The index refers to the index number shown in the displayed policy list.
 - The index **must be a positive integer** 1, 2, 3, …​
+- POLICY_TAG must match the policy name to be deleted.
 
 **Examples**:
 
-- `listpolicy` followed by `delp 2` deletes the 2nd policy in WealthVault.
-- `findpolicy Home` followed by `delp 1` deletes the 1st policy in the results of the `findpolicy` command.
+- `delp 1 t/Health Insurance` deletes `Health Insurance` policy tag from index `1` of the list (in this case, John Tan)
+- `delp 2 t/Home Protection Plan` deletes `Home Protection Plan` policy tag from index `2` of the list (in this case, Jane Tan)
 
-* `listpolicy` followed by `delp 2` deletes the 2nd policy in the address book.
-* `findpolicy Home` followed by `delp 1` deletes the 1st policy in the results of the `findpolicy` command.
+   ![delp1](images/delp1.png)
+   ![delp2](images/delp2.png)
 
 ### Prioritising a client: `priority`
 
@@ -297,6 +303,27 @@ Toggles the priority of specified client from the application as indicated with 
   Before |After
   -----------------|--------------------
   ![before priority command](images/priorityCommand2.png) | ![after 'priority 3'](images/priorityCommand3.png)
+
+Potential Errors:
+
+Errors           | Reason                                                                             |Fixes
+-----------------|------------------------------------------------------------------------------------|------------------------
+"Field is empty  | This error is thrown when no indexes are supplied to the `priority` command        | To fix this error, simply supply a proper index
+"Index is not a non-zero unsigned integer" | This error is thrown when a non-zero unsigned integer is supplied like `a` or `-1` | To fix this error, simply supply a non-zero unsigned integer
+"The client with the given index does not exist!"| This error is thrown when the specified index is bigger than the size of the list | To fix this error, input an index equal to or smaller than the size of the list
+
+### Sorting by priority: `sortpriority`
+
+Sorts all clients in the list by priority, with prioritized clients appearing at the top.
+
+**Format**: `sortpriority`
+
+* Clients with the "Priority" tag will be moved to the top of the list
+* The relative order of clients within each group (prioritized and non-prioritized) is preserved
+* This command affects only the display order and does not modify any client data
+
+**Example**:
+* `sortpriority` rearranges the list to show prioritized clients first, followed by non-prioritized clients.
 
 ### Clearing all entries : `clear`
 
@@ -350,15 +377,17 @@ _Details coming soon ..._
 | Action                      | Format, Examples                                                                                                                                                         |
 | --------------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add Client**              | `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​` <br> e.g., `addc n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Add Policy**              | `addp INDEX t/POLICY_TAG ` <br> e.g., `addp 1 t/Health Insurance`                                                                                                        |
-| **Clear**                   | `clear`                                                                                                                                                                  |
-| **Delete Client**           | `delc INDEX `<br> e.g., `delc 3`                                                                                                                                         |
-| **Delete Multiple Clients** | `deleteclientmult i/INDEX [i/INDEX]…​`<br> e.g., `deleteclientmult i/3` or `deleteclientmult i/1 i/2 i/3`                                                                |
-| **Delete Policy**           | `delp INDEX t/POLICY_TAG`<br> e.g., `delp 2 t/Health Insurance`                                                                                                          |
-| **Edit**                    | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                       |
-| **Update**                  | `update INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`<br> e.g.,`update 2 p/91234567 e/jameslee@example.com`                                                              |
-| **Find (Or)**               | `findany KEYWORD [MORE_KEYWORDS]`<br> e.g., `findany James Jake`                                                                                                         |
-| **Find (And)**              | `findall KEYWORD [MORE_KEYWORDS]`<br> e.g., `findall James Jake`                                                                                                         |
-| **Priority**                | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                   |
-| **List**                    | `list`                                                                                                                                                                   |
-| **Help**                    | `help`                                                                                                                                                                   |
+| **Add Policy**              | `addp INDEX t/POLICY_TAG ` <br> e.g., `addp 1 t/Health Insurance`                                                                                                              |
+| **Clear**                   | `clear`                                                                                                                                                                        |
+| **Delete Client**           | `delc INDEX `<br> e.g., `delc 3`                                                                                                                                               |
+| **Delete Multiple Clients** | `deleteclientmult i/INDEX [i/INDEX]…​`<br> e.g., `deleteclientmult i/3` or `deleteclientmult i/1 i/2 i/3`                                                                      |
+| **Delete Policy**           | `delp INDEX t/POLICY_TAG`<br> e.g., `delp 2 t/Health Insurance`                                                                                                                |
+| **Edit**                    | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                             |
+| **Update**                  | `update INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`<br> e.g.,`update 2 p/91234567 e/jameslee@example.com`                                                                    |
+| **Find (Or)**               | `findany KEYWORD [MORE_KEYWORDS]`<br> e.g., `findany James Jake`                                                                                                     |
+| **Find (And)**              | `findall KEYWORD [MORE_KEYWORDS]`<br> e.g., `findall James Jake`                                                                                                   |
+| **Priority**                | `priority INDEX [MORE_INDEX]`<br> e.g.,`priority 1 2 3`  
+| **Sort Priority**           | `sortpriority` 
+| **List**                    | `list`                                                                                                                                                                         |
+| **Help**                    | `help`                                                                                                                                                                         |
+
