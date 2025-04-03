@@ -35,8 +35,10 @@ public class Tag {
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX) && test.length() <= 150;
+        String tagWithoutWhitespace = test.replaceAll("\\s+", "");
+        return tagWithoutWhitespace.matches(VALIDATION_REGEX) && tagWithoutWhitespace.length() <= 150;
     }
+
 
     /**
      * Processes the tag to modify it stylistically
