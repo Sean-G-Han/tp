@@ -2,6 +2,9 @@ package seedu.address.model.client;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import seedu.address.logic.commands.AddClientCommand;
 
 /**
  * Represents a Client's email in the address book.
@@ -10,17 +13,25 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Email {
 
     private static final String SPECIAL_CHARACTERS = "+_.-";
-    public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
-            + "and adhere to the following constraints:\n"
-            + "1. The local-part should only contain alphanumeric characters and these special characters, excluding "
-            + "the parentheses, (" + SPECIAL_CHARACTERS + "). The local-part may not start or end with any special "
-            + "characters.\n"
-            + "2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels "
-            + "separated by periods.\n"
-            + "The domain name must:\n"
-            + "    - end with a domain label at least 2 characters long\n"
-            + "    - have each domain label start and end with alphanumeric characters\n"
-            + "    - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.";
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "The email address given is invalid!\n"
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    "Emails should be of the format [local-part]@[domain].\n"
+                    + "Standard domain names like gmail.com are definitely fine.\n"
+                    + "Do not include unnecessary whitespace.\n"
+                    + "Only leading and trailing whitespaces will be removed.\n\n"
+                    + AddClientCommand.MESSAGE_USAGE
+                    + "\n\n"
+                    + "For more information on valid email formats, you may refer to the following:"
+                    + "\nThe local-part should be alphanumeric, but can also contain "
+                    + SPECIAL_CHARACTERS
+                    + "\nThe local part may not start or end with any special characters.\n"
+                    + "\nThe domain name must end with a domain label at least 2 characters long.\n"
+                    + "Every domain label must start and end with alphanumeric characters.\n"
+                    + "Every domain label must consist of alphanumeric characters.\n"
+                    + "Every domain label can be separated only by hyphens, if any.");
+
     // alphanumeric and special characters
     private static final String ALPHANUMERIC_NO_UNDERSCORE = "[^\\W_]+"; // alphanumeric characters except underscore
     private static final String LOCAL_PART_REGEX = "^" + ALPHANUMERIC_NO_UNDERSCORE + "([" + SPECIAL_CHARACTERS + "]"

@@ -2,6 +2,9 @@ package seedu.address.model.client;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import seedu.address.logic.commands.AddClientCommand;
 
 /**
  * Represents a Client's phone number in the address book.
@@ -10,11 +13,18 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Phone {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should be in the format +[international code] [number], where the international code "
-                    + "is 1-3 digits, and the number is at most 13 digits.\n"
-                    + "If no international code is provided, +65 is assumed.\n"
-                    + "Leave a space between [international code] and [number].";
-    public static final String VALIDATION_REGEX = "^(\\+\\d{1,3} )?\\d{3,13}$";
+            "The phone number given is invalid!\n"
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    "Phone numbers should be of the format +[international code] [number].\n"
+                            + "If no international code is provided, the phone number will start with +65.\n"
+                            + "Do not include whitespace in the international code.\n\n"
+                            + AddClientCommand.MESSAGE_USAGE
+                            + "\n\n"
+                            + "For more information on valid email formats, you may refer to the following:"
+                            + "\nThe international code should be 1-3 digits.\n"
+                            + "The number should be at most 13 digits.");
+
+    public static final String VALIDATION_REGEX = "^(\\+?\\d{1,3} )?\\d{3,13}$";
     public final String value;
 
     /**
@@ -24,7 +34,8 @@ public class Phone {
      */
     public Phone(String phone) {
         requireNonNull(phone);
-        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
+        String processedPhone = processPhone(phone);
+        checkArgument(isValidPhone(processedPhone), MESSAGE_CONSTRAINTS);
         value = processPhone(phone);
     }
 
@@ -39,10 +50,16 @@ public class Phone {
         if (phone.equals("-")) {
             return phone;
         }
+
         if (phone.startsWith("+")) {
             return phone;
         } else {
-            return "+65 " + phone;
+            String[] temp = phone.split(" ");
+            if (temp.length == 1) {
+                return "+65 " + phone;
+            } else {
+                return "+" + temp[0] + " " + temp[1];
+            }
         }
     }
 
@@ -50,8 +67,7 @@ public class Phone {
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {
-        String processedTest = test.startsWith("+") ? test : "+65 " + test;
-        return processedTest.matches(VALIDATION_REGEX) || test.equals("-");
+        return test.matches(VALIDATION_REGEX) || test.equals("-");
     }
 
     @Override

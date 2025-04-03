@@ -3,7 +3,7 @@
   title: ""
 ---
 
-# WealthVaullt
+# WealthVault
 
 [![Java CI](https://github.com/AY2425S2-CS2103T-W12-2/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2425S2-CS2103T-W12-2/tp/actions/workflows/gradle.yml)
 [![codecov](https://codecov.io/gh/AY2425S2-CS2103T-W12-2/tp/graph/badge.svg?token=H8A87ZR6Z5)](https://codecov.io/gh/AY2425S2-CS2103T-W12-2/tp)

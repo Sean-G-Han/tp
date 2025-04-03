@@ -12,7 +12,7 @@ public class TagFactory {
      */
     public static Tag createTag(String tagName) {
         // Add more for other types
-        if (tagName.equals("Priority")) {
+        if (tagName.toLowerCase().replaceAll("\\s+", "").equals("priority")) {
             return new PriorityTag();
         }
         return new Tag(tagName);
