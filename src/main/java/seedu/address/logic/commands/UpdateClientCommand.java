@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
 
 import java.util.List;
-import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -26,7 +25,8 @@ public class UpdateClientCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the contact information of the client identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Updates the contact information of the client identified "
             + "by the index number used in the displayed client list. "
             + "Only phone, email, and address can be updated.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -87,7 +87,8 @@ public class UpdateClientCommand extends Command {
      * updated with {@code updateClientDescriptor}.
      * Only phone, email, and address can be updated.
      */
-    private static Client createUpdatedClient(Client clientToUpdate, EditCommand.EditClientDescriptor updateClientDescriptor) {
+    private static Client createUpdatedClient(Client clientToUpdate,
+        EditCommand.EditClientDescriptor updateClientDescriptor) {
         assert clientToUpdate != null;
 
         // These fields can be updated

@@ -58,17 +58,17 @@ public class UpdateClientCommandParserTest {
     public void parse_disallowedFields_ignored() {
         // Name field is not allowed in update command
         String userInput = INDEX_FIRST_CLIENT.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY;
-        
+
         // Only the phone should be recognized, name should be ignored since it shouldn't be tokenized
         EditClientDescriptor descriptor = new EditClientDescriptorBuilder()
                 .withPhone(VALID_PHONE_AMY)
                 .build();
         UpdateClientCommand expectedCommand = new UpdateClientCommand(INDEX_FIRST_CLIENT, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
-        
+
         // Tag field is not allowed in update command
         userInput = INDEX_FIRST_CLIENT.getOneBased() + TAG_DESC_FRIEND + EMAIL_DESC_AMY;
-        
+
         // Only the email should be recognized, tag should be ignored since it shouldn't be tokenized
         descriptor = new EditClientDescriptorBuilder()
                 .withEmail(VALID_EMAIL_AMY)
@@ -80,7 +80,7 @@ public class UpdateClientCommandParserTest {
     @Test
     public void parse_validFields_success() {
         Index targetIndex = INDEX_FIRST_CLIENT;
-        
+
         // Test phone only
         String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
         EditClientDescriptor descriptor = new EditClientDescriptorBuilder()
@@ -88,7 +88,7 @@ public class UpdateClientCommandParserTest {
                 .build();
         UpdateClientCommand expectedCommand = new UpdateClientCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
-        
+
         // Test email only
         userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
         descriptor = new EditClientDescriptorBuilder()
@@ -96,7 +96,7 @@ public class UpdateClientCommandParserTest {
                 .build();
         expectedCommand = new UpdateClientCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
-        
+
         // Test address only
         userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
         descriptor = new EditClientDescriptorBuilder()
@@ -104,7 +104,7 @@ public class UpdateClientCommandParserTest {
                 .build();
         expectedCommand = new UpdateClientCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
-        
+
         // Test all valid fields together
         userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         descriptor = new EditClientDescriptorBuilder()
