@@ -42,6 +42,7 @@ public class AddressTest {
                 + "not only space ")); // trailing space but not only space
         assertTrue(Address.isValidAddress(" Address with leading and trailing space ")); // leading and trailing space
         assertTrue(Address.isValidAddress("Address with tab\tin it")); // address with tab in it.
+        assertTrue(Address.isValidAddress("A" + " ".repeat(150) + "O")); // address with 150 spaces in it.
     }
 
     @Test

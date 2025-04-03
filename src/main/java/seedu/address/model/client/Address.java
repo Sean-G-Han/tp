@@ -44,7 +44,7 @@ public class Address {
      * @param address The input address
      * @return The processed address
      */
-    private String normalizeAddress(String address) {
+    private static String normalizeAddress(String address) {
         address = address.replaceAll("\\s+", " ").trim();
 
         String[] parts = address.trim().split(" ");
@@ -66,6 +66,7 @@ public class Address {
      * Returns true if a given string is a valid address.
      */
     public static boolean isValidAddress(String test) {
+        test = normalizeAddress(test);
         return test.matches(VALIDATION_REGEX) && test.length() <= 150;
     }
 
