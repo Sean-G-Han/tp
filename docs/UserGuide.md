@@ -232,6 +232,14 @@ Examples:
   -----------------|--------------------
   ![before priority command](images/priorityCommand2.png) | ![after 'priority 3'](images/priorityCommand3.png)
 
+Potential Errors:
+
+Errors           | Reason                                                                             |Fixes
+-----------------|------------------------------------------------------------------------------------|------------------------
+"Field is empty  | This error is thrown when no indexes are supplied to the `priority` command        | To fix this error, simply supply a proper index
+"Index is not a non-zero unsigned integer" | This error is thrown when a non-zero unsigned integer is supplied like `a` or `-1` | To fix this error, simply supply a non-zero unsigned integer
+"The client with the given index does not exist!"| This error is thrown when the specified index is bigger than the size of the list | To fix this error, input an index equal to or smaller than the size of the list
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -282,18 +290,18 @@ _Details coming soon ..._
 ## Command summary
 
 | Action            | Format, Examples                                                                                                                                                                        |
-|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Client**     | `addclient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​` <br> e.g., `addclient n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Add Policy**     | `addpolicy INDEX t/POLICY_TAG ` <br> e.g., `addpolicy 1 t/Health Insurance`                                                                                                             |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Client**    | `addclient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​` <br> e.g., `addclient n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| **Add Policy**    | `addpolicy INDEX t/POLICY_TAG ` <br> e.g., `addpolicy 1 t/Health Insurance`                                                                                                             |
 | **Clear**         | `clear`                                                                                                                                                                                 |
-| **Delete Client**  | `deleteclient INDEX`<br> e.g., `deleteclient 3`                                                                                                                                         |
-| **Delete Policy**  | `deletepolicy INDEX t/POLICY_TAG`<br> e.g., `deletepolicy 2 t/Health Insurance`                                                                                                         |
+| **Delete Client** | `deleteclient INDEX`<br> e.g., `deleteclient 3`                                                                                                                                         |
+| **Delete Policy** | `deletepolicy INDEX t/POLICY_TAG`<br> e.g., `deletepolicy 2 t/Health Insurance`                                                                                                         |
 | **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                      |
-| **Update**        | `update INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`<br> e.g.,`update 2 p/91234567 e/jameslee@example.com`                                                                            |
+| **Update**        | `update INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`<br> e.g.,`update 2 p/91234567 e/jameslee@example.com`                                                                             |
 | **Find**          | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                                  |
-| **Find (Or)**     | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                              |
-| **Find (And)**    | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                            |
-| **Priority**      | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                                  |
+| **Find Any**      | `findany KEYWORD [MORE_KEYWORDS]`<br> e.g., `findany James Jake`                                                                                                                        |
+| **Find All**      | `findall KEYWORD [MORE_KEYWORDS]`<br> e.g., `findall James Jake`                                                                                                                        |
+| **Priority**      | `priority INDEX [MORE_INDEX]`<br> e.g.,`priority 1 2 3`                                                                                                                                 |
 | **List**          | `list`                                                                                                                                                                                  |
 | **Help**          | `help`                                                                                                                                                                                  |
 
