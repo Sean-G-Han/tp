@@ -230,6 +230,19 @@ Examples:
   -----------------|--------------------
   ![before priority command](images/priorityCommand2.png) | ![after 'priority 3'](images/priorityCommand3.png)
 
+### Sorting by priority: `sortpriority`
+
+Sorts all clients in the list by priority, with prioritized clients appearing at the top.
+
+Format: `sortpriority`
+
+* Clients with the "Priority" tag will be moved to the top of the list
+* The relative order of clients within each group (prioritized and non-prioritized) is preserved
+* This command affects only the display order and does not modify any client data
+
+Example:
+* `sortpriority` rearranges the list to show prioritized clients first, followed by non-prioritized clients.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -292,6 +305,7 @@ _Details coming soon ..._
 | **Find (Or)**     | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                              |
 | **Find (And)**    | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                            |
 | **Priority**      | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                                  |
+| **Sort Priority** | `sortpriority`                                                                                                                                                                          |
 | **List**          | `list`                                                                                                                                                                                  |
 | **Help**          | `help`                                                                                                                                                                                  |
 
