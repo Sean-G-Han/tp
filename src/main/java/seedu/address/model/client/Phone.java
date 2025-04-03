@@ -16,7 +16,7 @@ public class Phone {
             "The phone number given is invalid!\n"
                     + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     "Phone numbers should be of the format +[international code] [number].\n"
-                            + "If no international code is provided, the phone number will start with +65.\n\n"
+                            + "If no international code is provided, the phone number will start with +65.\n"
                             + "Do not include whitespace in the international code.\n\n"
                             + AddClientCommand.MESSAGE_USAGE
                             + "\n\n"

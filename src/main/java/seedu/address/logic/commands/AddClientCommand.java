@@ -18,7 +18,7 @@ import seedu.address.model.client.Client;
  */
 public class AddClientCommand extends Command {
 
-    public static final String COMMAND_WORD = "addclient";
+    public static final String COMMAND_WORD = "addc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a client to WealthVault.\n"
             + "Parameters: "
@@ -36,8 +36,8 @@ public class AddClientCommand extends Command {
             + PREFIX_TAG + "Policy B";
 
     public static final String MESSAGE_SUCCESS = "New client added: %1$s \n"
-            + "t/Priority, if included, is not added.\n"
-            + "Please use priority command to toggle priority.";
+            + "t/Priority, if included, is not added. Please use priority command to toggle priority.\n"
+            + "Duplicates are skipped.";
     public static final String MESSAGE_DUPLICATE_CLIENT = "This client already exists in WealthVault!";
 
     private final Client toAdd;

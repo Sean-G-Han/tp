@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_COMPULSORY_FIELD_MISSING;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -16,6 +17,11 @@ import seedu.address.model.tag.Tag;
  */
 public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
 
+    public static final String INVALID_POLICY_PROVIDED =
+            "At least 1 policy tag contains invalid symbols or is empty! No policy tags added!\n";
+    public static final String VALID_INDEX_NOT_PROVIDED = "Valid index not provided!\n";
+
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddPolicyCommand
      * and returns an AddPolicyCommand object for execution.
@@ -24,8 +30,12 @@ public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
     public AddPolicyCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TAG) || argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
+        if (!argMultimap.getPreamble().matches("[1-9]\\d*")) {
+            throw new ParseException(VALID_INDEX_NOT_PROVIDED
+                                     + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
+        } else if (!arePrefixesPresent(argMultimap, PREFIX_TAG)) {
+            throw new ParseException(MESSAGE_COMPULSORY_FIELD_MISSING
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
         }
 
         try {
@@ -35,17 +45,13 @@ public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
             // Parse policies
             Set<Tag> policies = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-            // Check if policies are provided
-            if (policies.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
-            }
-
             // Return the AddPolicyCommand object
             return new AddPolicyCommand(index, policies);
 
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE), pe);
+                    INVALID_POLICY_PROVIDED
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE), pe);
         }
     }
 

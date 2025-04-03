@@ -13,10 +13,10 @@ import seedu.address.model.client.Client;
  */
 public class Messages {
 
-    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
+    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command!";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "\n(Scroll down for more information) \n%1$s";
-    public static final String MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX = "The client index provided is invalid. "
-            + "Client index must be an existing index.";
+    public static final String MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX =
+            "The client with the given index does not exist!\n";
     public static final String MESSAGE_CLIENTS_LISTED_OVERVIEW = "%1$d clients listed!";
     public static final String MESSAGE_COMPULSORY_FIELD_MISSING =
             "At least 1 of the compulsory fields are missing!\n";

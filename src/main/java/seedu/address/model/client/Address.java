@@ -15,7 +15,7 @@ public class Address {
     public static final String MESSAGE_CONSTRAINTS =
             "The address given is invalid!\n"
                     + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    "The address given is either blank or purely whitespace.\n\n")
+                    "The address given is either blank, purely whitespace or more than 150 characters long.\n\n")
                     + AddClientCommand.MESSAGE_USAGE;
 
     /*
@@ -38,16 +38,35 @@ public class Address {
         value = normalizedAddress;
     }
 
-    private String normalizeAddress(String name) {
-        name = name.replaceAll("\\s+", " ").trim();
-        return name.trim();
+    /**
+     * Processes the address to modify it stylistically
+     *
+     * @param address The input address
+     * @return The processed address
+     */
+    private String normalizeAddress(String address) {
+        address = address.replaceAll("\\s+", " ").trim();
+
+        String[] parts = address.trim().split(" ");
+        StringBuilder result = new StringBuilder();
+        for (String part : parts) {
+            if (part.length() > 0) {
+                if (part.length() == 1) {
+                    result.append(part.toUpperCase()).append(" ");
+                } else {
+                    result.append(part.substring(0, 1).toUpperCase())
+                            .append(part.substring(1).toLowerCase()).append(" ");
+                }
+            }
+        }
+        return result.toString().trim();
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid address.
      */
     public static boolean isValidAddress(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= 150;
     }
 
     @Override

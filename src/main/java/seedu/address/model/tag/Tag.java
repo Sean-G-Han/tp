@@ -13,13 +13,11 @@ import seedu.address.logic.commands.AddClientCommand;
 public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "The policy tag given is invalid!\n"
+            "At least 1 policy tag given is invalid!\n"
                     + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    "The policy tag could contain invalid symbols such as \\.\n"
-                    + "Otherwise, t/ is used in addclient but the policy given is"
-                    + " either blank or purely whitespace.\n\n")
+                    "The policy tag could be blank, purely whitespace or contains invalid symbols such as \\.\n\n")
                     + AddClientCommand.MESSAGE_USAGE;
-    public static final String VALIDATION_REGEX = "^[\\p{Alnum} .,'~*@%\\-_!?\\$\\[\\]()\"]+$";
+    public static final String VALIDATION_REGEX = "^[\\p{Alnum} .,'~*@%\\-_!?\\+\\*\\$\\[\\]()\"]+$";
     public final String tagName;
 
     /**
@@ -29,15 +27,40 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+        String normalizedTag = normalizeTag(tagName);
+        checkArgument(isValidTagName(normalizedTag), MESSAGE_CONSTRAINTS);
+        this.tagName = normalizedTag;
     }
 
     /**
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= 150;
+    }
+
+    /**
+     * Processes the tag to modify it stylistically
+     *
+     * @param tag The input tag
+     * @return The processed tag
+     */
+    private String normalizeTag(String tag) {
+        tag = tag.replaceAll("\\s+", " ").trim();
+
+        String[] parts = tag.trim().split(" ");
+        StringBuilder result = new StringBuilder();
+        for (String part : parts) {
+            if (part.length() > 0) {
+                if (part.length() == 1) {
+                    result.append(part.toUpperCase()).append(" ");
+                } else {
+                    result.append(part.substring(0, 1).toUpperCase())
+                            .append(part.substring(1).toLowerCase()).append(" ");
+                }
+            }
+        }
+        return result.toString().trim();
     }
 
     @Override
