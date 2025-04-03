@@ -15,7 +15,7 @@ end box
 [-> LogicManager : execute()
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand()
+LogicManager -> AddressBookParser : parseCommand(indexes)
 activate AddressBookParser
 
 create PriorityCommandParser
@@ -23,7 +23,7 @@ AddressBookParser -> PriorityCommandParser
 activate PriorityCommandParser
 
 create PriorityCommand
-PriorityCommandParser -> PriorityCommand : parse(index)
+PriorityCommandParser -> PriorityCommand : parse(indexes)
 activate PriorityCommand
 PriorityCommandParser <-- PriorityCommand
 deactivate PriorityCommand
@@ -37,24 +37,22 @@ deactivate AddressBookParser
 LogicManager -> PriorityCommand : execute()
 activate PriorityCommand
 
-PriorityCommand -> Model
-activate Model
-Model -> Model : getFilteredClientList()
-Model --> PriorityCommand
-deactivate Model
+loop while indexes is not empty
+    PriorityCommand -> Model : getFilteredClientList()
+    activate Model
+    Model --> PriorityCommand
+    deactivate Model
 
-PriorityCommand -> Model
-activate Model
-Model -> Model : setClient()
-Model --> PriorityCommand
-deactivate Model
+    PriorityCommand -> Model : setClient()
+    activate Model
+    Model --> PriorityCommand
+    deactivate Model
 
-PriorityCommand -> Model
-activate Model
-Model -> Model : updateFilteredClientList()
-Model --> PriorityCommand
-deactivate Model
-
+    PriorityCommand -> Model : updateFilteredClientList()
+    activate Model
+    Model --> PriorityCommand
+    deactivate Model
+end
 PriorityCommand --> LogicManager : result
 deactivate PriorityCommand
 PriorityCommand -[hidden]-> LogicManager : result

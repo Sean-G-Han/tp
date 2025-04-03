@@ -14,10 +14,10 @@ end box
 
 [-> PriorityCommand : execute(index)
 activate PriorityCommand
-
+loop while indexes is not empty
 PriorityCommand -> Model
 activate Model
-Model -> Model : getFilteredClientList
+Model -> Model : getFilteredClientList()
 activate Model
 Model --> Model
 deactivate Model
@@ -29,13 +29,11 @@ activate oClient
 oClient --> PriorityCommand
 deactivate oClient
 
-PriorityCommand -> PriorityCommand
-activate  Pr
 create nClient
 PriorityCommand -> nClient : togglePriority(oldClient)
 activate nClient
 nClient --> PriorityCommand
-deactivate
+deactivate nClient
 
 PriorityCommand -> Model
 activate Model
@@ -46,8 +44,6 @@ deactivate Model
 Model --> PriorityCommand
 deactivate Model
 
-destroy oClient
-
 PriorityCommand -> Model
 activate Model
 Model -> Model : updateFilteredClientList
@@ -56,7 +52,7 @@ Model --> Model
 deactivate Model
 Model --> PriorityCommand
 deactivate Model
-
+end
 [<--PriorityCommand
 deactivate PriorityCommand
 @enduml
