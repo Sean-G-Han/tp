@@ -100,4 +100,36 @@ public class UpdateClientCommandParserTest {
         UpdateClientCommand expectedCommand3 = new UpdateClientCommand(targetIndex, descriptor3);
         assertParseSuccess(parser, userInput3, expectedCommand3);
     }
+
+    @Test
+    public void parse_multipleContactFields_success() {
+        Index targetIndex = INDEX_FIRST_CLIENT;
+
+        // Phone and email only
+        String userInput1 = targetIndex.getOneBased() + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        EditClientDescriptor descriptor1 = new EditClientDescriptorBuilder()
+                .withPhone(VALID_PHONE_AMY)
+                .withEmail(VALID_EMAIL_AMY)
+                .build();
+        UpdateClientCommand expectedCommand1 = new UpdateClientCommand(targetIndex, descriptor1);
+        assertParseSuccess(parser, userInput1, expectedCommand1);
+
+        // Phone and address only
+        String userInput2 = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        EditClientDescriptor descriptor2 = new EditClientDescriptorBuilder()
+                .withPhone(VALID_PHONE_AMY)
+                .withAddress(VALID_ADDRESS_AMY)
+                .build();
+        UpdateClientCommand expectedCommand2 = new UpdateClientCommand(targetIndex, descriptor2);
+        assertParseSuccess(parser, userInput2, expectedCommand2);
+
+        // Email and address only
+        String userInput3 = targetIndex.getOneBased() + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        EditClientDescriptor descriptor3 = new EditClientDescriptorBuilder()
+                .withEmail(VALID_EMAIL_AMY)
+                .withAddress(VALID_ADDRESS_AMY)
+                .build();
+        UpdateClientCommand expectedCommand3 = new UpdateClientCommand(targetIndex, descriptor3);
+        assertParseSuccess(parser, userInput3, expectedCommand3);
+    }
 }

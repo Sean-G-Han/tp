@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand.EditClientDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.client.Client;
@@ -34,6 +35,12 @@ public class UpdateClientCommandTest {
     @Test
     public void constructor_nullDescriptor_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new UpdateClientCommand(INDEX_FIRST_CLIENT, null));
+    }
+
+    @Test
+    public void constructor_nullIndex_throwsNullPointerException() {
+        EditClientDescriptor descriptor = new EditClientDescriptorBuilder().withPhone("91234567").build();
+        assertThrows(NullPointerException.class, () -> new UpdateClientCommand(null, descriptor));
     }
 
     @Test
@@ -74,6 +81,55 @@ public class UpdateClientCommandTest {
         expectedClient.getTags().forEach(expectedMessageBuilder::append);
 
         assertEquals(expectedMessageBuilder.toString(), result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_singleFieldUpdate_success() throws Exception {
+        Client originalClient = new ClientBuilder()
+                .withPhone("12345678")
+                .withEmail("original@example.com")
+                .withAddress("Original Address")
+                .build();
+
+        // Test update phone only
+        EditClientDescriptor phoneDescriptor = new EditClientDescriptorBuilder()
+                .withPhone("87654321")
+                .build();
+        UpdateClientCommand updatePhoneCommand = new UpdateClientCommand(INDEX_FIRST_CLIENT, phoneDescriptor);
+        ModelStubForUpdate phoneModelStub = new ModelStubForUpdate(originalClient);
+        updatePhoneCommand.execute(phoneModelStub);
+        Client expectedPhoneClient = new ClientBuilder(originalClient).withPhone("87654321").build();
+        assertEquals(expectedPhoneClient, phoneModelStub.clientUpdated);
+
+        // Test update email only
+        EditClientDescriptor emailDescriptor = new EditClientDescriptorBuilder()
+                .withEmail("new@example.com")
+                .build();
+        UpdateClientCommand updateEmailCommand = new UpdateClientCommand(INDEX_FIRST_CLIENT, emailDescriptor);
+        ModelStubForUpdate emailModelStub = new ModelStubForUpdate(originalClient);
+        updateEmailCommand.execute(emailModelStub);
+        Client expectedEmailClient = new ClientBuilder(originalClient).withEmail("new@example.com").build();
+        assertEquals(expectedEmailClient, emailModelStub.clientUpdated);
+
+        // Test update address only
+        EditClientDescriptor addressDescriptor = new EditClientDescriptorBuilder()
+                .withAddress("New Address")
+                .build();
+        UpdateClientCommand updateAddressCommand = new UpdateClientCommand(INDEX_FIRST_CLIENT, addressDescriptor);
+        ModelStubForUpdate addressModelStub = new ModelStubForUpdate(originalClient);
+        updateAddressCommand.execute(addressModelStub);
+        Client expectedAddressClient = new ClientBuilder(originalClient).withAddress("New Address").build();
+        assertEquals(expectedAddressClient, addressModelStub.clientUpdated);
+    }
+
+    @Test
+    public void execute_invalidIndex_throwsCommandException() {
+        EditClientDescriptor descriptor = new EditClientDescriptorBuilder().withPhone("91234567").build();
+        UpdateClientCommand updateCommand = new UpdateClientCommand(INDEX_SECOND_CLIENT, descriptor);
+        ModelStubForInvalidIndex modelStub = new ModelStubForInvalidIndex();
+
+        assertThrows(CommandException.class,
+            Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX, () -> updateCommand.execute(modelStub));
     }
 
     @Test
@@ -204,6 +260,17 @@ public class UpdateClientCommandTest {
         @Override
         public void updateFilteredClientList(Predicate<Client> predicate) {
             // Do nothing - this needs to be overridden to prevent the default error
+        }
+    }
+
+    /**
+     * A Model stub for testing invalid index scenarios.
+     */
+    private static class ModelStubForInvalidIndex extends ModelStub {
+        @Override
+        public ObservableList<Client> getFilteredClientList() {
+            // Return a list with only one client, so INDEX_SECOND_CLIENT will be invalid
+            return FXCollections.observableArrayList(new ClientBuilder().build());
         }
     }
 }
