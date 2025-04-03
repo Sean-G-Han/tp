@@ -21,8 +21,8 @@ public class Phone {
                             + AddClientCommand.MESSAGE_USAGE
                             + "\n\n"
                             + "For more information on valid email formats, you may refer to the following:"
-                            + "\nThe international code should be 1-3 digits.\n"
-                            + "The number should be at most 13 digits.");
+                            + "\nThe international code should be 1-3 digits long.\n"
+                            + "The number should be 3-13 digits long.");
 
     public static final String VALIDATION_REGEX = "^(\\+?\\d{1,3} )?\\d{3,13}$";
     public final String value;
