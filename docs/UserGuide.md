@@ -53,10 +53,10 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a  L
   e.g. in `addc n/NAME`, `NAME` is a parameter which can be used as `addc n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/POLICY_TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `n/NAME [t/POLICY_TAG]` can be used as `n/John Doe t/Policy A` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/POLICY_TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/POLICY_TAG]…​` can be used as ` ` (i.e. 0 times), `t/Policy B`, `t/Policy C t/Policy D` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -73,12 +73,15 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a  L
 - Anything more than `-` (a single dash) could be interpreted differently (e.g. `--` is not valid for `PHONE_NUMBER`).
 
 
-- `NAME` can only be up to 150 characters long, and cannot contain invalid symbols (e.g. \\)
+- `NAME` can only be up to 150 characters long, and cannot contain invalid symbols (e.g. \\).
+- `NAME` has every first letter capitalised by default, to protect against identifying the same name with different
+casing as different names.
 
 
 - `PHONE_NUMBER` should be of the format +[international code] [number] (e.g. +41 123; the `+` is optional).
   If no international code is provided, the phone number will start with +65.
 - `PHONE_NUMBER`'s international code should not include whitespace.
+- `PHONE_NUMBER`'s international code and number should be separated by a whitespace.
 - `PHONE_NUMBER`'s international code should be 1-3 digits long, and the number should be 3-13 digits long.
 
 
@@ -92,6 +95,9 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a  L
 
 
 - `ADDRESS` should not be more than 150 characters long.
+
+
+- `POLICY_TAG` should not be more than 150 characters long. It should not contain invalid symbols (e.g. \).
 
 
 - `INDEX` should be obtained from the displayed client list. For example, if `findall` is used on a list of 10 clients 
@@ -347,20 +353,20 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action            | **Format**, **Examples**                                                                                                                                                                        |
-|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Client**     | `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​` <br> e.g., `addc n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Add Policy**     | `addp INDEX t/POLICY_TAG ` <br> e.g., `addp 1 t/Health Insurance`                                                                                                             |
-| **Clear**         | `clear`                                                                                                                                                                                 |
-| **Delete Client**  | `delc INDEX`<br> e.g., `delc 3`                                                                                                                                         |
-| **Delete Policy**  | `delp INDEX t/POLICY_TAG`<br> e.g., `delp 2 t/Health Insurance`                                                                                                         |
-| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                      |
-| **Update**        | `update INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`<br> e.g.,`update 2 p/91234567 e/jameslee@example.com`                                                                            |
-| **Find**          | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                                  |
-| **Find (Or)**     | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                              |
-| **Find (And)**    | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                            |
-| **Priority**      | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                                  |
-| **List**          | `list`                                                                                                                                                                                  |
-| **Help**          | `help`                                                                                                                                                                                  |
+| Action            | **Format**, **Examples**                                                                                                                                                        |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Client**     | `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​` <br> e.g., `addc n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/Policy X t/Policy Y` |
+| **Add Policy**     | `addp INDEX t/POLICY_TAG ` <br> e.g., `addp 1 t/Health Insurance`                                                                                                               |
+| **Clear**         | `clear`                                                                                                                                                                         |
+| **Delete Client**  | `delc INDEX`<br> e.g., `delc 3`                                                                                                                                                 |
+| **Delete Policy**  | `delp INDEX t/POLICY_TAG`<br> e.g., `delp 2 t/Health Insurance`                                                                                                                 |
+| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                              |
+| **Update**        | `update INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`<br> e.g.,`update 2 p/91234567 e/jameslee@example.com`                                                                     |
+| **Find**          | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                          |
+| **Find (Or)**     | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                      |
+| **Find (And)**    | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                    |
+| **Priority**      | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                          |
+| **List**          | `list`                                                                                                                                                                          |
+| **Help**          | `help`                                                                                                                                                                          |
 
 
