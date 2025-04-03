@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CLIENT;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -54,6 +56,26 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(INDEX_FIRST_CLIENT, ParserUtil.parseIndex("  1  "));
+    }
+
+    @Test
+    public void parseIndexes_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseIndexes("10 a"));
+    }
+
+    @Test
+    public void parseIndexes_outOfRangeInput_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
+                -> ParserUtil.parseIndexes(Long.toString(Integer.MAX_VALUE + 1)));
+    }
+
+    @Test
+    public void parseIndexes_validInput_success() throws Exception {
+        // No whitespaces
+        assertEquals(List.of(INDEX_FIRST_CLIENT), ParserUtil.parseIndexes("1"));
+
+        // Extra whitespaces including leading or trailing
+        assertEquals(List.of(INDEX_FIRST_CLIENT, INDEX_SECOND_CLIENT), ParserUtil.parseIndexes("  1  2  "));
     }
 
     @Test

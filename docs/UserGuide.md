@@ -99,21 +99,35 @@ Format: `list`
 
 ### Editing a person : `edit`
 
-Edits an existing person in the address book.
+Edits an existing person in the address book. This command allows changing any client details including name and tags.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`
 
-- Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-- At least one of the optional fields must be provided.
-- Existing values will be updated to the input values.
-- When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-- You can remove all the person's tags by typing `t/` without
-  specifying any tags after it.
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without
+    specifying any tags after it.
 
 Examples:
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-- `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-- `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+### Updating contact information : `update`
+
+Updates only the contact information (phone, email, address) of an existing person in the address book. Unlike the `edit` command, this command cannot change the client's name or tags.
+
+Format: `update INDEX [p/PHONE] [e/EMAIL] [a/ADDRESS]`
+
+* Updates the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Name and tags cannot be modified using this command. Use the `edit` command instead.
+
+Examples:
+*  `update 1 p/91234567 e/johndoe@example.com` Updates the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `update 2 a/Clementi Ave 6` Updates only the address of the 2nd person to be `Clementi Ave 6`.
 
 ### Locating persons by name: `findclient`
 
@@ -134,11 +148,11 @@ Examples:
 - `findclient alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Locating persons by name and tag: `findclientor`
+### Locating persons by name and tag: `findany`
 
 Finds persons whose name or tag contain any of the given keywords.
 
-Format: `findclientor KEYWORD [MORE_KEYWORDS]`
+Format: `findany KEYWORD [MORE_KEYWORDS]`
 
 - The search is case-insensitive. e.g `hans` will match `Hans`
 - The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -148,16 +162,21 @@ Format: `findclientor KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-
-- `findclientor John` returns `john` and `John Doe`
-- `findclientor alex david priority` returns `Alex Yeoh`, `David Li` and anyone with the `Priority` tag attached<br>
+* `findany John` returns `john` and `John Doe`
+* `findany Jo priority` returns only clients whose name or tags matches either `priority` or `Jo` attached<br>
   ![result for 'find alex david'](images/findclientorAlexDavidPriority.png)
+
+Potential Errors:
+
+Errors           | Reason             |Fixes
+-----------------|--------------------|------------------------
+"Field is empty" | This error is thrown when no keywords were provided with the `findany` command. | To fix this error, simply supply some keywords
 
 ### Locating specific persons by name and tag: `findclientand`
 
 Finds persons whose name or tag contain all of the given keywords.
 
-Format: `findclientand KEYWORD [MORE_KEYWORDS]`
+Format: `findall KEYWORD [MORE_KEYWORDS]`
 
 - The search is case-insensitive. e.g `hans` will match `Hans`
 - The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -167,10 +186,15 @@ Format: `findclientand KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-
-- `findclientand John` returns `john` and `John Doe`
-- `findclientand friends priority` returns only people with the `Priority` and `friends` tags attached<br>
+* `findall John Doe` would return `John Doe` but not `Jane Doe` or `John Snow`
+* `findall ng priority` returns only clients whose name or tags matches both `priority` and `ng` attached<br>
   ![result for 'find alex david'](images/findclientandFriendsPriority.png)
+
+Potential Errors:
+
+Errors           | Reason             |Fixes
+-----------------|--------------------|------------------------
+"Field is empty" | This error is thrown when no keywords were provided with the `findany` command. | To fix this error, simply supply some keywords
 
 ### Deleting a person : `deleteclient`
 
@@ -219,18 +243,24 @@ Examples:
 
 ### Prioritising a person: `priority`
 
-Toggles the priority of the specified person from the address book as indicated with a "Priority" tag.
+Toggles the priority of specified person from the application as indicated with a `Priority` tag.
 
-Format: `priority INDEX`
+Format: `priority INDEX [MORE INDEX]`
 
 - Adds a "Priority" tag to the specified `INDEX` if such a tag isn't attached to the person
 - Removes the "Priority" tag of the specified `INDEX` if such a tag is already attached to the person
 - The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
+* `list` followed by `priority 1 3` adds a priority tag to the 1st person and 3rd person in the list if the person is yet to be attached with a "Priority" tag.
+  Before           |After
+  -----------------|--------------------
+  ![before priority command](images/priorityCommand1.png) | ![after 'priority 1 3'](images/priorityCommand2.png)
 
-- `list` followed by `priority 1` adds a priority tag to the 1st person in the list if the person is yet to be attached with a "Priority" tag.
-- `list` followed by `priority 3` removes a priority tag from the 3rd person in the list if the person is attached with a "Priority" tag.
+* `list` followed by `priority 3` removes a priority tag from the 3rd person in the list if the person is attached with a "Priority" tag.
+  Before           |After
+  -----------------|--------------------
+  ![before priority command](images/priorityCommand2.png) | ![after 'priority 3'](images/priorityCommand3.png)
 
 ### Clearing all entries : `clear`
 
@@ -290,6 +320,7 @@ _Details coming soon ..._
 | **Delete Multiple Clients** | `deleteclientmult i/INDEX [i/INDEX]…​`<br> e.g., `deleteclient i/3` or `deleteclient i/1 i/2 i/3`
 | **Delete Policy**           | `deletepolicy INDEX t/POLICY_TAG`<br> e.g., `deletepolicy 2 t/Health Insurance`                                                                                                 |
 | **Edit**                    | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                              |
+| **Update**        | `update INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`<br> e.g.,`update 2 p/91234567 e/jameslee@example.com`                                                                            |
 | **Find**                    | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                          |
 | **Find (Or)**               | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                      |
 | **Find (And)**              | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                    |

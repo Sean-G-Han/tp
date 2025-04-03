@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,19 +21,18 @@ import seedu.address.model.tag.Tag;
  */
 public class AddPolicyCommand extends Command {
 
-    public static final String COMMAND_WORD = "addpolicy";
+    public static final String COMMAND_WORD = "addp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds policies to an existing client identified by the user-inputted index number.\n"
-            + "                 The index number must be based on the displayed client list.\n\n"
+            + "          The index number must be based on the displayed client list.\n"
             + "Parameters: INDEX (MUST BE A POSITIVE INTEGER) POLICY [MORE_POLICIES]...\n"
             + "Example: " + COMMAND_WORD + " 1 t/Life Insurance t/Health Insurance";
 
-    public static final String MESSAGE_SUCCESS = "Policies added to client: %1$s";
-    public static final String MESSAGE_CLIENT_NOT_FOUND = "Client with the given index does not exist.";
-    public static final String MESSAGE_USE_PRIORITY_COMMAND = "t/Priority is not added. "
-            + "Please use priority command to toggle priority.\n"
-            + "Other valid tags are added.";
+    public static final String MESSAGE_SUCCESS = "Updated Policy Information: %1$s";
+    public static final String MESSAGE_USE_PRIORITY_COMMAND =
+            "\nt/Priority, if included, is not added. Please use priority command to toggle priority.\n"
+            + "Duplicates are skipped.";
 
     private final Index clientIndex;
     private final Set<Tag> policiesToAdd;
@@ -52,7 +53,8 @@ public class AddPolicyCommand extends Command {
 
         // Check if the index is valid
         if (clientIndex.getZeroBased() >= model.getFilteredClientList().size()) {
-            throw new CommandException(MESSAGE_CLIENT_NOT_FOUND);
+            throw new CommandException(MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
         }
 
         Client clientToEdit = model.getFilteredClientList().get(clientIndex.getZeroBased());
@@ -76,12 +78,8 @@ public class AddPolicyCommand extends Command {
         );
 
         model.setClient(clientToEdit, updatedClient);
-
-        if (policiesToAdd2.size() < policiesToAdd.size()) {
-            return new CommandResult(MESSAGE_USE_PRIORITY_COMMAND);
-        } else {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(updatedClient)));
-        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(updatedClient))
+                + MESSAGE_USE_PRIORITY_COMMAND);
     }
 
     @Override

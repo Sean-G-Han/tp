@@ -3,8 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.DeletePolicyCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CLIENT;
@@ -65,7 +68,8 @@ public class DeletePolicyCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setClient(clientToEdit, expectedClient);
 
-        String expectedMessage = String.format(DeletePolicyCommand.MESSAGE_SUCCESS, Messages.format(expectedClient));
+        String expectedMessage = String.format(MESSAGE_SUCCESS, Messages.format(expectedClient))
+                + DeletePolicyCommand.MESSAGE_USE_PRIORITY_COMMAND;
 
         assertCommandSuccess(deletePolicyCommand, model, expectedMessage, expectedModel);
     }
@@ -78,7 +82,9 @@ public class DeletePolicyCommandTest {
 
         DeletePolicyCommand deletePolicyCommand = new DeletePolicyCommand(outOfBoundIndex, policiesToDelete);
 
-        assertCommandFailure(deletePolicyCommand, model, DeletePolicyCommand.MESSAGE_CLIENT_NOT_FOUND);
+        assertCommandFailure(deletePolicyCommand, model,
+                MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX
+                        + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePolicyCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -141,38 +147,6 @@ public class DeletePolicyCommandTest {
     }
 
     @Test
-    public void execute_deletePolicyWithPriorityTag_returnsPriorityCommandMessage() throws CommandException {
-        Client clientToEdit = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
-
-        Tag normalPolicy = new Tag("Normal Policy");
-        Tag priorityPolicy = new PriorityTag();
-
-        Set<Tag> clientPolicies = new HashSet<>(clientToEdit.getTags());
-        clientPolicies.add(normalPolicy);
-        clientPolicies.add(priorityPolicy);
-
-        Client clientWithPolicies = new Client(
-                clientToEdit.getName(),
-                clientToEdit.getPhone(),
-                clientToEdit.getEmail(),
-                clientToEdit.getAddress(),
-                clientPolicies
-        );
-
-        model.setClient(clientToEdit, clientWithPolicies);
-
-        Set<Tag> policiesToDelete = new HashSet<>();
-        policiesToDelete.add(normalPolicy);
-        policiesToDelete.add(priorityPolicy);
-
-        DeletePolicyCommand deletePolicyCommand = new DeletePolicyCommand(INDEX_FIRST_CLIENT, policiesToDelete);
-
-        CommandResult result = deletePolicyCommand.execute(model);
-
-        assertEquals(DeletePolicyCommand.MESSAGE_USE_PRIORITY_COMMAND, result.getFeedbackToUser());
-    }
-
-    @Test
     public void execute_deletePolicyWithoutPriorityTag_returnsSuccessMessage() throws CommandException {
         Client clientToEdit = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
 
@@ -203,7 +177,7 @@ public class DeletePolicyCommandTest {
 
         Client updatedClient = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
 
-        assertTrue(result.getFeedbackToUser().contains(String.format(DeletePolicyCommand.MESSAGE_SUCCESS,
+        assertTrue(result.getFeedbackToUser().contains(String.format(MESSAGE_SUCCESS,
                 Messages.format(updatedClient))));
     }
 
@@ -233,7 +207,8 @@ public class DeletePolicyCommandTest {
 
         CommandResult result = deletePolicyCommand.execute(model);
 
-        assertEquals(DeletePolicyCommand.MESSAGE_USE_PRIORITY_COMMAND, result.getFeedbackToUser());
+        assertEquals(String.format(MESSAGE_SUCCESS, Messages.format(clientWithPolicies))
+                + DeletePolicyCommand.MESSAGE_USE_PRIORITY_COMMAND, result.getFeedbackToUser());
     }
 
     @Test
@@ -264,7 +239,7 @@ public class DeletePolicyCommandTest {
 
         Client updatedClient = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
 
-        assertTrue(result.getFeedbackToUser().contains(String.format(DeletePolicyCommand.MESSAGE_SUCCESS,
+        assertTrue(result.getFeedbackToUser().contains(String.format(MESSAGE_SUCCESS,
                 Messages.format(updatedClient))));
     }
 }
