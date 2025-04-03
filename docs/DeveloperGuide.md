@@ -226,6 +226,38 @@ Its operation is modeled below:
 
 <puml src="diagrams/TogglePrioritySequenceDiagram2.puml" width="550" />
 
+### Update Client feature
+
+The `update` command allows users to modify only the contact information (phone, email, address) of a client, without changing their name or tags.
+
+#### Implementation
+
+The `update` command updates a client's contact information at a given index. Unlike the `edit` command which allows changing all client fields, the `update` command is specifically designed to only modify contact information fields (phone, email, address), preserving the client's name and tags.
+
+The `UpdateClientCommand` extends `Command` directly, rather than extending `EditCommand`, to enforce these restrictions. However, it still reuses the `EditClientDescriptor` class to store field values.
+
+The restrictions are implemented in two key places:
+
+1. In the `UpdateClientCommandParser`:
+   ```java
+   // Only tokenize phone, email, and address prefixes
+   ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, 
+           PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
+   ```
+
+2. In the `createUpdatedClient` method of `UpdateClientCommand`:
+   ```java
+   return new Client(
+           clientToUpdate.getName(),      // Preserve original name
+           updatedPhone,
+           updatedEmail,
+           updatedAddress,
+           clientToUpdate.getTags()       // Preserve original tags
+   );
+   ```
+
+This design allows for a more specialized update command that can be used when users only need to update contact information without risking accidental changes to a client's identity (name) or categorization (tags).
+
 ### Sort Priority feature
 
 #### Implementation
