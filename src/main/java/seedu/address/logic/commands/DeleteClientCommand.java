@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
 
@@ -16,11 +17,11 @@ import seedu.address.model.client.Client;
  */
 public class DeleteClientCommand extends Command {
 
-    public static final String COMMAND_WORD = "deleteclient";
+    public static final String COMMAND_WORD = "delc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes an existing client identified by the user-inputted index number. "
-            + "The index number must be based on the displayed client list.\n"
+            + ": Deletes an existing client identified by the user-inputted index number."
+            + "\n         The index number must be based on the displayed client list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -38,7 +39,8 @@ public class DeleteClientCommand extends Command {
         List<Client> lastShownList = model.getFilteredClientList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientCommand.MESSAGE_USAGE));
         }
 
         Client clientToDelete = lastShownList.get(targetIndex.getZeroBased());

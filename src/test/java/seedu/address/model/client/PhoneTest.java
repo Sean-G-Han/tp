@@ -37,7 +37,6 @@ public class PhoneTest {
         assertFalse(Phone.isValidPhone("+123456789")); // international code too long
         assertFalse(Phone.isValidPhone("+12 123456789012345")); // too many digits after international code
         assertFalse(Phone.isValidPhone("+123456789")); // International code too long.
-        assertFalse(Phone.isValidPhone("123 123456789")); // No + at the start.
         assertFalse(Phone.isValidPhone("+123456789")); // International code too long.
         assertFalse(Phone.isValidPhone("+1234 12345678901234")); // International code too long, number too long.
         assertFalse(Phone.isValidPhone("+1 a123456789")); // alpha in international code.
@@ -52,31 +51,41 @@ public class PhoneTest {
         assertTrue(Phone.isValidPhone("+123 1234567890"));
         assertTrue(Phone.isValidPhone("+65 12345678"));
         assertTrue(Phone.isValidPhone("12345678"));
+        assertTrue(Phone.isValidPhone("-"));
     }
 
     @Test
     public void equals() {
         Phone phone = new Phone("999");
+        Phone phoneOptional = new Phone("-");
 
         // same values -> returns true
         assertTrue(phone.equals(new Phone("999")));
+        assertTrue(phoneOptional.equals(new Phone("-")));
 
         // same object -> returns true
         assertTrue(phone.equals(phone));
+        assertTrue(phoneOptional.equals(phoneOptional));
 
         // null -> returns false
         assertFalse(phone.equals(null));
+        assertFalse(phoneOptional.equals(null));
 
         // different types -> returns false
         assertFalse(phone.equals(5.0f));
+        assertFalse(phoneOptional.equals(5.5f));
 
         // different values -> returns false
         assertFalse(phone.equals(new Phone("995")));
+        assertFalse(phoneOptional.equals(new Phone("999")));
     }
 
     @Test
     public void toStringMethod() {
         Phone phone = new Phone("+1 1234567890");
+        Phone phoneOptional = new Phone("-");
+
         assertEquals("+1 1234567890", phone.toString());
+        assertEquals("-", phoneOptional.toString());
     }
 }

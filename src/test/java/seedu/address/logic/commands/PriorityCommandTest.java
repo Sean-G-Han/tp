@@ -11,6 +11,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CLIENT;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -30,7 +32,7 @@ public class PriorityCommandTest {
         Client client = model.getFilteredClientList().get(clientIndex.getZeroBased());
         Client priorityClient = new ClientBuilder(client).withTags(tags).build();
 
-        PriorityCommand priorityCommand = new PriorityCommand(clientIndex);
+        PriorityCommand priorityCommand = new PriorityCommand(List.of(clientIndex));
 
         String expectedMessage = String.format(PriorityCommand.MESSAGE_PRIORITY_CLIENT_SUCCESS,
                 Messages.format(priorityClient));
@@ -55,14 +57,14 @@ public class PriorityCommandTest {
     @Test
     public void execute_invalidIndex_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredClientList().size() + 1);
-        PriorityCommand priorityCommand = new PriorityCommand(outOfBoundIndex);
+        PriorityCommand priorityCommand = new PriorityCommand(List.of(outOfBoundIndex));
 
         assertCommandFailure(priorityCommand, model, Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final PriorityCommand standardCommand = new PriorityCommand(INDEX_FIRST_CLIENT);
+        final PriorityCommand standardCommand = new PriorityCommand(List.of(INDEX_FIRST_CLIENT));
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
@@ -74,6 +76,6 @@ public class PriorityCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new PriorityCommand(INDEX_SECOND_CLIENT)));
+        assertFalse(standardCommand.equals(new PriorityCommand(List.of(INDEX_SECOND_CLIENT))));
     }
 }

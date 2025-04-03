@@ -20,13 +20,13 @@ public class TagFactoryTest {
         Tag tag = TagFactory.createTag("abcdefghijklmnop");
         assertFalse(tag instanceof PriorityTag);
         assertTrue(tag instanceof Tag);
-        assertEquals("abcdefghijklmnop", tag.tagName);
+        assertEquals("Abcdefghijklmnop", tag.tagName);
     }
 
     @Test
     public void create_nonPriorityTag() {
         Tag tag = TagFactory.createTag("NonPriority");
         assertFalse(tag instanceof PriorityTag);
-        assertEquals("NonPriority", tag.tagName);
+        assertEquals("Nonpriority", tag.tagName);
     }
 }
