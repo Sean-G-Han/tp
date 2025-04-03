@@ -270,8 +270,10 @@ Deletes the specified client from WealthVault.
 
 **Examples**:
 
-- `list` followed by `delc 2` deletes the 2nd client in WealthVault.
-- `findclient Betsy` followed by `delc 1` deletes the 1st client in the results of the `findclient` command.
+- `list` followed by `delc 1` deletes the 1st client in the client list (in this case, John Tan).
+- `findclient Jane` followed by `delc 2` deletes the 2nd client in the results of the `findclient` command (in this case, Jane Lee).
+  ![delc1](images/delc1.png)
+  ![delc2](images/delc2.png)
 
 ### Deleting multiple clients : `deleteclientmult`
 
@@ -293,19 +295,20 @@ Deletes multiple specified clients from WealthVault.
 
 Deletes the specified policy from WealthVault.
 
-**Format**: `delp INDEX`
+**Format**: `delp INDEX t/POLICY_TAG`
 
 - Deletes the policy at the specified `INDEX`.
 - The index refers to the index number shown in the displayed policy list.
 - The index **must be a positive integer** 1, 2, 3, …​
+- POLICY_TAG must match the policy name to be deleted.
 
 **Examples**:
 
-- `listpolicy` followed by `delp 2` deletes the 2nd policy in WealthVault.
-- `findpolicy Home` followed by `delp 1` deletes the 1st policy in the results of the `findpolicy` command.
+- `delp 1 t/Health Insurance` deletes `Health Insurance` policy tag from index `1` of the list (in this case, John Tan)
+- `delp 2 t/Home Protection Plan` deletes `Home Protection Plan` policy tag from index `2` of the list (in this case, Jane Tan)
 
-* `listpolicy` followed by `delp 2` deletes the 2nd policy in the address book.
-* `findpolicy Home` followed by `delp 1` deletes the 1st policy in the results of the `findpolicy` command.
+   ![delp1](images/delp1.png)
+   ![delp2](images/delp2.png)
 
 ### Prioritising a client: `priority`
 
