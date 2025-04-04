@@ -23,7 +23,8 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_EMPTY_FIELD = "Field is empty\n";
-    public static final String VALID_INDEX_NOT_PROVIDED = "Valid index not provided!\n";
+    public static final String VALID_INDEX_NOT_PROVIDED = "Valid index not provided, "
+            + "or provided along with unwanted information!\n";
 
 
     /**
