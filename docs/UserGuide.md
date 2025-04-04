@@ -87,10 +87,10 @@ is not a valid prefix for addc.**
   casing as different names.
 
 
-- `PHONE_NUMBER` should be of the format +[international code] [number] (e.g. +41 123; the `+` is optional).
+- `PHONE_NUMBER` should be of the format +[international code] [whitespace] [number] (e.g. +41 123; the `+` is optional).
   If no international code is provided, the phone number will start with +65.
 - `PHONE_NUMBER`'s international code should not include whitespace.
-- `PHONE_NUMBER`'s international code and number should be separated by a whitespace.
+- `PHONE_NUMBER`'s international code and number should be separated by a single whitespace.
 - `PHONE_NUMBER`'s international code should be 1-3 digits long, and the number should be 3-13 digits long.
 
 
