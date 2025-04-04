@@ -65,16 +65,13 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a Li
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 
-* **Use only the prefixes `a/`, `e/`, `n/`, `p/`, `t/`, and only in appropriate places as
-specified in the command format. Usage of prefixes other than the 5 allowed, or the allowed prefixes but
-at the incorrect place, can lead to the value of the last prefix being deemed invalid. For example, 
+* **Use only the valid prefixes for each command format. Usage of prefixes other than the ones allowed can lead to the 
+value of the last prefix being deemed invalid. For example, 
 `addc n/Jo Ng e/j@gmail.com a/21 Lane p/81234321 x/Policy A` will result in the phone number being invalid as x/
-is not a valid prefix.**
+is not a valid prefix for addc.**
 
 
 - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-  </box>
-
 
 
 
@@ -90,10 +87,10 @@ is not a valid prefix.**
   casing as different names.
 
 
-- `PHONE_NUMBER` should be of the format +[international code] [number] (e.g. +41 123; the `+` is optional).
+- `PHONE_NUMBER` should be of the format +[international code] [whitespace] [number] (e.g. +41 123; the `+` is optional).
   If no international code is provided, the phone number will start with +65.
 - `PHONE_NUMBER`'s international code should not include whitespace.
-- `PHONE_NUMBER`'s international code and number should be separated by a whitespace.
+- `PHONE_NUMBER`'s international code and number should be separated by a single whitespace.
 - `PHONE_NUMBER`'s international code should be 1-3 digits long, and the number should be 3-13 digits long.
 
 
@@ -115,6 +112,7 @@ is not a valid prefix.**
 - `INDEX` should be obtained from the displayed client list. For example, if `findall` is used on a list of 10 clients
   such that there is only 1 client in the list eventually displayed, only `delc 1` is a valid command to delete a client.
 
+</box>
 ### Viewing help : `help`
 
 Shows a message explaning how to access the help page.
@@ -151,8 +149,6 @@ Adds a client to WealthVault.
 Adds a policy to a client in WealthVault.
 
 **Format**: `addp INDEX t/POLICY_TAG`
-
-<box type="tip" seamless>
 
 **Examples**:
 
