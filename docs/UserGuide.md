@@ -64,8 +64,19 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a Li
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+
+* **Use only the prefixes `a/`, `e/`, `n/`, `p/`, `t/`, and only in appropriate places as
+specified in the command format. Usage of prefixes other than the 5 allowed, or the allowed prefixes but
+at the incorrect place, can lead to the value of the last prefix being deemed invalid. For example, 
+`addc n/Jo Ng e/j@gmail.com a/21 Lane p/81234321 x/Policy A` will result in the phone number being invalid as x/
+is not a valid prefix.**
+
+
 - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
   </box>
+
+
+
 
 **Notes about the fields:**<br>
 
@@ -73,15 +84,18 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a Li
   `EMAIL` or `ADDRESS` at the point the details are entered. However, `-` cannot be used for `NAME`.
 - Anything more than `-` (a single dash) could be interpreted differently (e.g. `--` is not valid for `PHONE_NUMBER`).
 
+
 - `NAME` can only be up to 150 characters long, and cannot contain invalid symbols (e.g. \\).
 - `NAME` has every first letter capitalised by default, to protect against identifying the same name with different
   casing as different names.
+
 
 - `PHONE_NUMBER` should be of the format +[international code] [number] (e.g. +41 123; the `+` is optional).
   If no international code is provided, the phone number will start with +65.
 - `PHONE_NUMBER`'s international code should not include whitespace.
 - `PHONE_NUMBER`'s international code and number should be separated by a whitespace.
 - `PHONE_NUMBER`'s international code should be 1-3 digits long, and the number should be 3-13 digits long.
+
 
 - `EMAIL` should be of the format [local-part]@[domain]. Standard domain names like gmail.com are definitely fine.
 - `EMAIL` should not contain unnecessary whitespace.
@@ -91,9 +105,12 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a Li
   must start and end with alphanumeric characters, must consist of alphanumeric characters, and can be
   separated only by hyphens (if any).
 
+
 - `ADDRESS` should not be more than 150 characters long.
 
+
 - `POLICY_TAG` should not be more than 150 characters long. It should not contain invalid symbols (e.g. \).
+
 
 - `INDEX` should be obtained from the displayed client list. For example, if `findall` is used on a list of 10 clients
   such that there is only 1 client in the list eventually displayed, only `delc 1` is a valid command to delete a client.
@@ -136,11 +153,6 @@ Adds a policy to a client in WealthVault.
 **Format**: `addp INDEX t/POLICY_TAG`
 
 <box type="tip" seamless>
-
-**Tips:**
-
-- `t/POLICY_TAG` is not compulsory. However, if t/ is used, a valid policy must be given.
-  </box>
 
 **Examples**:
 
