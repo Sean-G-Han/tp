@@ -255,7 +255,7 @@ Deletes the specified client from WealthVault.
 **Examples**:
 
 - `list` followed by `delc 1` deletes the 1st client in the client list (in this case, John Tan).
-- `findclient Jane` followed by `delc 2` deletes the 2nd client in the results of the `findclient` command (in this case, Jane Lee).
+- `findany Jane` followed by `delc 2` deletes the 2nd client in the results of the `findany` command (in this case, Jane Lee).
   ![delc1](images/delc1.png)
   ![delc2](images/delc2.png)
 
@@ -273,7 +273,7 @@ Deletes multiple specified clients from WealthVault.
 **Examples**:
 
 - `list` followed by `deleteclientmult i/1 i/2 i/3` deletes the first three clients in WealthVault.
-- `findclient Betsy` followed by `deleteclientmult i/1` deletes the 1st client in the results of the `findclient` command.
+- `findand Betsy` followed by `deleteclientmult i/1` deletes the 1st client in the results of the `findany` command.
 
 ### Deleting a policy: `delp`
 
