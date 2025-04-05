@@ -489,7 +489,7 @@ _{More to be added}_
 3. User enters the required client details.
 4. WealthVault verifies the details.
 5. WealthVault adds the client to the address book and confirms successful addition.
-   **Use case ends.**
+6. **Use case ends.**
 
 #### Extensions:
 
@@ -519,9 +519,9 @@ _{More to be added}_
 1. User chooses to delete a client.
 2. WealthVault requests the client’s details for deletion.
 3. User enters the required details.
-5. User confirms the deletion by clicking "enter".
-6. WealthVault removes the client from the address book and confirms successful deletion.
-   **Use case ends.**
+4. User confirms the deletion by clicking "enter".
+5. WealthVault removes the client from the address book and confirms successful deletion. 
+6. **Use case ends.**
 
 #### Extensions:
 
