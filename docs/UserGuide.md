@@ -10,7 +10,7 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a Li
 
 ## Target Users and Assumptions
 
-This user guide is designed for financial advisors who seek a more organised and efficient way to manage their clients and their financial information. It assumes that users have basic knowledge of financial advisory practices and are familiar with managing client information, whether through spreadsheets, CRM systems, or manual methods. Users are expected to understand the importance of client data management in delivering personalized financial advice.
+This user guide is designed for financial advisors who seek a more organised and efficient way to manage their clients and their financial information. It assumes that users have basic knowledge of financial advisory practices and are familiar with managing client information, whether through spreadsheets, Customer Relationship Management (CRM) systems, or manual methods. Users are expected to understand the importance of client data management in delivering personalized financial advice.
 
 ## About WealthVault
 
