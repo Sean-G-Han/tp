@@ -683,8 +683,8 @@ testers are expected to do more _exploratory_ testing.
 ## **Planned Enhancements**
 **Team Size:** 5
 
-1. **Case-sensitivity of prefixes:** The current command format only allows prefixes in lowercase,
-   e.g. `a/`, `n/`, `p/`. We plan to consider allowing prefixes to be case-insensitive to make it more convenient for users (e.g.
+1. **Case-sensitivity of prefixes:** The current command format only allows prefixes in lowercase
+   (e.g. `a/`, `e/`, `n/`, `p/`, `t/`, and not `A/`, `E/`, `N/`, `P/`, `T/`). We plan to consider allowing prefixes to be case-insensitive to make it more convenient for users (e.g.
    let `t/` and `T/` both be considered valid prefixes).
 
 
@@ -696,7 +696,7 @@ testers are expected to do more _exploratory_ testing.
 
 3. **Input validation for policy tags (part 2):** We currently capitalise the first character of every word in the policy tag (e.g. `addp 1 t/policy A` results in `Policy A` policy tag
    being added to the client at index 1, rather than `policy A`), in order to prevent duplicates (e.g. `policy A` and `Policy A` might be the same policy).
-   However, this restriction may not always align with user expectations or preferences. For instance, the user might want to create a policy tag named `WholeLife Plan` rather than `"Wholelife Plan`.
+   However, this restriction may not always align with user expectations or preferences. For instance, the user might want to create a policy tag named `WholeLife Plan` rather than `Wholelife Plan`.
    We plan to revisit our approach to formatting of policy tag names, to strike a balance between disallowing invalid input and maintaining flexibility for user-defined inputs.
 
 
