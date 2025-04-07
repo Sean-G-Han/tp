@@ -72,7 +72,7 @@ Designed with the user in mind, WealthVault simplifies the organization of clien
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit`, `sort` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 
@@ -181,6 +181,8 @@ Shows a list of all clients in WealthVault.
 
 **Format**: `list`
 
+![list](images/list_command_image.png)
+
 ### Editing contact information : `edit`
 
 Edits an existing person in the address book. This command allows changing the client's name and contact information (phone, email, address). Note that tags cannot be edited with this command.
@@ -277,17 +279,19 @@ Deletes the specified client from WealthVault.
 
 Deletes multiple specified clients from WealthVault.
 
-**Format**: `deleteclientmult i/INDEX [i/INDEX]…​`
+**Format**: `deleteclientmult i/INDEX i/INDEX [i/INDEX]…​`
 
 - Deletes the clients at the specified `INDEX`es.
 - The index refers to the index number shown in the displayed client list.
 - The index **must be a positive integer** 1, 2, 3, …​
 - Each index must be prefixed with `i/`.
+- There must be at least 2 indexes provided.
 
 **Examples**:
 
 - `list` followed by `deleteclientmult i/1 i/2 i/3` deletes the first three clients in WealthVault.
 - `findand Betsy` followed by `deleteclientmult i/1` deletes the 1st client in the results of the `findany` command.
+  ![result for 'deleteclientmult'](images/deleteclientmult_command_image.png)
 
 ---
 
@@ -343,6 +347,27 @@ Toggles the priority of specified client from the application as indicated with 
   Before |After
   -----------------|--------------------
   ![before priority command](images/priorityCommand2.png) | ![after 'priority 3'](images/priorityCommand3.png)
+
+Potential Errors:
+
+Errors           | Reason                                                                             |Fixes
+-----------------|------------------------------------------------------------------------------------|------------------------
+"Field is empty  | This error is thrown when no indexes are supplied to the `priority` command        | To fix this error, simply supply a proper index
+"Index is not a non-zero unsigned integer" | This error is thrown when a non-zero unsigned integer is supplied like `a` or `-1` | To fix this error, simply supply a non-zero unsigned integer
+"The client with the given index does not exist!"| This error is thrown when the specified index is bigger than the size of the list | To fix this error, input an index equal to or smaller than the size of the list
+
+### Sorting all entries : `sort`
+
+Sorts all currently displayed entries on WealthVault in alphabetical order.
+
+**Format**: `sort`
+
+**Example**:
+
+* `list` followed by `sort` sorts all names in the client list in alphabetical order.
+* `findany Tan` followed by `sort` sorts the results of the `findany` command.
+
+![SortCommand](images/sortcommand_image.png)
 
 ### Sorting by priority: `sortpriority`
 
@@ -407,7 +432,7 @@ _Details coming soon ..._
 ## Command summary
 
 | Action                      | Format, Examples                                                                                                                                                         |
-| --------------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add Client**              | `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​` <br> e.g., `addc n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
 | **Add Policy**              | `addp INDEX t/POLICY_TAG ` <br> e.g., `addp 1 t/Health Insurance`                                                                                                              |
 | **Clear**                   | `clear`                                                                                                                                                                        |
@@ -419,6 +444,7 @@ _Details coming soon ..._
 | **Find (Or)**               | `findany KEYWORD [MORE_KEYWORDS]`<br> e.g., `findany James Jake`                                                                                                     |
 | **Find (And)**              | `findall KEYWORD [MORE_KEYWORDS]`<br> e.g., `findall James Jake`                                                                                                   |
 | **Priority**                | `priority INDEX [MORE_INDEX]`<br> e.g.,`priority 1 2 3`  
+| **Sort**                    | `sort` 
 | **Sort Priority**           | `sortpriority` 
 | **List**                    | `list`                                                                                                                                                                         |
 | **Help**                    | `help`                                                                                                                                                                         |

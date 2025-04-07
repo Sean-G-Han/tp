@@ -36,4 +36,11 @@ public class ListCommandTest {
         showClientAtIndex(model, INDEX_FIRST_CLIENT);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
+
+    @Test
+    public void execute_emptyList_showsEmptyMessage() {
+        Model emptyModel = new ModelManager();
+        Model expectedEmptyModel = new ModelManager();
+        assertCommandSuccess(new ListCommand(), emptyModel, ListCommand.MESSAGE_EMPTY, expectedEmptyModel);
+    }
 }

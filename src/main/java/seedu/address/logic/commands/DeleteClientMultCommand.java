@@ -13,20 +13,23 @@ import seedu.address.model.Model;
 import seedu.address.model.client.Client;
 
 /**
- * Deletes multiple clients identified using their displayed indices from the address book.
+ * Deletes multiple clients identified using their displayed index from the address book.
  */
 public class DeleteClientMultCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteclientmult";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes existing clients identified by the user-inputted index numbers. "
-            + "The index numbers must be based on the displayed client list.\n"
-            + "Parameters: i/INDEX [i/INDEX]... (each INDEX must be a positive integer)\n"
+            + ": Deletes multiple clients identified by their index numbers used in the displayed client list.\n"
+            + "Parameters: i/INDEX i/INDEX [i/INDEX]... (must be at least 2 unique positive indices)\n"
             + "Example: " + COMMAND_WORD + " i/1 i/2 i/3";
 
     public static final String MESSAGE_DELETE_CLIENT_SUCCESS = "Deleted Clients: %1$s";
-
+    public static final String MESSAGE_MINIMUM_INDICES =
+            "DeleteClientMultCommand requires at least 2 indices to delete.";
+    public static final String MESSAGE_DUPLICATE_INDICES = "Duplicate indices are not allowed.";
+    public static final String MESSAGE_INVALID_FORMAT =
+            "Invalid command format! Each index must be prefixed with 'i/' and must be a positive integer.";
     private final List<Index> targetIndices;
 
     public DeleteClientMultCommand(List<Index> targetIndices) {
