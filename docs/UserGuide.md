@@ -387,7 +387,7 @@ _Details coming soon ..._
 | **Delete Client**           | `delc INDEX `<br> e.g., `delc 3`                                                                                                                                               |
 | **Delete Multiple Clients** | `deleteclientmult i/INDEX [i/INDEX]…​`<br> e.g., `deleteclientmult i/3` or `deleteclientmult i/1 i/2 i/3`                                                                      |
 | **Delete Policy**           | `delp INDEX t/POLICY_TAG`<br> e.g., `delp 2 t/Health Insurance`                                                                                                                |
-| **Edit**                    | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                             |
+| **Edit**                    | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                             |
 | **Update**                  | `update INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`<br> e.g.,`update 2 p/91234567 e/jameslee@example.com`                                                                    |
 | **Find (Or)**               | `findany KEYWORD [MORE_KEYWORDS]`<br> e.g., `findany James Jake`                                                                                                     |
 | **Find (And)**              | `findall KEYWORD [MORE_KEYWORDS]`<br> e.g., `findall James Jake`                                                                                                   |
