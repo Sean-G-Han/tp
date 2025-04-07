@@ -1,10 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteClientMultCommand;
@@ -23,24 +24,29 @@ public class DeleteClientMultCommandParser implements Parser<DeleteClientMultCom
     public DeleteClientMultCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format("Missing index parameters." + MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteClientMultCommand.MESSAGE_USAGE));
         }
-
         String[] indexStrings = trimmedArgs.split("\\s+");
         List<Index> indices = new ArrayList<>();
+        Set<Integer> uniqueIndices = new HashSet<>();
 
         for (String indexString : indexStrings) {
             if (!indexString.startsWith("i/")) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
+                throw new ParseException(DeleteClientMultCommand.MESSAGE_INVALID_FORMAT);
             }
             try {
                 Index index = ParserUtil.parseIndex(indexString.substring(2));
+                int oneBasedIndex = index.getOneBased();
+                if (!uniqueIndices.add(oneBasedIndex)) {
+                    throw new ParseException(DeleteClientMultCommand.MESSAGE_DUPLICATE_INDICES);
+                }
                 indices.add(index);
             } catch (ParseException pe) {
-                throw new ParseException(MESSAGE_INVALID_INDEX
-                        + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
+                if (pe.getMessage().equals(DeleteClientMultCommand.MESSAGE_DUPLICATE_INDICES)) {
+                    throw pe;
+                }
+                throw new ParseException(DeleteClientMultCommand.MESSAGE_INVALID_FORMAT);
             }
         }
 

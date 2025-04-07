@@ -63,4 +63,4 @@ deactivate DeleteClientMultCommand
 
 [<--LogicManager
 deactivate LogicManager
-@enduml 
+@enduml

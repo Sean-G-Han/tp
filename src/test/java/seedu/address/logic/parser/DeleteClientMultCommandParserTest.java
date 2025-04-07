@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import java.util.List;
 
@@ -32,22 +31,26 @@ public class DeleteClientMultCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         // Empty input
-        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "", String.format("Missing index parameters."
+                        + MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteClientMultCommand.MESSAGE_USAGE));
 
         // Single index
         assertParseFailure(parser, "i/1", DeleteClientMultCommand.MESSAGE_MINIMUM_INDICES);
 
+        // Duplicate indices
+        assertParseFailure(parser, "i/1 i/1", DeleteClientMultCommand.MESSAGE_DUPLICATE_INDICES);
+
+        // Duplicate indices mixed with valid
+        assertParseFailure(parser, "i/1 i/2 i/1", DeleteClientMultCommand.MESSAGE_DUPLICATE_INDICES);
+
         // Invalid index format
-        assertParseFailure(parser, "1 2", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteClientMultCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1 2", DeleteClientMultCommand.MESSAGE_INVALID_FORMAT);
 
         // Invalid index value
-        assertParseFailure(parser, "i/a i/2", MESSAGE_INVALID_INDEX
-                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "i/a i/2", DeleteClientMultCommand.MESSAGE_INVALID_FORMAT);
 
         // Zero index
-        assertParseFailure(parser, "i/0 i/1", MESSAGE_INVALID_INDEX
-                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "i/0 i/1", DeleteClientMultCommand.MESSAGE_INVALID_FORMAT);
     }
 }
