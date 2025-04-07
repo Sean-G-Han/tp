@@ -3,6 +3,11 @@
   title: "Developer Guide"
   pageNav: 3
 ---
+<style>
+body {
+    font-size: 1em !important;
+}
+</style>
 
 # WealthVault Developer Guide
 
