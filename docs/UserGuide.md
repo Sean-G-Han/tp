@@ -189,6 +189,7 @@ Updates only the contact information (phone, email, address) of an existing clie
 
 - Updates the client at the specified `INDEX`. The index refers to the index number shown in the displayed client list. The index **must be a positive integer** 1, 2, 3, …​
 - At least one of the optional fields must be provided.
+- Name is not allowed to be updated to prevent accidently changing the contact's name.
 - Existing values will be updated to the input values.
 - Name and tags cannot be modified using this command. Use the `edit` command instead.
 
