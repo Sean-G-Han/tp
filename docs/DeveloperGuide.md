@@ -494,22 +494,25 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​           | I want to …​                                            | So that I can…​                               |
-| -------- | ----------------- |---------------------------------------------------------|-----------------------------------------------|
-| `* * *`  | Financial Advisor | Add a new client with contact details                   | Keep track of my clients                      |
-| `* * *`  | Financial Advisor | Read client’s contact details                           | View them when necessary                      |
-| `* * *`  | Financial Advisor | Delete a client’s record                                | Remove outdated or incorrect information      |
-| `* *`    | Financial Advisor | Edit a client’s contact details                         | Update them when necessary                    |
-| `* *`    | Financial Advisor | Search for a client by name                             | Quickly find their details                    |
-| `* *`    | Financial Advisor | Filter clients by location                              | Easily find clients within a specific region  |
-| `*`      | Financial Advisor | Store multiple contact numbers for a client             | Have alternative ways to reach them           |
-| `*`      | Financial Advisor | Store multiple addresses for a client                   | Keep track of their home and office locations |
-| `*`      | Financial Advisor | Categorize clients based on communication preferences   | Contact them in their preferred way           |
-| `*`      | Financial Advisor | Send an email to a client directly from the application | Communicate with them efficiently             |
-| `*`      | Financial Advisor | Initiate a phone call to a client from the application  | Reach them easily                             |
-| `*`      | Financial Advisor | Set reminders for following up with clients             | Not miss important meetings                   |
-| `*`      | Financial Advisor | Receive notifications about upcoming meetings           | Prepare in advance                            |
-| `*`      | Financial Advisor | Schedule recurring reminders for periodic check-ins     | Maintain regular contact                      |
+| Priority | As a …​           | I want to …​                                            | So that I can…​                                      |
+| -------- | ----------------- |---------------------------------------------------------|------------------------------------------------------|
+| `* * *`  | Financial Advisor | Add a new client with contact details                   | Keep track of my clients                             |
+| `* * *`  | Financial Advisor | Read client’s contact details                           | View them when necessary                             |
+| `* * *`  | Financial Advisor | Delete a client’s record                                | Remove outdated or incorrect information             |
+| `* *`    | Financial Advisor | Edit a client’s contact details                         | Update them when necessary                           |
+| `* *`    | Financial Advisor | Search for a client by name                             | Quickly find their details                           |
+| `* *`    | Financial Advisor | Sort clients in alphabetical order                      | Quickly find their details                           |
+| `* *`    | Financial Advisor | Mark client's priority status                           | Quickly identify and attend to high-priority clients |
+| `* *`    | Financial Advisor | Sort client by priority status                          | Quickly identify and attend to high-priority clients |
+| `* *`    | Financial Advisor | Filter clients by location                              | Easily find clients within a specific region         |
+| `*`      | Financial Advisor | Store multiple contact numbers for a client             | Have alternative ways to reach them                  |
+| `*`      | Financial Advisor | Store multiple addresses for a client                   | Keep track of their home and office locations        |
+| `*`      | Financial Advisor | Categorize clients based on communication preferences   | Contact them in their preferred way                  |
+| `*`      | Financial Advisor | Send an email to a client directly from the application | Communicate with them efficiently                    |
+| `*`      | Financial Advisor | Initiate a phone call to a client from the application  | Reach them easily                                    |
+| `*`      | Financial Advisor | Set reminders for following up with clients             | Not miss important meetings                          |
+| `*`      | Financial Advisor | Receive notifications about upcoming meetings           | Prepare in advance                                   |
+| `*`      | Financial Advisor | Schedule recurring reminders for periodic check-ins     | Maintain regular contact                             |
 
 _{More to be added}_
 
@@ -651,7 +654,22 @@ testers are expected to do more _exploratory_ testing.
     1. Test case: `addc 0`<br>
        Expected: No client is added. Error details shown in the status message.
 
-    1. Other incorrect add commands to try: `addc`, `addc x`, `...` (where x is larger than the list size)<br>
+    1. Other incorrect addc commands to try: `addc`, `addc x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+### Adding a policy
+
+1. Adding a policy while all clients are being shown
+
+    1. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+
+    1. Test case: `addp 1 t/Health Insurance`<br>
+       Expected: "Health Insurance" policy is added to the first contact of the list. Details of the added policy shown in the status message.
+
+    1. Test case: `addp 0`<br>
+       Expected: No policy is added. Error details shown in the status message.
+
+    1. Other incorrect addp commands to try: `addp`, `addp x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
 ### Deleting a client
@@ -666,19 +684,25 @@ testers are expected to do more _exploratory_ testing.
    1. Test case: `delc 0`<br>
       Expected: No client is deleted. Error details shown in the status message. 
 
-   1. Other incorrect delete commands to try: `delc`, `delc x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delc commands to try: `delc`, `delc x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
+### Deleting a policy
+
+1. Deleting a policy while all clients are being shown
+
+    1. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+
+    1. Test case: `delp 1 t/Health Insurance`<br>
+       Expected: "Health Insurance" policy is deleted from the first contact of the list. Details of the deleted policy shown in the status message.
+
+    1. Test case: `delp 0`<br>
+       Expected: No policy is deleted. Error details shown in the status message.
+
+    1. Other incorrect delp commands to try: `delp`, `delp x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
 1. _{ more test cases …​ }_
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
-
 
 ## **Planned Enhancements**
 **Team Size:** 5

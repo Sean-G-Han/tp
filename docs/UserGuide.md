@@ -385,19 +385,28 @@ Clears all entries from WealthVault.
 
 **Format**: `clear`
 
+> ❗ **Warning:** This action is irreversible! To retain past data, please [save a backup](#managing-your-data-in-wealthvault) of the data file.
+
 ### Exiting the program : `exit`
 
 Exits the program.
 
 **Format**: `exit`
 
+___
+## Managing your data in WealthVault
+
 ### Saving the data
 
-WealthVault data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+WealthVault data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually. WealthVault data are saved automatically as a JSON file `[JAR file location]/data/wealthvault.json`.
+
+### Saving a backup data file 
+
+WealthVault does not back up data automatically. To back up your data, copy the JSON file (as mentioned above) into another location on your computer or to another device.
 
 ### Editing the data file
 
-WealthVault data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+WealthVault data are saved automatically as a JSON file `[JAR file location]/data/wealthvault.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
