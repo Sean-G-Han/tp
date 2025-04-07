@@ -190,11 +190,6 @@ Updates only the contact information (phone, email, address) of an existing clie
 - Existing values will be updated to the input values.
 - Name and tags cannot be modified using this command. Use the `edit` command instead.
 
-* Updates the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* Name and tags cannot be modified using this command. Use the `edit`, `addp` and `delp` commands instead.
-
 **Examples**:
 
 - `update 1 p/91234567 e/johndoe@example.com` Updates the phone number and email address of the 1st client to be `91234567` and `johndoe@example.com` respectively.
