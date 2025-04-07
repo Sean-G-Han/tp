@@ -36,4 +36,13 @@ public class SortCommandTest {
         assertCommandSuccess(sortCommand, model, SortCommand.MESSAGE_SORTED_SUCCESS, expectedModel);
     }
 
+    /**
+     * Tests the execution of the SortCommand with an empty list.
+     */
+    @Test
+    public void execute_sort_emptyList() {
+        Model emptyModel = new ModelManager();
+        assertCommandSuccess(sortCommand, emptyModel, SortCommand.MESSAGE_EMPTY, emptyModel);
+    }
+
 }

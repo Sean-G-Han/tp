@@ -71,8 +71,20 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
+        // Add a client to the model first
+        Client clientToAdd = new ClientBuilder().build();
+        model.addClient(clientToAdd);
+        Model expectedModel = new ModelManager();
+        expectedModel.addClient(clientToAdd);
+
         String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_listCommandWithEmptyList_showsEmptyMessage() throws Exception {
+        String listCommand = ListCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_EMPTY, model);
     }
 
     @Test
