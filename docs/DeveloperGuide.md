@@ -640,7 +640,7 @@ testers are expected to do more _exploratory_ testing.
    Expected: New contact is added to the bottom of the list. Details of the added contact shown in the status message.
 4. Test case: `addc 0`<br>
    Expected: No client is added. Error details shown in the status message.
-5. Other incorrect addc commands to try: `addc`, `addc x`, `...` (where x is larger than the list size)<br>
+5. Other incorrect addc commands to try: `addc`, `addc x`, `...`<br>
    Expected: Similar to previous.
 
 ### Adding a policy
