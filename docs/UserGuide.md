@@ -198,6 +198,8 @@ Edits an existing person in the address book. This command allows changing the c
 
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
+  ![edit1](images/edit1.png)
+  ![edit2](images/edit2.png)
 
 ### Updating contact information : `update`
 
@@ -209,11 +211,6 @@ Updates only the contact information (phone, email, address) of an existing clie
 - At least one of the optional fields must be provided.
 - Existing values will be updated to the input values.
 - Name and tags cannot be modified using this command. Use the `edit` command instead.
-
-* Updates the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* Name and tags cannot be modified using this command. Use the `edit`, `addp` and `delp` commands instead.
 
 **Examples**:
 

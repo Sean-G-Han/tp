@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.AddClientCommand;
-
 /**
  * Represents a Client's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
@@ -18,8 +16,6 @@ public class Phone {
                     "Phone numbers should be of the format +[international code] [whitespace] [number].\n"
                             + "If no international code is provided, the phone number will start with +65.\n"
                             + "Do not include whitespace in the international code.\n\n"
-                            + AddClientCommand.MESSAGE_USAGE
-                            + "\n\n"
                             + "For more information on valid phone number formats, you may refer to the following:"
                             + "\nThe international code should be 1-3 digits long.\n"
                             + "The number should be 3-13 digits long.");
