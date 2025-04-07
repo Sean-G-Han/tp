@@ -244,18 +244,18 @@ The current implementation uses Alternative 1 as it provides better clarity and 
 
 ### Delete Policy
 
-The `delp` command removes a policy (tag) from a client's list of policies.
+The `delp` command deletes a policy (tag) from a client's list of policies.
 
 The Class Diagram of a Client can be [seen in the diagram above](#model-component).
 
 #### Implementation
 
-The `delp` command deletes a policy at a given index within a displayed policy list.  
+The `delp` command deletes a policy from the client at the given index.  
 The following sequence diagrams illustrate how this process flows through the logic component:
 
 <puml src="diagrams/DeletePolicySequenceDiagram.puml" width="650" />
 
-As seen above, the `execute` method retrieves the `Policy` at the specified index and removes  
+As seen above, the `execute` method retrieves the `Policy` at the specified index and deletes
 it from the corresponding `Client` object. If the index is invalid, an error is thrown.
 
 ### Priority feature
