@@ -703,8 +703,8 @@ testers are expected to do more _exploratory_ testing.
 
 ### Toggling Priority
 1. Toggles the priority (as shown by the `Priority` tag) of a client while all clients are being shown
-2. Prerequisites 1: Put the jar file in a new folder as the test below is for sample data.
-3. Prerequisites 2: List all clients using the `list` command. Multiple clients in the list.
+2. Prerequisite 1: Put the jar file in a new folder as the test below is for sample data.
+3. Prerequisite 2: List all clients using the `list` command. Multiple clients in the list.
 3. Test case: `priority 1`<br>
    Expected: First contact (Alex) has a Priority tag added to his card. A success message is shown in the status box.
 4. Test case: `priority 1` (again)<br>
