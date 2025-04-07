@@ -51,10 +51,10 @@ Designed with the user in mind, WealthVault simplifies the organization of clien
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar wealthvault.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    <br>
-   <img src="images/UI.png" alt="UI" width="600">
+   <img src="images/Ui.png" alt="UI" width="600">
 
-<div style="page-break-after: always;"/>
-<br>
+<div style="page-break-after: always;"/><br>
+
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
@@ -171,6 +171,7 @@ Adds a client to WealthVault.
 - The only time `addc` will detect a client as a duplicate is if two clients share the same name, the same email, the same phone number and the same address all at the same time.
 
 </box>
+<div style="page-break-after: always;"/><br>
 
 **Examples**:
 
@@ -181,6 +182,7 @@ Adds a client to WealthVault.
 - `addc n/Daniel Lim p/91234567 e/d@mail.com a/8 View t/Policy A t/Policy B` adds a new client with the specified information
 
   <img src="images/addc2.png" alt="addc2" width="600">
+<div style="page-break-after: always;"/><br>
 
 ### Adding a policy: `addp`
 
@@ -197,6 +199,7 @@ Adds a policy to a client in WealthVault.
 - `addp 2 t/Home Protection Plan` adds `Home Protection Plan` policy tag to index `2` of the list (in this case, Daniel Lim)
   
   <img src="images/addp2.png" alt="addp2" width="600">
+<div style="page-break-after: always;"/><br>
 
 ### Listing all clients : `list`
 
@@ -209,6 +212,7 @@ Shows a list of all clients in WealthVault.
 **Examples**:
 
   <img src="images/list_command_image.png" alt=";ist" width="600">
+<div style="page-break-after: always;"/><br>
 
 ### Editing contact information : `edit`
 
@@ -226,6 +230,7 @@ Edits an existing person in the address book. This command allows changing the c
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 
    <img src="images/edit1.png" alt="edit1" width="600">
+<div style="page-break-after: always;"/><br>
 
 * `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
 
@@ -247,6 +252,8 @@ Updates only the contact information (phone, email, address) of an existing clie
 
 - `update 1 p/91234567 e/johndoe@example.com` Updates the phone number and email address of the 1st client to be `91234567` and `johndoe@example.com` respectively.
 - `update 2 a/Clementi Ave 6` Updates only the address of the 2nd client to be `Clementi Ave 6`.
+
+<div style="page-break-after: always;"/><br>
 
 ### Locating clients by name and tag: `findany`
 
@@ -301,6 +308,7 @@ Deletes the specified client from WealthVault.
 - `list` followed by `delc 1` deletes the 1st client in the client list (in this case, John Tan).
 
   <img src="images/delc1.png" alt="delc1" width="600">
+<div style="page-break-after: always;"/><br>
 
 - `findany Jane` followed by `delc 2` deletes the 2nd client in the results of the `findany` command (in this case, Jane Lee).
   
@@ -323,7 +331,7 @@ Deletes multiple specified clients from WealthVault.
 - `list` followed by `deleteclientmult i/1 i/2 i/3` deletes the first three clients in WealthVault.
 - `findand Betsy` followed by `deleteclientmult i/1` deletes the 1st client in the results of the `findany` command.
 
-  <img src="images/deleteclientmult.png" alt="deleteclientmult" width="600">
+  <img src="images/deleteclientmult_command_image.png" alt="deleteclientmult" width="600">
 
 > ### 💡 Tip: Why are there two delete commands?
 >
@@ -405,6 +413,7 @@ Sorts all clients in the list by priority, with prioritized clients appearing at
 
 **Example**:
 * `sortpriority` rearranges the list to show prioritized clients first, followed by non-prioritized clients.
+<div style="page-break-after: always;"/><br>
 
 ### Clearing all entries : `clear`
 
