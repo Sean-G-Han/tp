@@ -251,7 +251,7 @@ The following sequence diagrams illustrate how this process flows through the lo
 
 <puml src="diagrams/DeletePolicySequenceDiagram.puml" width="650" />
 
-As seen above, the `execute` method retrieves the `Policy` at the specified index and deletes it from the corresponding `Client` object. If the index is invalid, an error is thrown.
+As seen above, the `execute` method retrieves the `Policy` from the client at the specified index and deletes it from the corresponding `Client` object. If the index is invalid, an error is thrown.
 
 ### Priority feature
 
