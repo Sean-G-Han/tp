@@ -171,7 +171,7 @@ illustrate how this process flows through the logic component:
 <puml src="diagrams/AddClientSequenceDiagram-Logic.puml" width="650" />
 
 The following sequence diagram illustrates how the `AddClientCommand` class interacts with  
-model components to remove a client from WealthVault:
+model components to add a client to WealthVault:
 
 <puml src="diagrams/AddClientSequenceDiagram-Client.puml" width="600" />
 
@@ -194,7 +194,7 @@ As seen above, the `execute` method adds the `Policy` to the client at the speci
 
 ### Delete Client
 
-The `delc` command removes a client from WealthVault based on the specified index.
+The `delc` command deletes a client from WealthVault based on the specified index.
 
 The Class Diagram of a Client can be [seen in the diagram above](#model-component).
 
@@ -205,7 +205,7 @@ illustrate how this process flows through the logic component:
 
 <puml src="diagrams/DeleteClientSequenceDiagram-Logic.puml" width="650" />
 
-The following sequence diagram illustrates how the `DeleteClientCommand` class interacts with model components to remove a client from WealthVault:
+The following sequence diagram illustrates how the `DeleteClientCommand` class interacts with model components to delete a client from WealthVault:
 
 <puml src="diagrams/DeleteClientSequenceDiagram-Client.puml" width="600" />
 
@@ -213,7 +213,7 @@ As seen above, the `execute` method retrieves the `Client` at the specified inde
 
 ### Delete Multiple Clients
 
-The `deleteclientmult` command removes multiple clients from WealthVault based on the specified indices.
+The `deleteclientmult` command deletes multiple clients from WealthVault based on the specified indices.
 
 #### Implementation
 
@@ -552,7 +552,7 @@ _{More to be added}_
 2. WealthVault requests the client’s details for deletion.
 3. User enters the required details.
 4. User confirms the deletion by clicking "enter".
-5. WealthVault removes the client from WealthVault and confirms successful deletion. 
+5. WealthVault deletes the client from WealthVault and confirms successful deletion. 
 6. **Use case ends.**
 
 #### Extensions:
