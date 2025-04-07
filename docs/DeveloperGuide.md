@@ -205,13 +205,11 @@ illustrate how this process flows through the logic component:
 
 <puml src="diagrams/DeleteClientSequenceDiagram-Logic.puml" width="650" />
 
-The following sequence diagram illustrates how the `DeleteClientCommand` class interacts with  
-model components to remove a client from WealthVault:
+The following sequence diagram illustrates how the `DeleteClientCommand` class interacts with model components to remove a client from WealthVault:
 
 <puml src="diagrams/DeleteClientSequenceDiagram-Client.puml" width="600" />
 
-As seen above, the `execute` method retrieves the `Client` at the specified index and removes  
-it from WealthVault. If the index is invalid, an error is thrown.
+As seen above, the `execute` method retrieves the `Client` at the specified index and deletes it from WealthVault. If the index is invalid, an error is thrown.
 
 ### Delete Multiple Clients
 
@@ -219,13 +217,11 @@ The `deleteclientmult` command removes multiple clients from WealthVault based o
 
 #### Implementation
 
-The `deleteclientmult` command deletes multiple clients at given indices. The following sequence diagrams  
-illustrate how this process flows through the logic component:
+The `deleteclientmult` command deletes multiple clients at given indices. The following sequence diagrams illustrate how this process flows through the logic component:
 
 <puml src="diagrams/DeleteClientMultSequenceDiagram.puml" width="650" />
 
-As seen above, the `execute` method retrieves each `Client` at the specified indices and removes  
-them from WealthVault. If any index is invalid, an error is thrown.
+As seen above, the `execute` method retrieves each `Client` at the specified indices and deletes them from WealthVault. If any index is invalid, an error is thrown.
 
 #### Design Considerations
 
@@ -255,8 +251,7 @@ The following sequence diagrams illustrate how this process flows through the lo
 
 <puml src="diagrams/DeletePolicySequenceDiagram.puml" width="650" />
 
-As seen above, the `execute` method retrieves the `Policy` at the specified index and deletes
-it from the corresponding `Client` object. If the index is invalid, an error is thrown.
+As seen above, the `execute` method retrieves the `Policy` at the specified index and deletes it from the corresponding `Client` object. If the index is invalid, an error is thrown.
 
 ### Priority feature
 
