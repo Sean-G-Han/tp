@@ -329,7 +329,7 @@ Deletes multiple specified clients from WealthVault.
 **Examples**:
 
 - `list` followed by `deleteclientmult i/1 i/2 i/3` deletes the first three clients in WealthVault.
-- `findand Betsy` followed by `deleteclientmult i/1` deletes the 1st client in the results of the `findany` command.
+- `findand Betsy` followed by `deleteclientmult i/1 i/2` deletes the 1st and 2nd client in the results of the `findany` command.
 
   <img src="images/deleteclientmult_command_image.png" alt="deleteclientmult" width="600">
 
@@ -396,7 +396,7 @@ Sorts all currently displayed entries on WealthVault in alphabetical order.
 
 **Example**:
 
-* `list` followed by `sort` sorts all names in the client list in alphabetical order.
+* `list` followed by `sort` sorts all names in the client list.
 * `findany Tan` followed by `sort` sorts the results of the `findany` command.
 
 <img src="images/sortcommand_image.png" alt="SortCommand" width="600">
