@@ -347,12 +347,12 @@ Deletes multiple specified clients from WealthVault.
 
 ### Deleting a policy: `delp`
 
-Deletes the specified policy from WealthVault.
+Deletes the specified policy from a client in WealthVault.
 
 **Format**: `delp INDEX t/POLICY_TAG`
 
-- Deletes the policy at the specified `INDEX`.
-- The index refers to the index number shown in the displayed policy list.
+- Deletes the policy from the client at the specified `INDEX`.
+- The index refers to the index number shown in the displayed client list.
 - The index **must be a positive integer** 1, 2, 3, …​
 - POLICY_TAG must match the policy name to be deleted.
 
