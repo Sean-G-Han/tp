@@ -691,7 +691,7 @@ testers are expected to do more _exploratory_ testing.
 4. Test case: `findall`<br>
    Expected: No client shown. Error details shown in the status message.
 
-### Togggling Priority
+### Toggling Priority
 1. Toggles the priority (as shown by the `Priority` tag) of a client while all clients are being shown
 2. Prerequisites 1: Put the jar file in a new folder as the test below is for sample data.
 3. Prerequisites 2: List all clients using the `list` command. Multiple clients in the list.
