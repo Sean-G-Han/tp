@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +39,13 @@ public class DeleteClientMultCommandParser implements Parser<DeleteClientMultCom
                 Index index = ParserUtil.parseIndex(indexString.substring(2));
                 indices.add(index);
             } catch (ParseException pe) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE), pe);
+                throw new ParseException(MESSAGE_INVALID_INDEX
+                        + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
             }
+        }
+
+        if (indices.size() < 2) {
+            throw new ParseException(DeleteClientMultCommand.MESSAGE_MINIMUM_INDICES);
         }
 
         return new DeleteClientMultCommand(indices);

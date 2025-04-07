@@ -3,11 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CLIENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CLIENT;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -28,42 +25,29 @@ public class DeleteClientMultCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteClientMultCommand() {
-        // Single index
-        assertParseSuccess(parser, "i/1", new DeleteClientMultCommand(Arrays.asList(INDEX_FIRST_CLIENT)));
-
-        // Multiple indices
-        List<Index> indices = Arrays.asList(INDEX_FIRST_CLIENT, INDEX_SECOND_CLIENT, INDEX_THIRD_CLIENT);
-        assertParseSuccess(parser, "i/1 i/2 i/3", new DeleteClientMultCommand(indices));
+        List<Index> indices = List.of(Index.fromOneBased(1), Index.fromOneBased(2));
+        assertParseSuccess(parser, "i/1 i/2", new DeleteClientMultCommand(indices));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        // Empty argument
-        assertParseFailure(parser, "",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
+        // Empty input
+        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteClientMultCommand.MESSAGE_USAGE));
 
-        // Missing i/ prefix
-        assertParseFailure(parser, "1",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
+        // Single index
+        assertParseFailure(parser, "i/1", DeleteClientMultCommand.MESSAGE_MINIMUM_INDICES);
 
-        // Invalid index
-        assertParseFailure(parser, "i/a",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
+        // Invalid index format
+        assertParseFailure(parser, "1 2", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteClientMultCommand.MESSAGE_USAGE));
 
-        // Invalid index in multiple indices
-        assertParseFailure(parser, "i/1 i/a i/3",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
-
-        // Negative index
-        assertParseFailure(parser, "i/-1",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
+        // Invalid index value
+        assertParseFailure(parser, "i/a i/2", MESSAGE_INVALID_INDEX
+                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
 
         // Zero index
-        assertParseFailure(parser, "i/0",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
-
-        // Missing i/ prefix in multiple indices
-        assertParseFailure(parser, "i/1 2 i/3",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "i/0 i/1", MESSAGE_INVALID_INDEX
+                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteClientMultCommand.MESSAGE_USAGE));
     }
 }
