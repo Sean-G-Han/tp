@@ -329,7 +329,7 @@ Deletes multiple specified clients from WealthVault.
 **Examples**:
 
 - `list` followed by `deleteclientmult i/1 i/2 i/3` deletes the first three clients in WealthVault.
-- `findand Betsy` followed by `deleteclientmult i/1` deletes the 1st client in the results of the `findany` command.
+- `findany Betsy` followed by `deleteclientmult i/1` deletes the 1st client in the results of the `findany` command.
 
   <img src="images/deleteclientmult_command_image.png" alt="deleteclientmult" width="600">
 
