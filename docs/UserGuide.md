@@ -174,11 +174,11 @@ Adds a client to WealthVault.
 
 **Examples**:
 
-- `addc n/Jo Ng p/81234321 e/j@gmail.com a/21 Lane` adds a new client with the specified
-  information
-- `addc n/Daniel Lim p/91234567 e/d@mail.com a/8 View t/Policy A t/Policy B` adds a new client with the specified information
+- `addc n/Jo Ng p/81234321 e/j@gmail.com a/21 Lane` adds a new client with the specified information
+  
+- <img src="images/addc1.png" alt="addc1" width="600">
 
-  <img src="images/addc1.png" alt="addc1" width="600">
+- `addc n/Daniel Lim p/91234567 e/d@mail.com a/8 View t/Policy A t/Policy B` adds a new client with the specified information
 
   <img src="images/addc2.png" alt="addc2" width="600">
 
@@ -191,9 +191,10 @@ Adds a policy to a client in WealthVault.
 **Examples**:
 
 - `addp 1 t/Health Insurance` adds `Health Insurance` policy tag to index `1` of the list (in this case, Jo Ng)
-- `addp 2 t/Home Protection Plan` adds `Home Protection Plan` policy tag to index `2` of the list (in this case, Daniel Lim)
 
   <img src="images/addp1.png" alt="addp1" width="600">
+  
+- `addp 2 t/Home Protection Plan` adds `Home Protection Plan` policy tag to index `2` of the list (in this case, Daniel Lim)
   
   <img src="images/addp2.png" alt="addp2" width="600">
 
@@ -223,9 +224,10 @@ Edits an existing person in the address book. This command allows changing the c
 **Examples**:
 
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
 
-  <img src="images/edit1.png" alt="edit1" width="600">
+   <img src="images/edit1.png" alt="edit1" width="600">
+
+* `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
 
   <img src="images/edit2.png" alt="edit2" width="600">
 
@@ -260,16 +262,9 @@ Finds clients whose name or tag contain any of the given keywords.
 
 **Examples**:
 
-- `findany John` returns `john` and `John Doe`
 - `findany Jo priority` returns only clients whose name or tags matches either `priority` or `Jo` attached<br>
 
   <img src="images/findclientorAlexDavidPriority.png" alt="findany" width="600">
-
-#### Potential Errors:
-
-Errors           | Reason                                                                      |Fixes
------------------|-----------------------------------------------------------------------------|------------------------
-"Field is empty  | This error is thrown when no keywords are supplied to the `findany` command | To fix this error, simply supply some keywords
 
 ### Locating specific clients by name and tag: `findall`
 
@@ -286,16 +281,9 @@ Finds clients whose name or tag contain all of the given keywords.
 
 **Examples**:
 
-- `findall John Doe` would return `John Doe` but not `Jane Doe` or `John Snow`
 - `findall ng priority` returns only clients whose name or tags matches both `priority` and `ng` attached<br>
 
   <img src="images/findclientandFriendsPriority.png" alt="findall" width="600">
-
-#### Potential Errors:
-
-Errors           | Reason                                                                      |Fixes
------------------|-----------------------------------------------------------------------------|------------------------
-"Field is empty  | This error is thrown when no keywords are supplied to the `findall` command | To fix this error, simply supply some keywords
 
 ### Deleting a client : `delc`
 
@@ -310,9 +298,10 @@ Deletes the specified client from WealthVault.
 **Examples**:
 
 - `list` followed by `delc 1` deletes the 1st client in the client list (in this case, John Tan).
-- `findany Jane` followed by `delc 2` deletes the 2nd client in the results of the `findany` command (in this case, Jane Lee).
 
   <img src="images/delc1.png" alt="delc1" width="600">
+
+- `findany Jane` followed by `delc 2` deletes the 2nd client in the results of the `findany` command (in this case, Jane Lee).
   
   <img src="images/delc2.png" alt="delc2" width="600">
 
@@ -334,7 +323,6 @@ Deletes multiple specified clients from WealthVault.
 - `findand Betsy` followed by `deleteclientmult i/1` deletes the 1st client in the results of the `findany` command.
 
   <img src="images/deleteclientmult.png" alt="deleteclientmult" width="600">
-
 
 > ### 💡 Tip: Why are there two delete commands?
 >
@@ -362,9 +350,10 @@ Deletes the specified policy from WealthVault.
 **Examples**:
 
 - `delp 1 t/Health Insurance` deletes `Health Insurance` policy tag from index `1` of the list (in this case, John Tan)
-- `delp 2 t/Home Protection Plan` deletes `Home Protection Plan` policy tag from index `2` of the list (in this case, Jane Tan)
 
 <img src="images/delp1.png" alt="delp1" width="600">
+
+- `delp 2 t/Home Protection Plan` deletes `Home Protection Plan` policy tag from index `2` of the list (in this case, Jane Tan)
 
 <img src="images/delp2.png" alt="delp2" width="600">
 
@@ -389,14 +378,6 @@ Toggles the priority of specified client from the application as indicated with 
   Before |After
   -----------------|--------------------
   ![before priority command](images/priorityCommand2.png) | ![after 'priority 3'](images/priorityCommand3.png)
-
-#### Potential Errors:
-
-Errors           | Reason                                                                             |Fixes
------------------|------------------------------------------------------------------------------------|------------------------
-"Field is empty  | This error is thrown when no indexes are supplied to the `priority` command        | To fix this error, simply supply a proper index
-"Index is not a non-zero unsigned integer" | This error is thrown when a non-zero unsigned integer is supplied like `a` or `-1` | To fix this error, simply supply a non-zero unsigned integer
-"The client with the given index does not exist!"| This error is thrown when the specified index is bigger than the size of the list | To fix this error, input an index equal to or smaller than the size of the list
 
 ### Sorting all entries : `sort`
 
