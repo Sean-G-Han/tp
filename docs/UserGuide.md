@@ -396,7 +396,7 @@ Sorts all currently displayed entries on WealthVault in alphabetical order.
 
 **Example**:
 
-* `list` followed by `sort` sorts all names in the client list in alphabetical order.
+* `list` followed by `sort` sorts all names in the client list.
 * `findany Tan` followed by `sort` sorts the results of the `findany` command.
 
 <img src="images/sortcommand_image.png" alt="SortCommand" width="600">
