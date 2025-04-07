@@ -3,19 +3,16 @@
   title: "Developer Guide"
   pageNav: 3
 ---
+<style>
+body {
+    font-size: 1em !important;
+}
+</style>
 
 # WealthVault Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
-
----
-
-## **Acknowledgements**
-
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
-
----
 
 ## **Setting up, getting started**
 
@@ -515,7 +512,7 @@ _{More to be added}_
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `WealthVault` and the **Actor** is the `user`, unless specified otherwise)
 
 ### UC01 - Add Client
 
@@ -625,51 +622,62 @@ testers are expected to do more _exploratory_ testing.
 ### Launch and shutdown
 
 1. Initial launch
-
    1. Download the jar file and copy into an empty folder
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-1. Saving window preferences
-
+2. Saving window preferences
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
       Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 ### Adding a client
-
 1. Adding a client while all clients are being shown
-
-    1. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
-
-    1. Test case: `addc 1`<br>
-       Expected: First contact is added from the list. Details of the added contact shown in the status message.
-
-    1. Test case: `addc 0`<br>
-       Expected: No client is added. Error details shown in the status message.
-
-    1. Other incorrect add commands to try: `addc`, `addc x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `addc 1`<br>
+   Expected: First contact is added from the list. Details of the added contact shown in the status message.
+4. Test case: `addc 0`<br>
+   Expected: No client is added. Error details shown in the status message.
+5. Other incorrect add commands to try: `addc`, `addc x`, `...` (where x is larger than the list size)<br>
+   Expected: Similar to previous.
 
 ### Deleting a client
-
 1. Deleting a client while all clients are being shown
+2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `delc 1`<br>
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. 
+4. Test case: `delc 0`<br>
+   Expected: No client is deleted. Error details shown in the status message.
+5. Other incorrect delete commands to try: `delc`, `delc x`, `...` (where x is larger than the list size)<br>
+   Expected: Similar to previous.
 
-   1. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+### Searching for Clients
 
-   1. Test case: `delc 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. 
+#### Find Any
+1. Find a client with any of the keywords matching the tags or names
+2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `findany Alex Priority`<br>
+   Expected: Shows all clients with the name or tags matching either (or both) "Alex" or "Priority" (case-insensitve)
+4. Test case: `findany`<br>
+   Expected: No client shown. Error details shown in the status message.
 
-   1. Test case: `delc 0`<br>
-      Expected: No client is deleted. Error details shown in the status message. 
+#### Find All
+1. Find a client with any of the keywords matching the tags or names
+2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `findany Alex friends`<br>
+   Expected: Shows all clients with the name or tags matching both "Alex" or "friends" (case-insensitve)
+4. Test case: `findall`<br>
+   Expected: No client shown. Error details shown in the status message.
 
-   1. Other incorrect delete commands to try: `delc`, `delc x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
+### Togggling Priority
+1. Toggles the priority (as shown by the `Priority` tag) of a client while all clients are being shown
+2. Prerequisites 1: Put the jar file in a new folder as the test below is for sample data.
+3. Prerequisites 2: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `priority 1`<br>
+   Expected: First contact (Alex) has a Priority tag added to his card. A success message is shown in the status box.
+4. Test case: `priority 1` (again)<br>
+   Expected: First contact (Alex) has a Priority tag removed from his card. A success message is shown in the status box.
+5. Some incorrect commands to try: `priority`, `priority x`, `...` (where x is larger than the list size)<br>
+   Expected: Similar to `addc` and `delc`.
 
 ### Saving data
 
