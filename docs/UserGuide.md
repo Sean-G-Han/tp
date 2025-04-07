@@ -3,6 +3,11 @@
   title: "User Guide"
   pageNav: 3
 ---
+<style>
+body {
+    font-size: 1em !important;
+}
+</style>
 
 # WealthVault User Guide
 
@@ -19,25 +24,38 @@ WealthVault is a client management platform tailored specifically for financial 
 ## Why should you use WealthVault? 
 Designed with the user in mind, WealthVault simplifies the organization of client data and streamlines day-to-day workflows. It enables financial advisors to quickly search for clients based on specific needs, access relevant information with ease, and deliver more targeted financial advisory services efficiently. Ultimately, WealthVault empowers advisors to provide higher-quality services while reducing administrative overhead, supporting both professional productivity and a healthier work-life balance.
 
+---
+
+<div style="page-break-after: always;"/>
+<br>
+
+## Table of Contents
+
 <!-- * Table of Contents -->
-<page-nav-print />
+<page-nav-print/>
 
 ---
+<div style="page-break-after: always;"/>
+
+<br>
 
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-W12-2/tp/releases/tag/v1.3).
+2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-W12-2/tp/releases/tag/v1.3).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your application.
+3. Copy the file to the folder you want to use as the _home folder_ for your application.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar wealthvault.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar wealthvault.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   <br>
+   <img src="images/UI.png" alt="UI" width="600">
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+<div style="page-break-after: always;"/>
+<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    - `list` : Lists all contacts.
@@ -50,7 +68,7 @@ Designed with the user in mind, WealthVault simplifies the organization of clien
 
    - `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 ---
 
@@ -129,7 +147,7 @@ is not a valid prefix for addc.**
 
 Shows a message explaining how to access the help page.
 
-![help message](images/helpMessage.png)
+<img src="images/helpMessage.png" alt="help message" width="600">
 
 **Format**: `help`
 
@@ -159,8 +177,10 @@ Adds a client to WealthVault.
 - `addc n/Jo Ng p/81234321 e/j@gmail.com a/21 Lane` adds a new client with the specified
   information
 - `addc n/Daniel Lim p/91234567 e/d@mail.com a/8 View t/Policy A t/Policy B` adds a new client with the specified information
-  ![addc1](images/addc1.png)
-  ![addc2](images/addc2.png)
+
+  <img src="images/addc1.png" alt="addc1" width="600">
+
+  <img src="images/addc2.png" alt="addc2" width="600">
 
 ### Adding a policy: `addp`
 
@@ -172,8 +192,10 @@ Adds a policy to a client in WealthVault.
 
 - `addp 1 t/Health Insurance` adds `Health Insurance` policy tag to index `1` of the list (in this case, Jo Ng)
 - `addp 2 t/Home Protection Plan` adds `Home Protection Plan` policy tag to index `2` of the list (in this case, Daniel Lim)
-  ![addp1](images/addp1.png)
-  ![addp2](images/addp2.png)
+
+  <img src="images/addp1.png" alt="addp1" width="600">
+  
+  <img src="images/addp2.png" alt="addp2" width="600">
 
 ### Listing all clients : `list`
 
@@ -181,7 +203,11 @@ Shows a list of all clients in WealthVault.
 
 **Format**: `list`
 
-![list](images/list_command_image.png)
+* Displays the list of clients stored
+
+**Examples**:
+
+  <img src="images/list_command_image.png" alt=";ist" width="600">
 
 ### Editing contact information : `edit`
 
@@ -198,8 +224,10 @@ Edits an existing person in the address book. This command allows changing the c
 
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
-  ![edit1](images/edit1.png)
-  ![edit2](images/edit2.png)
+
+  <img src="images/edit1.png" alt="edit1" width="600">
+
+  <img src="images/edit2.png" alt="edit2" width="600">
 
 ### Updating contact information : `update`
 
@@ -234,7 +262,14 @@ Finds clients whose name or tag contain any of the given keywords.
 
 - `findany John` returns `john` and `John Doe`
 - `findany Jo priority` returns only clients whose name or tags matches either `priority` or `Jo` attached<br>
-  ![result for 'find alex david'](images/findclientorAlexDavidPriority.png)
+
+  <img src="images/findclientorAlexDavidPriority.png" alt="findany" width="600">
+
+#### Potential Errors:
+
+Errors           | Reason                                                                      |Fixes
+-----------------|-----------------------------------------------------------------------------|------------------------
+"Field is empty  | This error is thrown when no keywords are supplied to the `findany` command | To fix this error, simply supply some keywords
 
 ### Locating specific clients by name and tag: `findall`
 
@@ -253,7 +288,14 @@ Finds clients whose name or tag contain all of the given keywords.
 
 - `findall John Doe` would return `John Doe` but not `Jane Doe` or `John Snow`
 - `findall ng priority` returns only clients whose name or tags matches both `priority` and `ng` attached<br>
-  ![result for 'find alex david'](images/findclientandFriendsPriority.png)
+
+  <img src="images/findclientandFriendsPriority.png" alt="findall" width="600">
+
+#### Potential Errors:
+
+Errors           | Reason                                                                      |Fixes
+-----------------|-----------------------------------------------------------------------------|------------------------
+"Field is empty  | This error is thrown when no keywords are supplied to the `findall` command | To fix this error, simply supply some keywords
 
 ### Deleting a client : `delc`
 
@@ -269,8 +311,10 @@ Deletes the specified client from WealthVault.
 
 - `list` followed by `delc 1` deletes the 1st client in the client list (in this case, John Tan).
 - `findany Jane` followed by `delc 2` deletes the 2nd client in the results of the `findany` command (in this case, Jane Lee).
-  ![delc1](images/delc1.png)
-  ![delc2](images/delc2.png)
+
+  <img src="images/delc1.png" alt="delc1" width="600">
+  
+  <img src="images/delc2.png" alt="delc2" width="600">
 
 ### Deleting multiple clients : `deleteclientmult`
 
@@ -288,9 +332,9 @@ Deletes multiple specified clients from WealthVault.
 
 - `list` followed by `deleteclientmult i/1 i/2 i/3` deletes the first three clients in WealthVault.
 - `findand Betsy` followed by `deleteclientmult i/1` deletes the 1st client in the results of the `findany` command.
-  ![result for 'deleteclientmult'](images/deleteclientmult_command_image.png)
 
----
+  <img src="images/deleteclientmult.png" alt="deleteclientmult" width="600">
+
 
 > ### 💡 Tip: Why are there two delete commands?
 >
@@ -320,8 +364,9 @@ Deletes the specified policy from WealthVault.
 - `delp 1 t/Health Insurance` deletes `Health Insurance` policy tag from index `1` of the list (in this case, John Tan)
 - `delp 2 t/Home Protection Plan` deletes `Home Protection Plan` policy tag from index `2` of the list (in this case, Jane Tan)
 
-   ![delp1](images/delp1.png)
-   ![delp2](images/delp2.png)
+<img src="images/delp1.png" alt="delp1" width="600">
+
+<img src="images/delp2.png" alt="delp2" width="600">
 
 ### Prioritizing a client: `priority`
 
@@ -345,7 +390,7 @@ Toggles the priority of specified client from the application as indicated with 
   -----------------|--------------------
   ![before priority command](images/priorityCommand2.png) | ![after 'priority 3'](images/priorityCommand3.png)
 
-Potential Errors:
+#### Potential Errors:
 
 Errors           | Reason                                                                             |Fixes
 -----------------|------------------------------------------------------------------------------------|------------------------
@@ -364,7 +409,7 @@ Sorts all currently displayed entries on WealthVault in alphabetical order.
 * `list` followed by `sort` sorts all names in the client list in alphabetical order.
 * `findany Tan` followed by `sort` sorts the results of the `findany` command.
 
-![SortCommand](images/sortcommand_image.png)
+<img src="images/sortcommand_image.png" alt="SortCommand" width="600">
 
 ### Sorting by priority: `sortpriority`
 
