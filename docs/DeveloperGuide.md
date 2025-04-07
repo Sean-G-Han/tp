@@ -636,8 +636,8 @@ testers are expected to do more _exploratory_ testing.
 ### Adding a client
 1. Adding a client while all clients are being shown
 2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
-3. Test case: `addc 1`<br>
-   Expected: First contact is added from the list. Details of the added contact shown in the status message.
+3. Test case: `addc n/David Ong p/93012489 e/davidong@example.com a/Block 111 Sengkang Central t/Life Policy`<br>
+   Expected: New contact is added to the bottom of the list. Details of the added contact shown in the status message.
 4. Test case: `addc 0`<br>
    Expected: No client is added. Error details shown in the status message.
 5. Other incorrect addc commands to try: `addc`, `addc x`, `...` (where x is larger than the list size)<br>
@@ -661,6 +661,16 @@ testers are expected to do more _exploratory_ testing.
 4. Test case: `delc 0`<br>
    Expected: No client is deleted. Error details shown in the status message. 
 5. Other incorrect delc commands to try: `delc`, `delc x`, `...` (where x is larger than the list size)<br>
+   Expected: Similar to previous.
+
+### Deleting multiple clients
+1. Deleting multiple clients while all clients are being shown
+2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `deleteclientmult i/1 i/2`<br>
+   Expected: First and second contact are deleted from the list. Details of the deleted contacts shown in the status message.
+4. Test case: `deleteclientmult i/2`<br>
+   Expected: No client is deleted. Error details shown in the status message.
+5. Other incorrect deleteclientmult commands to try: `deleteclientmult`, `deleteclientmult i/1 i/x` (where x is larger than the list size)<br>
    Expected: Similar to previous.
 
 ### Deleting a policy
@@ -691,7 +701,7 @@ testers are expected to do more _exploratory_ testing.
 4. Test case: `findall`<br>
    Expected: No client shown. Error details shown in the status message.
 
-### Togggling Priority
+### Toggling Priority
 1. Toggles the priority (as shown by the `Priority` tag) of a client while all clients are being shown
 2. Prerequisites 1: Put the jar file in a new folder as the test below is for sample data.
 3. Prerequisites 2: List all clients using the `list` command. Multiple clients in the list.
