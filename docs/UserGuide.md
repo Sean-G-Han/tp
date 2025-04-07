@@ -178,6 +178,8 @@ Edits an existing person in the address book. This command allows changing the c
 
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
+  ![edit1](images/edit1.png)
+  ![edit2](images/edit2.png)
 
 ### Updating contact information : `update`
 
